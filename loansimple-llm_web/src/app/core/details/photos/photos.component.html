@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__head" *ngIf="preview">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title" *ngIf="preview">
+                        {{ preview.tag | beautifyString }}
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <button class="btn btn-hover-warning btn-elevate btn-circle btn-icon" type="button" (click)="issueForm()">
+                        <i class="la la-warning"></i>
+                    </button>&nbsp;
+                    <button class="btn btn-hover-danger btn-elevate btn-circle btn-icon" type="button" (click)="delete()">
+                        <i class="la la-trash"></i>
+                    </button>&nbsp;
+                </div>
+            </div>
+            <div class="kt-portlet__body flex-centered" *ngIf="!preview">
+                <kt-empty 
+                    [title]="'Preview Not Available'" 
+                    [text]="'You haven\'t uploaded any photos yet.'"
+                    [iconClass]="'flaticon2-image-file'"
+                ></kt-empty>
+            </div>
+            <div class="kt-portlet__body" *ngIf="preview">
+                <ng-container *ngFor="let issue of preview.doc_issues; let i = index;">
+                    <div *ngIf="issue.status !== 'approved'"
+                        class="alert fade show mb-2" 
+                        [ngClass]="{ 'alert-outline-danger': (issue.status === 'pending'), 'alert-outline-warning': (issue.status === 'uploaded') }"
+                        role="alert">
+                        <div class="alert-text">{{ issue.remark }}</div>
+                        <div class="alert-close">
+                            <button type="button" 
+                                class="btn btn-sm btn-icon btn-elevate-hover" 
+                                [ngClass]="{ 'btn-danger': (issue.status === 'pending'), 'btn-warning': (issue.status === 'uploaded') }"
+                                data-dismiss="alert" 
+                                aria-label="Close" 
+                                [ngbTooltip]="issue.status === 'uploaded' ? 'Approve Uploaded Photo' : 'Mark as Fixed'" 
+                                (click)="updateIssue(issue, i)">
+                                <i class="la la-check"></i>
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <img [src]="preview.file" *ngIf="preview">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" *ngFor="let flag of [0,1]">
+        <div *ngFor="let type of photoTypes;let i = index;">
+            <div *ngIf="i % 2 === flag" class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            <kt-ls-badge *ngIf="extraMap[type.value]" [extras]="extraMap[type.value]"></kt-ls-badge>
+                            {{ type.name }}
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-form">
+                    <div class="kt-portlet__body">
+                        <div class="inline-block">
+                            <label ngfDrop 
+                                multiple = "10"
+                                accept = "image/*"
+                                class = "jumbotron jumbotron-compact text-center ls-drop-zone d-flex justify-content-center"
+                                (filesChange)="lastFileAt=getDate();uploadPhoto(type.value, $event);">
+                                <input ngfSelect
+                                    multiple
+                                    type="file"
+                                    accept="image/*"
+                                    (filesChange)="lastFileAt=getDate();uploadPhoto(type.value, $event);"/>
+                                <ng-container *ngIf="!loading[type.value]">Drag & Drop or Click to Upload</ng-container>
+                                <mat-spinner *ngIf="loading[type.value]" diameter="20"></mat-spinner>
+                            </label>
+                            <div class="photos-preview" *ngIf="photoMap && photoMap[type.value]">
+                                <a href="javascript:void(0)" (click)="preview = photo" *ngFor="let photo of photoMap[type.value]">
+                                    <img [src]="photo.file" class="thumb" [class.active]="photo.file === preview.file">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

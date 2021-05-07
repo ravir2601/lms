@@ -1,0 +1,4 @@
+<kt-splash-screen *ngIf="loader"></kt-splash-screen>
+<router-outlet *ngIf="isOnline"></router-outlet>
+<kt-error-page *ngIf="!isOnline" [type]="'error-v6'"
+    [desc]="'Looks like your internet has gone away.<br>Check your internet connection and try'"></kt-error-page>

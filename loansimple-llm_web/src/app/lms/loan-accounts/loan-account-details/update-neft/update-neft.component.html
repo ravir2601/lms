@@ -1,0 +1,49 @@
+
+<div class="row">
+    <div class="col-md" style="padding-right: 0;">
+        <div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+            <div class="kt-portlet__head kt-portlet__head--lg">
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-wrapper">
+                        <div class="kt-portlet__head-actions">
+                            <h4>Update Neft Request</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Amount(Rs.)</label>
+                            <input type="text" class="form-control" [(ngModel)]="data.datalist.total_expected" value="{{data.datalist.total_expected}}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>UTR No.</label>
+                            <input type="text" class="form-control" [(ngModel)]="data.datalist.received_receipt_no" value="{{data.datalist.received_receipt_no}}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="dateSettlement">Date</label>
+                            <input id="dateSettlement" class="form-control" [(ngModel)]="data.datalist.date" value="{{data.datalist.date}}" (click)="dp.toggle()" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <label>Comment</label>
+                        <textarea type="text" class="form-control" rows="2" [(ngModel)]="data.datalist.comment" value="{{data.datalist.comment}}"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-block btn-square btn-tall" (click)="delete()">Delete Request</button>
+    <button type="button" class="btn btn-dark btn-block btn-square btn-tall" (click)="dismiss()">Close</button>
+    <button type="button" class="btn btn-brand btn-block btn-square btn-tall" (click)="save()">Submit</button>
+</div>

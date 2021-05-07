@@ -1,0 +1,446 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "~highlight.js/styles/googlecode.css";
+@import '~@fullcalendar/core/main.css';
+
+// width in pixels
+.wp-20 {
+    width: 20px;
+}
+
+.wp-30 {
+    width: 30px;
+}
+
+.wp-40 {
+    width: 40px;
+}
+
+.wp-50 {
+    width: 50px;
+}
+
+.wp-60 {
+    width: 60px;
+}
+
+.wp-70 {
+    width: 70px;
+}
+
+.wp-80 {
+    width: 80px;
+}
+
+.wp-90 {
+    width: 90px;
+}
+
+.wp-100 {
+    width: 100px;
+}
+
+.wp-110 {
+    width: 110px;
+}
+
+.wp-120 {
+    width: 120px;
+}
+
+.wp-130 {
+    width: 130px;
+}
+
+.wp-140 {
+    width: 140px;
+}
+
+.wp-150 {
+    width: 150px;
+}
+
+.wp-160 {
+    width: 160px;
+}
+
+.wp-170 {
+    width: 170px;
+}
+
+.wp-180 {
+    width: 180px;
+}
+
+.wp-190 {
+    width: 190px;
+}
+
+.wp-200 {
+    width: 200px;
+}
+
+.wp-210 {
+    width: 210px;
+}
+
+.wp-220 {
+    width: 220px;
+}
+
+.wp-230 {
+    width: 230px;
+}
+
+.wp-240 {
+    width: 240px;
+}
+
+.wp-250 {
+    width: 250px;
+}
+
+.wp-260 {
+    width: 260px;
+}
+
+.wp-270 {
+    width: 270px;
+}
+
+.wp-280 {
+    width: 280px;
+}
+
+.wp-500 {
+    width: 500px;
+}
+
+.wp-550 {
+    width: 550px;
+}
+
+.wp-600 {
+    width: 600px;
+}
+
+.wp-650 {
+    width: 650px;
+}
+
+.wp-700 {
+    width: 700px;
+}
+
+//width end
+
+//select-height
+select {
+    height: 30px !important;
+    padding: 0rem !important;
+}
+
+a {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+}
+
+.kt-container,.kt-container-alt {
+    padding: 0 20px !important;
+}
+
+textarea {
+    resize: none !important;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.dropdown-toggle.visible::after {
+    display: inline-block !important;
+}
+
+.mat-table__wrapper--dashboard .mat-table {
+    min-width: 600px !important;
+    width: 100% !important;
+}
+
+.position-static {
+    position: static;
+}
+
+.kt-nav, mat-bottom-sheet-container {
+    padding: 0 !important;
+}
+
+.ls-input {
+    .form-control {
+        border-color: transparent;
+
+        &:hover, &:focus {
+            border-color: #e2e5ec;
+
+            + .input-group-append {
+                display: flex;
+            }
+
+        }
+
+    }
+
+    .input-group-append {
+        display: none;
+    }
+
+}
+
+.ls-form {
+    .form-group {
+        margin: 0 !important;
+    }
+
+}
+
+.ls-form-alt {
+    .form-group {
+        margin-bottom: 10px !important;
+    }
+
+}
+
+.flex-centered {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.qr-icon {
+    width: 20px;
+    height: 20px;
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: inline-block;
+
+    &.google {
+        background-image: url('assets/media/icons/qr/googlepay.png');
+    }
+
+    &.phonepe {
+        background-image: url('assets/media/icons/qr/phonepe.png');
+    }
+
+    &.amazonpay {
+        background-image: url('assets/media/icons/qr/amazonpay.png');
+    }
+
+    &.paytm {
+        background-image: url('assets/media/icons/qr/paytm.png');
+    }
+
+}
+
+.border-bottom-gray {
+    border-bottom: 1px solid #e2e5ec !important;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.cursor-default {
+    cursor: default !important;
+}
+
+.anchor-link {
+    color: #5867dd !important;
+}
+
+.form-group {
+    margin-bottom: 10px !important
+}
+
+.btn-sm {
+    padding: 0.3rem 0.5rem !important;
+}
+
+.form-control > input, .form-group input {
+    height: 30px !important;
+}
+
+.btn .btn-icn .btn-sm {
+    height: 2rem !important;
+    width: 2rem !important;
+}
+
+.form-control-square {
+    border-radius: 0px !important;
+}
+
+.form-control-foot {
+    border-bottom-color: transparent !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+}
+
+.kt-portlet .kt-portlet__head {
+    min-height: 45px !important;
+}
+
+.kt-portlet__body {
+    padding: 8px 20px !important;
+}
+
+.kt-separator {
+    margin: 10px 0 !important
+}
+
+.form-group label {
+    margin-bottom: 0.3rem !important;
+}
+
+.form-group button {
+    height: 30px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.kt-header--fixed .kt-header {
+    height: 60px !important;
+}
+
+.btn.btn-icon.btn-sm {
+    height: 30px !important;
+    width: 30px !important;
+}
+
+//hover on application-list
+.show-eye:hover .eye-cl {
+    color: #591df1 !important;
+    cursor: pointer;
+}
+
+.datePicker {
+    padding: 0rem 1rem !important;
+    border: 1px solid #e2e5ec !important;
+}
+
+.kt-header--fixed {
+    .kt-subheader--fixed {
+        .kt-subheader {
+            position: fixed;
+            height: 80px;
+            top: 60px;
+            left: 0;
+            right: 0;
+            -webkit-transition: all .3s ease;
+            transition: all .3s ease;
+            z-index: 94;
+            background-color: #fff;
+            -webkit-box-shadow: 0 10px 30px 0 rgba(82, 63, 105, .08);
+            box-shadow: 0 10px 30px 0 rgba(82, 63, 105, .08);
+            margin: 0;
+        }
+
+    }
+
+}
+
+.cdk-overlay-dark-backdrop {
+    background: rgba(255, 255, 255, 0.8) !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.ls-drop-zone {
+    display: block;
+    border: dotted 3px lightgray;
+    input[type="file"] {
+        display: none;
+    }
+}
+
+.ls-drop-zone-files {
+    .preview {
+        width: 70px;
+        height: 70px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 6px;
+    }
+}
+
+.photos-preview {
+    .thumb {
+        height: 50px;
+        border-radius: 4px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        opacity: 0.5;
+        &.active {
+            opacity: 1;
+        }
+    }
+}
+
+.jumbotron {
+    &.jumbotron-compact {
+        padding: 15px;
+        margin-bottom: 0.5rem;
+    }
+    &.jumbotron-flex {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.invalid-drag {
+    border: dotted 3px red;
+}
+
+.valid-drag {
+    border: dotted 3px green;
+}
+
+.section-empty {
+    padding: 100px 0;
+    i {
+        font-size: 50px;
+    }
+}
+kt-error-page {
+    height: 100%;
+}
+.ls-tooltip {
+    min-width: 300px !important;
+}
+
+.tag-list {
+    .tag {
+        margin: 2px;
+    }
+}
+.head-input {
+    input {
+        border: none;
+        background: transparent;
+        font-weight: bold;
+    }
+}
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    font-family: Flaticon !important;
+    content: "\f11d" !important;
+}
+.is-warning {
+    border-color: kt-state-color(danger, base) !important;
+}

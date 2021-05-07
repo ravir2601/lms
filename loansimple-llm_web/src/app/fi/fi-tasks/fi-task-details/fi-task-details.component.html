@@ -1,0 +1,60 @@
+<div class="modal-header">
+        <h4 class="modal-title">Task - {{data.task_id}} | {{data.business?.name}}</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form name="taskDetailForm" (ngSubmit)="taskDetailForm.form.valid && submitRequest()" #taskDetailForm="ngForm" novalidate>
+        <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label> Created at : {{data.created_at | dateTime}} </label> <br/>
+                        <label> Mobile : {{data.business?.primary_person?.person.primary_mobile.detail}}</label> <br/>
+                        <div class="row">
+                            <label class="col-md-12"> <u> Document </u> : <span *ngIf="data.content_data"> {{data.content_data?.doc_name | beautifyString}} </span>
+                                <span *ngIf="data.content_data && data.content_data.file !== null">
+                                    <a matTooltip="Document link" target="_blank" class="btn-success btn-sm" href="{{data.content_data.file}}"> <i class="fa fa-file-alt"></i></a>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 *ngIf="data.content_data?.view"> {{data.content_data.address_type | beautifyString}} </h5>
+                        <p *ngIf="data.content_data?.view"> {{data.content_data.view}}</p> <br/>
+                    </div>
+                </div>
+                <div class="row" *ngIf="updated_data">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="text-muted">Result</label>
+                            <select class="form-control" name="result" [(ngModel)]="updated_data.result" required>
+                                <option disabled value="">Select Result</option>
+                                <option value="{{result.value}}" *ngFor="let result of fiConstants?.fi_results">{{result.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="text-muted">File</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input class="custom-file-input" id="file" type="file" (change)="selectFile($event.target.files)" multiple>
+                                    <label class="custom-file-label" for="file" (change)="selectFile($event.target.files)">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <a matTooltip="File link" [class.disabled]="data.file === null" target="_blank" class="btn btn-success btn-icon" href="{{data.file}}"> <i class="fa fa-file-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="text-muted">Remarks</label>
+                        <textarea class="form-control" name="text" [(ngModel)]="updated_data.remark" rows="3" maxlength="320"></textarea>
+                    </div>
+                </div>
+                    </div>
+        <div class="modal-footer">
+            <button (click)="dismiss()" class="btn btn-secondary" type="button">Cancel</button>
+            <button [disabled]="taskDetailForm.invalid" class="btn btn-primary">Save</button>
+        </div>
+    </form>

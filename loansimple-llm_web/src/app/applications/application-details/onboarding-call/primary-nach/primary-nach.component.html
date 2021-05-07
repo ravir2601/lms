@@ -1,0 +1,21 @@
+<div class="kt-portlet kt-portlet--height-fluid">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Select Primary NACH Bank
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="kt-widget4">
+            <div class="kt-widget4__item pb-0" *ngFor="let row of banks">
+                <label class="kt-radio kt-radio--solid kt-radio--success">
+                    <input [checked]="row.is_primary" name="type" type="radio" value="true" (change)="updateBank(row.update_url)">
+                    <strong>{{ row.branch.name }}</strong> &nbsp;
+                    <small>{{ row.account_number }}</small>
+                    <span></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

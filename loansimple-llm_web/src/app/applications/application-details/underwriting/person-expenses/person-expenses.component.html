@@ -1,0 +1,62 @@
+<form class="kt-portlet" #financialData="ngForm" (ngSubmit)="saveData()">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Expenses
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button class="btn btn-success btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-save"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Premise Area(Sq.ft)</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="residence_premise_area_in_sqft" [(ngModel)]="data.residence_premise_area_in_sqft">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Premise Rent</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="residence_premise_rent" [(ngModel)]="data.residence_premise_rent">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Dependents (Minor | Non Minor | Total)</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Minor" type="text" name="minor_dependents" [(ngModel)]="data.minor_dependents" (change)="totalDependents()">
+                        <input class="form-control" placeholder="Non Minor" type="text" name="non_minor_dependents" [(ngModel)]="data.non_minor_dependents" (change)="totalDependents()">
+                        <input class="form-control" placeholder="Total" type="text" name="no_of_dependents" [(ngModel)]="data.no_of_dependents">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Personal/Household Expenses</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="personal_expenses" [(ngModel)]="data.personal_expenses">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Other Expenses</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="other_expenses" [(ngModel)]="data.other_expenses">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

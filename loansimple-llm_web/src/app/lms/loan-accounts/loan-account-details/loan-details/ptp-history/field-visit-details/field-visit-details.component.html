@@ -1,0 +1,69 @@
+<div class="form-container">
+        <div class="modal-header">
+            <h4 class="modal-title">Field Visit Details</h4>
+            <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <div class="kt-radio-inline">
+                                    <label class="kt-radio kt-radio--bold kt-radio--brand">
+                                        <input name="visitDone" type="radio" value="true" [checked]="data.is_visit_done" disabled>Visit Done?
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio kt-radio--bold kt-radio--brand">
+                                        <input name="visitDone" type="radio" value="false" [checked]="!data.is_visit_done" disabled>Visite Not Done?
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div *ngIf="!data.is_visit_done" class="col-xs-12">
+                                    <label> Reason </label>
+                                    <textarea disabled [(ngModel)]="data.no_visit_reason" class="form-control" rows="2"
+                                    ></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="kt-radio-inline">
+                                    <label class="kt-radio kt-radio--bold kt-radio--brand">
+                                        <input name="customerMet" type="radio" value="true" [checked]="data.is_customer_met" disabled>Customer Met?
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio kt-radio--bold kt-radio--brand">
+                                        <input name="customerMet" type="radio" value="false" [checked]="!data.is_customer_met" disabled>Customer Not Met?
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                                <div *ngIf="!data.is_customer_met">
+                                    <div class="form-group">
+                                    <label>Reason </label>
+                                    <select disabled [(ngModel)]="data.no_customer_met_reason" class="form-control">
+                                        <option ng-value="data.no_customer_met_reason">
+                                            {{data.no_customer_met_reason | constant}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+                                <div class="col-xs-12 clearfix">
+                                    <div class="form-group">
+                                    <a class="float-left anchor-link" [ngClass]="{'disabled': !data.selfie}" (click)="openAttachment(data.selfie)">Selfie Link</a>
+                                    <a class="pointer float-right anchor-link" [ngClass]="{'disabled': !data.selfie_lat || !data.selfie_long}"
+                                       (click)="openMap(data.selfie_lat, data.selfie_long)">Show long and lat on map (see google)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-brand btn-block btn-square btn-tall" type="button" (click)="dismiss()">Close
+        </button>
+    </div>

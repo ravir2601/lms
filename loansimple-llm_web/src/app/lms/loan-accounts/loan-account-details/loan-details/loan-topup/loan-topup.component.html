@@ -1,0 +1,148 @@
+<div class="form-container wp-550">
+    <div class="modal-header">
+        <h4 class="modal-title">Apply for Loan Topup</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-11">
+                        <select class="form-control" name="bank" [(ngModel)]="bankName" (change)="getSelectedBankDetails(bankName)">
+                            <option [value]="row.branch.name" *ngFor="let row of bankList; let i = index;">{{i + 1}}. {{row.branch.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-sm btn-outline-brand btn-elevate btn-circle btn-icon" type="button" (click)="openBankForm()"><i
+                            class="la la-plus" data-placement="left" ngbTooltip="Add a Bank"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" *ngIf="addBank">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>IFSC :</label>
+                                <input class="form-control" type="text" name="ifsc" [(ngModel)]="bankDetails.ifsc" (change)="getBankDetails($event)">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Branch Name :</label>
+                                <input class="form-control" type="text" name="branch_name" [(ngModel)]="bankDetails.branch_name" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Bank Name :</label>
+                                <input class="form-control" type="text" name="bank_name" [(ngModel)]="bankDetails.name" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="kt-separator kt-separator--dashed"></div> -->
+        <div class="form-group row" *ngIf="!addBank">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="text-muted">Upload Address Proof</label>
+                            <div class="custom-file">
+                                <input class="custom-file-input" id="bankStatement" type="file" (change)="selectFile($event.target.files)">
+                                <label class="custom-file-label" for="bankStatement" (change)="selectFile($event.target.files)">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="text-muted">Product Type</label>
+                            <select class="form-control" (change)="makeLoanData($event, 'product_type')">
+                                <option value="">Select Product Type</option>
+                                <option value="{{product.value}}" *ngFor="let product of losConstant?.product_types">{{product.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Is Business address change?</label>
+                    <div class="kt-radio-inline">
+                        <label class="kt-radio kt-radio--bold kt-radio--brand">
+                            <input type="radio" name="businessAddress" (change)="makeLoanData($event, 'is_business_address_change')" value="true">Yes
+                            <span></span>
+                        </label>
+                        <label class="kt-radio kt-radio--bold kt-radio--brand">
+                            <input type="radio" name="businessAddress" (change)="makeLoanData($event, 'is_business_address_change')" value="false">No
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Is Person address change?</label>
+                    <div class="kt-radio-inline">
+                        <label class="kt-radio kt-radio--bold kt-radio--brand">
+                            <input type="radio" name="personAddress" (change)="makeLoanData($event, 'is_person_address_change')" value="true">Yes
+                            <span></span>
+                        </label>
+                        <label class="kt-radio kt-radio--bold kt-radio--brand">
+                            <input type="radio" name="personAddress" (change)="makeLoanData($event, 'is_person_address_change')" value="false">No
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Is Mobile change?</label>
+                    <div class="kt-radio-inline">
+                        <label class="kt-radio kt-radio--bold kt-radio--brand">
+                            <input type="radio" name="mobile" (change)="makeLoanData($event, 'is_mobile_change')" value="true">Yes
+                            <span></span>
+                        </label>
+                        <label class="kt-radio kt-radio--bold kt-radio--brand">
+                            <input type="radio" name="mobile" (change)="makeLoanData($event, 'is_mobile_change')" value="false">No
+                            <span></span>
+                        </label>
+                    </div>
+                    <input *ngIf="data.is_mobile_change=='true'" type="text" class="form-control" [(ngModel)]="data.mobile">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Is Email change?</label>
+                    <div class="kt-radio-inline">
+                        <label class="kt-radio kt-radio--bold kt-radio--brand">
+                            <input type="radio" name="email" (change)="makeLoanData($event, 'is_email_change')" value="true">Yes
+                            <span></span>
+                        </label>
+                        <label class="kt-radio kt-radio--bold kt-radio--brand">
+                            <input type="radio" name="email" (change)="makeLoanData($event, 'is_email_change')" value="false">No
+                            <span></span>
+                        </label>
+                    </div>
+                    <input *ngIf="data.is_email_change=='true'" type="text" class="form-control" [(ngModel)]="data.email">
+                </div>
+            </div>
+        </div>
+    </div>
+    <button *ngIf="!addBank" class="btn btn-brand btn-block btn-square btn-tall" type="button" (click)="submitRequest()">Submit
+    </button>
+    <button *ngIf="addBank" class="btn btn-brand btn-block btn-square btn-tall" type="button" (click)="saveBank()">Add Bank
+    </button>
+</div>
+<!-- <div class="kt-radio-inline">
+    <label class="kt-radio kt-radio--bold kt-radio--brand">Processed
+        <input name="repaymentType" type="radio" value="processed" [(ngModel)]="repaymentType">
+        <span></span>
+    </label>
+</div> -->

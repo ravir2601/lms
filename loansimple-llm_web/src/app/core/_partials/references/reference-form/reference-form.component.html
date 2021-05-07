@@ -1,0 +1,34 @@
+<form class="lead-form ls-form-alt" #referenceForm="ngForm" (ngSubmit)="save()">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ data.title }}</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="text-muted">Name</label>
+                <input class="form-control" type="text" name="name" [(ngModel)]="reference.name">
+            </div>
+            <div class="col-md-6">
+                <label class="text-muted">Mobile</label>
+                <input class="form-control" type="text" name="contact_number" [(ngModel)]="reference.contact_number">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="text-muted">Relation</label>
+                    <select class="form-control" name="relation" [(ngModel)]="reference.relation">
+                        <option value="">Select Relation</option>
+                        <option *ngFor="let relation of relations" [value]="relation.value">{{ relation.name }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-brand btn-block btn-square btn-tall"
+        type="submit">Save
+    </button>
+</form>

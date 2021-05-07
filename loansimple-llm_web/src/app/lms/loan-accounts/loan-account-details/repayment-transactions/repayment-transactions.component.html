@@ -1,0 +1,147 @@
+
+<div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-toolbar">
+            <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand"
+                role="tablist">
+                <li (click)="changeTab('pending')" class="nav-item">
+                    <a [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']" [ngClass]="{'active': activeTab === 'pending'}"
+                        class="nav-link" class="nav-link">
+                        Pending Repayment
+                        &nbsp;
+                    </a>
+                </li>
+
+                <li (click)="changeTab('processed')" class="nav-item">
+                    <a [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']" [ngClass]="{'active': activeTab === 'processed'}"
+                        class="nav-link" class="nav-link">
+                        Process Repayment
+                        &nbsp;
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact d-flex">
+                        <div class="kt-quick-search__form mr-4">
+                            <div class="input-group border-bottom-gray">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="flaticon2-search-1"></i>
+                                    </span>
+                                </div>
+                                <input #searchField (keyup.enter)="search(searchField.value)"
+                                    class="form-control kt-quick-search__input" placeholder="Search..." type="text"/>
+                            </div>
+                        </div>
+                        <a (click)="openListView()" class="btn btn-default btn-icon-sm" href="javascript:void(0)" ngbTooltip="ListView">
+                            <i class="la la-list"></i>
+                        </a>
+                        &nbsp;
+                        <button (click)="openCalendarView()" class="btn btn-default btn-icon-sm" ngbTooltip="Calendar View">
+                            <i class="la la-calendar"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div #listView class="kt-portlet__body">
+        <div class="kt-section">
+            <div class="kt-section__content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>TXN ID</th>
+                            <th>Date</th>
+                            <th *ngIf="!repaymentType">Opening Balance</th>
+                            <th>Expected</th>
+                            <th>Actual</th>
+                            <th>Payment Mode</th>
+                            <th>Ref. No.</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let repayment of repaymentList; index as i;">
+                            <tr *ngIf="i === 0 || (transform(repaymentList[i].date) !== (transform(repaymentList[i-1].date)))" class="fc-list-heading">
+                                <td class="bg-light" colspan="9">
+                                    <a class="">{{transform(repayment.date)}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <span> {{ (i + (paginator.pageSize * paginator.pageIndex)) + 1 }} </span>
+                                </th>
+                                <td>
+                                    <span *ngIf="repaymentType">
+                                        <a (click)="updateNeftRequest(repayment, true)"
+                                            *ngIf="repayment.payment_mode == 'manual_neft'"
+                                            class="anchor-link">{{repayment.txn_id}}</a>
+                                        <a (click)="updateNachRequest(repayment, true)"
+                                            *ngIf="repayment.payment_mode == 'nach'"
+                                            class="anchor-link">{{repayment.txn_id}}</a>
+                                        <a (click)="updateCashChequeRequest(repayment, true)"
+                                            *ngIf="repayment.payment_mode == 'cash' || repayment.payment_mode == 'pdc'  || repayment.payment_mode == 'cheque'"
+                                            class="anchor-link">{{repayment.txn_id}} </a>
+                                        <span *ngIf="repayment.payment_mode == 'pos'">
+                                            {{repayment.txn_id}}
+                                        </span>
+                                    </span>
+                                    <span *ngIf="!repaymentType">
+                                        {{repayment.txn_id}}
+                                    </span>
+                                </td>
+                                <td>{{repayment.date | dateTime}}</td>
+                                <td *ngIf="!repaymentType">
+                                    <span
+                                        *ngIf="repayment.status != 'not_credited'">{{repayment.opening_balance | currency:'&#8377;'}}</span>
+                                    <span *ngIf="repayment.status == 'not_credited'">-</span>
+                                </td>
+                                <td>
+                                    <span *ngIf="repayment.penalty">
+                                        Penalty: {{repayment.total_expected || 0 | currency:'&#8377;'}}
+                                    </span>
+                                    <span *ngIf="!repayment.penalty">
+                                        {{repayment.total_expected || 0 | currency:'&#8377;'}}<br>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span *ngIf="repayment.penalty">
+                                        Penalty: {{repayment.penalty_actual || 0 | currency:'&#8377;'}}
+                                    </span>
+                                    <span *ngIf="!repayment.penalty">
+                                        {{repayment.total_actual || 0 | currency:'&#8377;'}}<br>
+                                    </span>
+                                </td>
+                                <td>{{repayment.payment_mode | removeUnderscore}}</td>
+                                <td>{{repayment.received_receipt_no}}</td>
+                                <td class="kt-datatable__cell">
+                                    <span class="btn btn-bold btn-sm btn-font-sm btn-label-{{repayment.status | class}}">
+                                        {{repayment.status | removeUnderscore}}
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-container>
+
+                        <div [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--sm kt-spinner--brand kt-spinner--right': loadingSearchData}"></div>
+                    </tbody>
+                </table>
+                <ng-container *ngIf="listData?.count === 0">
+                    <div class="no-data"> No data found </div>
+                </ng-container>
+                <div
+                    [hidden]="listData?.count === 0"
+                    class="mat-table__bottom mat-table__bottom--padding kt-datatable__pager kt-datatable--paging-loaded">
+                    <mat-paginator #paginator (page)="paginate($event)" [length]="listData?.count"
+                                   [pageSizeOptions]="[15, 30, 50]"
+                                   [pageSize]="15" [showFirstLastButtons]="true"></mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

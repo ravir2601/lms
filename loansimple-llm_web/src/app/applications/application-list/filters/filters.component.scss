@@ -1,0 +1,29 @@
+ul li{
+    list-style-type: none !important;
+}
+ul{
+    margin-top: 65px;
+}
+.form-control > input, .form-group input {
+    height: 12px !important;
+    margin-right: 5px;
+}
+.mat-form-field-infix{
+    display: flex;
+    height: 42px;
+}
+.mat-bottom-sheet-container-large {
+    overflow-y: hidden;
+}
+.search-filter {
+    position: fixed;
+    top: 63px;
+    z-index: 1;
+    width: 275px;
+    height: 52px;
+    background: white;
+}
+.mat-form-field {
+    margin-top: 10px;
+    width: 100%;
+}

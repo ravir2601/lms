@@ -1,0 +1,197 @@
+<div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-toolbar">
+            <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand"
+                role="tablist">
+                <li (click)="changeTab('all')" class="nav-item">
+                    <a [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']"
+                       class="nav-link" class="nav-link">
+                        All
+                        &nbsp; <span
+                        class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{ badges.all }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact d-flex">
+                        <div class="kt-quick-search__form mr-4">
+                            <div class="input-group border-bottom-gray">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="flaticon2-search-1"></i>
+                                    </span>
+                                </div>
+                                <input #searchField (keyup.enter)="search(searchField.value)"
+                                       class="form-control kt-quick-search__input" placeholder="Search..."
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <a (click)="openFilters()" class="btn btn-default btn-icon-sm"
+                           href="javascript:void(0)">
+                            <i class="la la-filter"></i>
+                        </a>
+                        &nbsp;
+                        <button (click)="openBottomSheet('form')" class="btn btn-brand btn-elevate btn-icon-sm">
+                            <i class="la la-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+
+
+        <div #listView class="kt-portlet__body">
+            <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded"
+                 id="kt_datatable_latest_orders">
+                <table class="kt-datatable__table" style="display: block;">
+                    <thead class="kt-datatable__head">
+                    <tr class="kt-datatable__row" style="left: 0px;">
+                        <th class="kt-datatable__cell" data-autohide-disabled="false">
+                            <span style="width:20px;"></span>
+                        </th>
+                        <th class="kt-datatable__cell" data-autohide-disabled="false">
+                            <span class="kt-font-boldest" style="width: 40px;">S.No.</span>
+                        </th>
+                        <th class="kt-datatable__cell" data-autohide-disabled="false">
+                            <span class="kt-font-boldest" style="width: 100px;">Application ID</span>
+                        </th>
+                        <th class="kt-datatable__cell" data-autohide-disabled="false">
+                            <span class="kt-font-boldest" style="width: 200px;">Customer</span>
+                        </th>
+                        <th class="kt-datatable__cell" data-autohide-disabled="false">
+                            <span class="kt-font-boldest" style="width: 100px;">Mobile</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 150px">Activity/Created</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 120px;">CO/TO</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 250px;">Status</span>
+                        </th>
+                        <th class="kt-datatable__cell" data-autohide-disabled="false">
+                            <span class="kt-font-boldest" style="width: 80px;">Actions</span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="kt-datatable__body ps ps--active-y">
+                    <ng-container *ngFor="let row of list; let i = index">
+                        <tr class="kt-datatable__row show-eye">
+                            <td (click)="toggleSummary(row.business.id)" class="kt-datatable__cell"
+                                data-autohide-disabled="false">
+                                <span class="kt-font-boldest eye-cl text-muted" id="" style="width:20px;">
+                                    <i class="flaticon-eye" ngbTooltip="See Preview" placement="right"></i>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell cursor-pointer">
+                                <span style="width: 40px;">{{ (i + (paginator.pageSize * paginator.pageIndex)) + 1 }}</span>
+                            </td>
+                            <td class="kt-datatable__cell cursor-pointer">
+                                <span style="width: 100px;">
+                                    <a [routerLink]="'/applications/' + row.id" class="kt-font-bold">{{row.application_id}}</a>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell" data-autohide-disabled="false">
+                                <span style="width: 200px;">
+                                    <div class="kt-user-card-v2">
+                                        <div class="kt-user-card-v2__pic">
+                                            <span class="kt-badge"
+                                                [ngStyle]="{'background-image': 'url('+ ('' | avatar:row.business.name) +')'}"></span>
+                                        </div>
+                                        <div class="kt-user-card-v2__details">
+                                            <span class="kt-user-card-v2__name">{{row.business.name}}</span>
+                                            <span
+                                                class="kt-user-card-v2__email">{{ row.business.primary_person?.person?.full_name }}</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 100px;">
+                                    <a [href]="'tel:' + row.business?.primary_person?.person?.primary_mobile?.detail"
+                                       class="kt-font-bold">{{row.business?.primary_person?.person?.primary_mobile?.detail}}</a>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 150px;">
+                                    <div class="kt-user-card-v2">
+                                        <div class="kt-user-card-v2__details">
+                                            <span class="kt-user-card-v2__name">{{row.business.extra?.last_activity_at | dateTime }}</span>
+                                            <span class="kt-user-card-v2__email">{{row.created_at | dateTime }}</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 120px;">
+                                    <div class="kt-user-card-v2">
+                                        <div class="kt-user-card-v2__details">
+                                            <a class="kt-user-card-v2__name"
+                                               href="#">{{row.business.extra.case_owner?.full_name}}</a>
+                                            <span class="kt-user-card-v2__email">{{row.business.extra.territory_owner?.full_name}}</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 250px;" class="tag-list">
+                                    <span
+                                        class="tag text-left btn btn-bold btn-sm btn-font-sm btn-label-{{row.state?.status | class}}">
+                                        {{ row.state?.status | constant }}
+                                    </span>
+                                    <span *ngIf="row.state?.sub_status"
+                                        class="tag text-left btn btn-bold btn-sm btn-font-sm btn-label-{{row.state?.sub_status | class}}">
+                                        {{ row.state?.sub_status | constant }}
+                                    </span>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 80px;overflow: visible; position: relative;">
+                                    <div class="dropdown" container="body" ngbDropdown>
+                                        <button
+                                            class="btn btn-hover-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle"
+                                            ngbDropdownToggle>
+                                            <i class="flaticon-more-1"></i>
+                                        </button>
+                                        <div aria-labelledby="dropdownConfig" class="dropdown-menu dropdown-menu-right"
+                                             ngbDropdownMenu>
+                                            <a (click)="openBottomSheet('log', row.business)" class="dropdown-item"><i
+                                                class="la la-commenting"></i> Add Log</a>
+                                            <a (click)="openReminderForm(row.business)" class="dropdown-item"><i
+                                                class="la la-clock-o"></i> Add Reminder</a>
+                                            <a class="dropdown-item"><i class="la la-send"></i> Send Notification</a>
+                                            <!--                                        <a class="dropdown-item" (click)="copyLead()"><i class="la la-copy"></i>-->
+                                            <!--                                            Copy Link</a>-->
+                                        </div>
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="listData?.count === 0">
+                        <tr class="kt-datatable__row">
+                            <td class="kt-datatable__cell">
+                                <span class="no-data"> No data found </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <div [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--sm kt-spinner--brand kt-spinner--right': loading}"></div>
+                    </tbody>
+                </table>
+                <div
+                    [hidden]="listData?.count === 0"
+                    class="mat-table__bottom mat-table__bottom--padding kt-datatable__pager kt-datatable--paging-loaded">
+                    <mat-paginator #paginator (page)="paginate($event)" [length]="listData?.count"
+                                   [pageSizeOptions]="[15, 30, 50]"
+                                   [pageSize]="15" [showFirstLastButtons]="true"></mat-paginator>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>

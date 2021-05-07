@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="userData">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" formControlName="username" class="form-control">
+            <span 
+              *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched" class="help-block"
+              >Please enter a valid username!</span>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" formControlName="email" class="form-control">
+            <span 
+              *ngIf="!signupForm.get('userData.email').valid && signupForm.get('userData.email').touched" class="help-block"
+              >Please enter a valid email!</span>
+          </div>
+        </div>
+        
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" formControlName="gender" [value]="gender">{{ gender }}
+          </label>
+        </div>
+        <div formArrayName="hobbies">
+          <h4>Your Hobbies</h4>
+          <button class="btn btn-default" type="button" (click)="onAddHobby()"> Add Hobby</button>
+        </div>
+        <div class="form-group" *ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index;">
+          <input type="text" class="form-control" [formControlName]="i">
+        </div>
+        <span 
+            *ngIf="!signupForm.valid && signupForm.touched" class="help-block"
+            >Please enter valid data!</span>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+=========================================================================
+
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  title = 'reactive-form';
+
+  constructor() {}
+
+  genders = ['male', 'female'];
+  signupForm: FormGroup;
+  
+
+  ngOnInit() {
+    this.signupForm = new FormGroup({
+      'userData': new FormGroup({
+        'username': new FormControl(null, Validators.required),
+        'email': new FormControl(null, [Validators.required, Validators.email]),
+      }),
+      'gender': new FormControl('male'),
+      'hobbies': new FormArray([])
+    });
+  }
+
+  onSubmit() {
+    console.log(this.signupForm);
+  }
+
+  onAddHobby() {
+    const control = new FormControl(null, Validators.required); 
+    (<FormArray>this.signupForm.get('hobbies')).push(control);
+  }
+}

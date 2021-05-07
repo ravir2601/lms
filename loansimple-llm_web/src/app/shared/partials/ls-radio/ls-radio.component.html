@@ -1,0 +1,11 @@
+<form class="">
+    <div class="form-group">
+        <label>{{ label }}</label>
+        <div class="kt-radio-inline">
+            <label class="kt-radio kt-radio--tick kt-radio--brand" *ngFor="let option of options">
+                <input [(ngModel)]="value" name="radio" type="radio" [value]="option['key']"> {{option['value']}}
+                <span></span>
+            </label>
+        </div>
+    </div>
+</form>

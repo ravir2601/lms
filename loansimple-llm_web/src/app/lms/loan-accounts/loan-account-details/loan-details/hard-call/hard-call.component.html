@@ -1,0 +1,57 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">Hard Call</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <label>Your Number</label>
+                <input name="agent_number" disabled class="form-control" value="{{userDetail?.mobile}}"
+                placeholder="Do not prefix 0">
+            </div>
+                <div *ngIf="!addNumberManually" class="col-md-6">
+                    <label>Customer Number</label>
+                    <select name="customer_number" class="form-control" (change)="selectCustomerNo(customerNumber)"
+                            [(ngModel)]="customerNumber">
+                        <option value="">Select Number</option>
+                        <option *ngFor="let mobile of listData?.data" value="{{mobile.mobile}}">
+                            {{mobile.detail}} - {{mobile.name}} -  {{mobile.constant}}
+                        </option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div *ngIf="addNumberManually" class="col-md-6">
+                    <label>Customer Number</label>
+                    <input name="customer_number" class="form-control" value="{{hardCallObj.customer_number}}"
+                    placeholder="Do not prefix 0">
+                </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md">
+                    <button *ngIf="!hardCallObj.on_call" [disabled]="is_loading || !hardCallObj?.agent_number"
+                            (click)="makeCall()" class="btn btn-warning"> Call Customer
+                    </button>
+                    <button *ngIf="hardCallObj.on_call && hardCallObj.customer_number" disabled class="btn btn-danger">On Call</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <textarea *ngIf="collectionCall?.comment"  type="text" disabled class="form-control" rows="4" placeholder="Comment..." [(ngModel)]="collectionCall.comment"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md">
+        <button type="button" class="btn btn-danger btn-block btn-square btn-tall" (click)="dismiss()">Close</button>
+    </div>
+</div>

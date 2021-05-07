@@ -1,0 +1,113 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">Extra Document</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row text-right">
+            <div class="col-md-12 col-md-offset-10">
+                <button type="submit" class="btn btn-brand btn-circle btn-elevate btn-icon btn-sm btn-icon-md" (click)="submitRequest();">
+                    <i class="la la-save" data-placement="left" ngbTooltip="add extra document required"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Document Type</label>
+                    <select class="form-control" [(ngModel)]="data.doc_type">
+                        <option [disabled]="true" [value]="">Select Document Type</option>
+                        <option value="{{type.value}}" *ngFor="let type of losConstant?.application_extra_doc_types">{{type.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Document Name</label>
+                    <select class="form-control" [(ngModel)]="data.doc_name">
+                        <option [disabled]="true" [value]="">Select Document Name</option>
+                        <option value="{{name.value}}" *ngFor="let name of losConstant?.application_extra_doc_names">{{name.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">File</label>
+                    <div class="custom-file">
+                        <input class="custom-file-input" id="file" type="file" (change)="selectFile($event.target.files)" multiple>
+                        <label class="custom-file-label" for="file" (change)="selectFile($event.target.files)">Choose file</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Remark</label>
+                    <textarea type="text" class="form-control" rows="4" placeholder="Add Comment..."
+                              [(ngModel)]="data.comment"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <div class="row">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>S. No.</th>
+                                <th>Document Type</th>
+                                <th>Document Name</th>
+                                <th>Raised by</th>
+                                <th>Uploaded by</th>
+                                <th>File</th>
+                                <th>Comment</th>
+                                <th>Commitment Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let a of listData?.results; index as i">
+                            <td>{{i+1}}.</td>
+                            <td>{{a.doc_type | beautifyString}}</td>
+                            <td>{{a.doc_name | beautifyString}}</td>
+                            <td>
+                                <span *ngIf="a.raised_by">{{a.raised_by?.display_name}}</span>
+                                <br>
+                                <span *ngIf="a.raised_at">at {{a.raised_at | dateTime}}</span>
+                            </td>
+                            <td>
+                                <span *ngIf="a.uploaded_by">{{a.uploaded_by.display_name}}</span>
+                                <br>
+                                <span *ngIf="a.uploaded_at">at {{a.uploaded_at | dateTime}}</span>
+                            </td>
+                            <td>
+                            <span *ngIf="a.attachments">
+                                    <u *ngFor="let attachment of a.attachments; index as i">
+                                        <a target="_blank" href="{{attachment.file}}">{{i + 1}}
+                                        Link</a>
+                                        <br/>
+                                    </u>
+                            </span>
+                            </td>
+                            <td>
+                              <span data-placement="left" ngbTooltip="{{a.comment}}">
+                                  {{ a.comment}}
+                              </span>
+                            </td>
+                            <td>
+                                {{a.upload_at | dateTime}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-brand btn-block btn-square btn-tall" type="button" (click)="dismiss()">Close
+    </button>
+</div>

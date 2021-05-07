@@ -1,0 +1,47 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">Field Visit History</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Field Visit Detail</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of listData?.results; index as i">
+                        <th scope="row">{{ i + 1}}</th>
+                        <td *ngIf="data.date">{{data.date}}</td>
+                        <td *ngIf="!data.date">N/A</td>
+                        <td>
+                            <a class="btn btn-sm btn-warning text-white" (click)="fieldVisitDetail(data)" *ngIf="data.is_visit_done">
+                                Visit Done
+                            </a>
+                            <a class="btn btn-sm btn-warning text-white" (click)="fieldVisitDetail(data)" *ngIf="!data.is_visit_done">
+                                Not Visit Done
+                            </a>
+                        </td>
+                        <td>{{data.status}}</td>
+                        <td>{{data.reason}}</td>
+                        <td>
+    <!--                                            <button type="button" *ngClick="delete_field_visit(d)" class="btn btn-xs btn-danger">Delete</button>-->
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-brand btn-block btn-square btn-tall" (click)="dismiss()">Close</button>

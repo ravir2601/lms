@@ -1,0 +1,293 @@
+<div class="kt-grid__item kt-grid__item--fluid kt-container" *ngIf="data">
+    <div class="kt-grid kt-grid--desktop kt-grid--ver kt-grid--ver-desktop kt-app">
+
+        <div class="kt-grid__item kt-app__toggle kt-app__aside" id="kt_user_profile_aside" style="opacity: 1;">
+            <div class="kt-portlet kt-portlet--height-fluid">
+                <div class="kt-portlet__body kt-portlet__body--fit-y">
+                    <div class="kt-widget kt-widget--user-profile-1">
+                        <div class="kt-widget__head">
+                            <div class="kt-widget__content">
+                                <div class="kt-widget__section">
+                                    <div class="kt-widget row">
+                                        <label class="col-6">Business Name :</label>
+                                        <label class="col-6 float-right" style="width: 10em; word-wrap: break-word; text-align: end">{{ listData?.business?.name }}</label>
+                                    </div>
+                                    <div class="kt-widget row">
+                                        <label class="col-6">Loan Id :</label>
+                                        <label class="col-6 float-right" style="text-align: end;">{{ listData?.loan_account_id }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="kt-widget__body">
+                            <div class="kt-widget__content">
+                                <div class="kt-widget__info">
+                                    <span class="kt-widget__label">Current DPD :</span>
+                                    <a class="kt-widget__data kt-badge kt-badge--unified-success kt-widget__action kt-badge--inline kt-badge--md kt-badge--rounded kt-badge--bold">
+                                        {{listData?.extra.current_dpds}}
+                                    </a>
+                                </div>
+                                <div class="kt-widget__info">
+                                    <span class="kt-widget__label">NACH Bounced :</span>
+                                    <a class="kt-badge kt-badge--unified-brand kt-badge--inline kt-badge--md kt-badge--rounded kt-badge--bold">
+                                        {{listData?.extra.total_nach_bounces}}
+                                    </a>
+                                </div>
+                                <div class="kt-widget__info">
+                                    <span class="kt-widget__label">Total Cheque Bounced :</span>
+                                    <a class="kt-badge kt-badge--unified-danger kt-badge--inline kt-badge--md kt-badge--rounded kt-badge--bold text-right">
+                                        {{listData?.extra.total_cheque_bounces}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="kt-widget__body">
+                            <div class="row d-flex justify-content-start hotkeys">
+                                <div class="kt-widget__action">
+                                    <button (click)="summary()" class="btn btn-sm btn-warning">Summary</button>
+                                    <button (click)="accountRepayment()" class="btn btn-sm btn-warning">Account
+                                        Repayment Schedule
+                                    </button>
+                                    <button (click)="offUs()" class="btn btn-warning btn-sm" type="button">
+                                        Off US
+                                    </button>
+                                    <button (click)="commentThread()" class="btn btn-sm btn-warning">Comments Thread</button>
+                                </div>
+                            </div>
+                                <hr/>
+                            <div class="row d-flex justify-content-start hotkeys">
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="softCall()" class="btn btn-success btn-sm">Soft Call</button>
+                                </div>
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="hardCall()" class="btn btn-success btn-sm">Hard Call</button>
+                                </div>
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="openAttachment($event, listData.update_url)" class="btn btn-success btn-sm"
+                                        data-placement="top"
+                                        ngbTooltip="Click to copy password: {{password}}">Generate Loan Statement
+                                </button>
+                                </div>
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="addPTP()" class="btn btn-success btn-sm">Add PTP</button>
+                                </div>
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="ptpHistory()" class="btn btn-success btn-sm">PTP History</button>
+                                </div>
+
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="addFieldVisit()" class="btn btn-success btn-sm">Add Field Visit
+                                    </button>
+                                </div>
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="fieldVisitHistory()" class="btn btn-success btn-sm">Field Visit
+                                        History
+                                    </button>
+                                </div>
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="previousCollection()" class="btn btn-success btn-sm">
+                                        Collection History
+                                    </button>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row d-flex justify-content-start hotkeys">
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="markEscalation()" class="btn btn-sm btn-warning">Mark Escalation
+                                    </button>
+                                </div>
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="markAbsconding(listData)" class="btn btn-sm btn-warning">Mark Absconding
+                                    </button>
+                                    <!-- <button *ngIf="listData.is_absconded" (click)="markAbsconding(listData)" class="btn btn-sm btn-warning">Mark Trace
+                                    </button> -->
+                                </div>
+                                <div class="kt-widget__action ml-2">
+                                    <button (click)="extraChanges()" class="btn btn-sm btn-warning">Extra
+                                        Changes
+                                    </button>
+                                </div>
+                                <div class="kt-widget__action ml-2">
+                                    <button class="btn btn-sm btn-warning">Application Link</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-grid__item kt-grid__item--fluid kt-app__content">
+            <div class="kt-portlet">
+                <div class="kt-portlet__body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="col-md-8">Total Sanctioned Amount :</label>
+                            <label class="col-md-4 text-right">{{listData?.extra.total_sanctioned_amount}}</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-8">Total Repayment :</label>
+                            <label class="col-md-4 text-right">{{listData?.extra.total_loan_repayment}} </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-8">Total Differential :</label>
+                            <label class="col-md-4 text-right">{{listData?.extra.total_repayment}} </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="col-md-8">Total Outstanding :</label>
+                            <label class="col-md-4 text-right">{{listData?.extra.total_repayment}} </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-8">Current Daily Repayment:</label>
+                            <label class="col-md-4 text-right">{{listData?.extra.current_daily_repayment}} </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-8">Days on Board :</label>
+                            <label class="col-md-4 text-right">{{listData?.extra.days_onboard}} </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="col-md-8">Actual Collected :</label>
+                            <label class="col-md-4 text-right">{{listData?.extra.current_daily_repayment}} </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-8">Expected Collection :</label>
+                            <label class="col-md-4 text-right">{{listData?.extra.current_daily_repayment}} </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="listData?.topups.length > 0">
+                <div class="row">
+                    <div class="col-md-3" *ngFor="let topUp of listData.topups; let i = index;">
+                        <div class="kt-portlet">
+                            <mat-radio-button name='topup' class="radio-button" [value]="" [checked]="i === 0" (change)="getTopUp($event, topUp)">
+                                <div class="kt-portlet__body">
+                                    <div class="col-12" style="padding-left: 20px;">
+                                        <div class="row">
+                                            <span class="col-md-12 text-left" style="margin-top: 2px; margin-bottom: -4px; font-weight: bold;">{{topUp.topup_id}}</span>
+                                            <span class="col-md-12 text-left" style="margin-top: -4px; margin-bottom: -4px;">{{topUp?.total_sanctioned_amount | currency:'&#8377;'}}</span>
+                                            <span class="col-md-12 text-left" style="margin-top: -4px;">{{topUp?.start_date | date}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-radio-button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kt-portlet" >
+                    <div class="kt-portlet__body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-7">Loan Product :</label>
+                                <label class="col-md-5 text-right">{{topups?.loan_type | beautifyString}} </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-7">Product Type :</label>
+                                <label class="col-md-5 text-right">{{topups?.product_type}} </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-7">Tenure(Months) :</label>
+                                <label class="col-md-5 text-right">{{topups?.tenure_in_months}} </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-7">Disbursement Amount :</label>
+                                <label class="col-md-5 text-right">{{topups?.disbursement_amount | currency:'&#8377;'}} </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-7">Total Sanctioned Amount :</label>
+                                <label class="col-md-5 text-right">{{topups?.total_sanctioned_amount | currency:'&#8377;'}} </label>
+                            </div>
+                        </div>
+                        <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-7">Processing Fee % (Total incl. Tax) :</label>
+                                <label class="col-md-5 text-right">{{topups?.processing_fee_percentage}} -  |  {{topups?.total_processing_fee | currency:'&#8377;'}} </label>
+                            </div>
+                            <div *ngIf="topups?.loan_type == 'nach_only'" class="col-md-6">
+                                <label class="col-md-7">NACH Fee (incl. Tax) :</label>
+                                <label class="col-md-5 text-right">{{topups?.total_nach_fee | currency:'&#8377;'}} </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-7">Intrest Rate (%) :</label>
+                                <label class="col-md-5 text-right">{{topups?.interest_rate}} </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-7">Insurance Fee :</label>
+                                <label class="col-md-5 text-right">{{topups?.total_insurance_premium | currency:'&#8377;'}} </label>
+                            </div>
+                        </div>
+                        <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-7">Total NACH Repayment :</label>
+                                <label class="col-md-5 text-right">{{topups?.total_nach_repayment | currency:'&#8377;'}} </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-7">Loan Repayment :</label>
+                                <label class="col-md-5 text-right">{{topups?.total_loan_repayment | currency:'&#8377;'}} </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-7">Total Repayment :</label>
+                                <label class="col-md-5 text-right">{{topups?.total_repayment | currency:'&#8377;'}} </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-7">Daily Repayment :</label>
+                                <label class="col-md-5 text-right">{{topups?.daily_repayment | currency:'&#8377;'}} </label>
+                            </div>
+                        </div>
+                        <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-7">Loan Start Date :</label>
+                                <label class="col-md-5 text-right">{{topups?.start_date | dateTime}} </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-7">Loan End Date :</label>
+                                <label class="col-md-5 text-right">{{topups?.end_date | dateTime}} </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-7">Days Onboard :</label>
+                                <label class="col-md-5 text-right">{{topups?.days_onboard}} </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="kt-portlet">
+                    <div class="kt-portlet__body">
+                        <div class="row">
+                            <button (click)="neftRequest()" class="btn btn-success btn-sm">NEFT Request</button>
+                            <button (click)="loanTopup()" class="btn btn-success btn-sm">Loan Topup</button>
+                            <button *ngIf="!listData?.is_closed" (click)="nachTrigger()" class="btn btn-success btn-sm">NACH Trigger</button>
+                            <button (click)="exportRepayment()" class="btn btn-success btn-sm">Export Repayments</button>
+                            <button (click)="addNachPrimaryBank()" class="btn btn-success btn-sm">Add NACH Primary Bank</button>
+                            <button (click)="closeTopup()" class="btn btn-sm btn-danger">Close this Topup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

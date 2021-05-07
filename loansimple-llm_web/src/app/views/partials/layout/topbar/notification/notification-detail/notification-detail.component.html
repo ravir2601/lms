@@ -1,0 +1,33 @@
+<div *ngIf="reminderDetail">
+    <div class="modal-header">
+        <a [routerLink]="'/leads/' + reminderDetail.business.id">
+            <h5>Business: {{reminderDetail.business.name}}</h5>
+        </a>
+        <button type="button" class="close" (click)="dismiss()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form name="editReminderForm" (ngSubmit)="editReminderForm.form.valid && onSubmit(editReminderForm.value) "
+            #editReminderForm="ngForm" novalidate>
+            <div class="form-group">
+                <label> Reminder Purpose : - {{reminderDetail.purpose}}</label> <br />
+                <span *ngIf="reminderDetail.scheduled_at"> Scheduled at :- {{reminderDetail.scheduled_at | dateTime}}
+                </span>
+            </div>
+            <div class="form-group">
+                <label>Remarks</label>
+                <textarea class="form-control" name="remark" [(ngModel)]="reminderDetail.remark" rows="3"
+                    #reminderRemark="ngModel"></textarea>
+                <div *ngIf="editReminderForm.submitted && reminderRemark.errors?.required" class="form-text text-danger">
+                    Please Enter Remarks</div>
+    
+            </div>
+            <div class="kt-widget__section">
+                <button [disabled]="editReminderForm.invalid" class="btn btn-primary"> Mark as
+                    Complete
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

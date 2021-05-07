@@ -1,0 +1,59 @@
+<form class="kt-portlet" #basicDetailsForm="ngForm" *ngIf="data" (ngSubmit)="saveData()">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Basic Details
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button type="submit" class="btn btn-brand btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-save" data-placement="left" ngbTooltip="Update Basic Details"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Business Name:</label>
+                    <input class="form-control" name="name" [(ngModel)]="data.name" placeholder="Business Name" type="text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Business Type:</label>
+                    <select class="form-control" name="business_type" [(ngModel)]="data.business_type">
+                        <option [value]="">Select Business Type</option>
+                        <option [value]="row.value" *ngFor="let row of businessTypes" >{{row.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Date of Incorporation:</label>
+                    <div class="input-group">
+                        <input [matDatepicker]="picker" [max]="today" name="dob" placeholder="Date of Incorporation" class="form-control datePicker"
+                            [(ngModel)]="data.date_of_incorporation" (focus)="picker.open()">
+                        <div class="input-group-append">
+                            <button class="btn btn-icon btn-primary" (click)="picker.open()" type="button">
+                                <i class="la la-calendar"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Deals In:</label>
+                    <select class="form-control" [(ngModel)]="data.business_vertical" name="business_vertical">
+                        <option [value]="">Select Business Vertical</option>
+                        <option [value]="row.id" *ngFor="let row of businessVerticals">{{row.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

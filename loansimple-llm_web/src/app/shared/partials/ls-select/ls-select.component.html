@@ -1,0 +1,9 @@
+<form class="">
+    <div class="form-group row">
+        <label>{{ label }}</label>
+        <select class="form-control">
+            <option value="">{{ placeholder }}</option>
+            <option *ngFor="let option of options" [value]="option['key']">{{ option['value']}}</option>
+        </select>
+    </div>
+</form>

@@ -1,0 +1,85 @@
+<div class="lead-form ls-form-alt">
+    <div class="modal-header">
+        <h4 class="modal-title">Add Account</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="type && type != 'qr'" class="alert alert-solid-brand alert-bold" role="alert">
+            <div class="alert-text">
+                HDFC Bank Malcha Marg, New Delhi
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="text-muted">A/C Type</label>
+                <select [(ngModel)]="type" class="form-control">
+                    <option value="">Select Type</option>
+                    <option value="savings">Savings</option>
+                    <option value="current">Current</option>
+                    <option value="qr">QR Code</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="text-muted">A/C Number</label>
+                <input class="form-control" type="text"/>
+            </div>
+        </div>
+        <div *ngIf="type && type !== 'qr'" class="form-group row">
+            <div class="col-md-6">
+                <label class="text-muted">IFSC</label>
+                <input class="form-control" type="text"/>
+            </div>
+            <div class="col-md-6">
+                <label class="text-muted">A/C Holder's Name</label>
+                <input class="form-control" type="text"/>
+            </div>
+        </div>
+        <div *ngIf="type && type === 'qr'" class="form-group row">
+            <div class="col-md-6">
+                <label class="text-muted">QR Code</label>
+                <select class="form-control">
+                    <option value="">Select QR</option>
+                    <option value="">Google Pay</option>
+                    <option value="">PhonePe</option>
+                    <option value="">PayTM</option>
+                    <option value="">Amazon Pay</option>
+                    <option value="">BharatPe</option>
+                    <option value="">Others</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="text-muted">VPA</label>
+                <input class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="text-muted">Proof Type</label>
+                <select class="form-control">
+                    <option value="">Select Type</option>
+                    <option value="">Passbook</option>
+                    <option value="">Cancelled Cheque</option>
+                    <option value="">Bank Statement</option>
+                    <option value="">QR Photo</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="text-muted">Proof</label>
+                <div class="custom-file">
+                    <input class="custom-file-input" id="bankProof" type="file">
+                    <label class="custom-file-label" for="bankProof">Choose File</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+                <input type="checkbox"> Set as Primary Account
+                <span></span>
+            </label>
+        </div>
+    </div>
+    <button _ngcontent-aym-c27="" class="btn btn-brand btn-block btn-square btn-tall" type="button">Save Account
+    </button>
+</div>

@@ -1,0 +1,60 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Post-Dated Cheques (PDCs)
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <!-- <button (click)="openChequeForm()"
+                class="btn btn-outline-primary btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-plus"></i>
+            </button> -->
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <ng-container>
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <div>
+                        <strong>Axis Bank</strong> &nbsp;
+                        <small>917020064168198</small> &nbsp;
+                    </div>
+                    <div>
+                        Current A/C | ₹ 9,999
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <a target="_blank" href=""><i class="fa fa-file-alt"></i> </a>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group" *ngIf="!verification">
+                        <input type="" class="form-control" placeholder="Cheque Number">
+                        <div class="input-group-append">
+                            <button class="btn btn-success btn-icon">
+                                <i class="la la-save"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="verification">
+                        <label class="kt-checkbox">
+                            <input type="checkbox"> Is Verified?
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <button class="btn btn-brand btn-circle btn-elevate btn-icon btn-sm btn-icon-md"
+                        ngbTooltip="Regenerate">
+                        <i class="la la-refresh"></i>
+                    </button> &nbsp;
+                    <button class="btn btn-danger btn-circle btn-elevate btn-icon btn-sm btn-icon-md"
+                        ngbTooltip="Delete">
+                        <i class="la la-remove"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="kt-separator kt-separator--space-lg kt-separator--border-dashed"></div>
+        </ng-container>
+    </div>
+</div>

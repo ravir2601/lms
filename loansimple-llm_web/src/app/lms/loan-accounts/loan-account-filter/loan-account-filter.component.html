@@ -1,0 +1,50 @@
+<style>
+    mat-form-field-infix {
+        display: flex;
+    }
+</style>
+
+<div class="modal-header">
+    <h4 class="modal-title">Filter</h4>
+    <button (click)="close()" aria-label="Close" class="close" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div [ngSwitch]="view" (click)="$event.stopPropagation()">
+    <div class="row">
+        <div class="col-4" style="padding-right: 0;">
+            <ul class="kt-nav kt-nav--bold kt-nav--md-space kt-nav--v3" role="tablist">
+                <ng-container *ngFor="let row of filters; let i = index;">
+                    <li [class.active]="row.key === view" class="kt-nav__item">
+                        <a class="kt-nav__link" data-toggle="tab" role="tab" (click)="view = row.key">
+                            <i class="la {{ row.icon }}"></i> &nbsp;
+                            <span class="kt-nav__link-text">{{ row.name }}</span>
+                        </a>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="col-8" lsPerfectScrollbar style="height: 300px; overflow: auto;">
+            <ul class="list" *ngFor="let filter of filters" style="margin-top: 75px;">
+                <kt-filter-search class="search-filter" style="display: flex"
+                                  [(searchModel)]="searchModel"> </kt-filter-search>
+                <li *ngFor="let item of list[filter.key] | listFilter: searchModel">
+                    <ng-container *ngSwitchCase="filter.key" #list[filter.key]>
+                        <div class="kt-radio-inline">
+                            <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+                                <input type="checkbox" [checked]="selected[filter.key].indexOf(item.value.toString()) >= 0"
+                                       (change)="toggleFilter(filter.key, item.value, filter.multi)">
+                                {{item.name}}
+                                <span></span>
+                            </label>
+                        </div>
+                    </ng-container>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="clearAll()"> Clear All  </button>
+        <button type="button" class="btn btn-brand" (click)="filterBusiness()">Apply Filters</button>
+    </div>
+</div>

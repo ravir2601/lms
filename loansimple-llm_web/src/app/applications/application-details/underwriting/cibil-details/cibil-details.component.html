@@ -1,0 +1,41 @@
+<form class="kt-portlet" #cibilForm="ngForm" (ngSubmit)="saveData()" *ngIf="data">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                CIBIL
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button type="submit" class="btn btn-success btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-save"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>As of Date:</label>
+                    <input (focus)="datePicker.open()" class="form-control" name="date" placeholder="" type="text" [matDatepicker]="datePicker" [(ngModel)]="data.date">
+                    <mat-datepicker #datePicker></mat-datepicker>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Score</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="score" [(ngModel)]="data.score">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Enquiries</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="enquiries" [(ngModel)]="data.enquiries">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

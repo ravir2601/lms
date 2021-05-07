@@ -1,0 +1,27 @@
+<form class="kt-portlet" #proofNumberForm="ngForm" (ngSubmit)="saveNumber()">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                <i *ngIf="extra && extra['value']" [ngClass]="{
+                    'flaticon2-correct': (extra['value']['status'] === 'Active'),
+                    'flaticon-circle': (extra['value']['status'] !== 'Active'),
+                    'kt-font-success': (extra['value']['status'] === 'Active'),
+                    'kt-font-danger': (extra['value']['status'] !== 'Active')}"
+                    ngbTooltip="{{ extra['value']['status'] ? extra['value']['status'] + ' | ' : '' }} {{ extra['value']['nameMatch'] ? 'Name Matched |' : '' }} {{ extra['value']['dobMatch'] ? 'DOB Matched' : '' }}"
+                ></i>
+                {{ doc.doc_type | uppercase }}
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar" *ngIf="!locked">
+            <button class="btn btn-brand btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-save"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="form-group">
+            <label>Number:</label>
+            <input class="form-control" type="text" name="doc_number" [(ngModel)]="doc.doc_number" [readonly]="locked">
+        </div>
+    </div>
+</form>

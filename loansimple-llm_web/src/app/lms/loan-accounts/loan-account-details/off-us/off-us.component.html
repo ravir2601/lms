@@ -1,0 +1,100 @@
+
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">OFF US (as on: {{listData?.data.as_on_date | date}})</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Experian Score</label>
+                    <input type="text" class="form-control" value="{{listData?.data.score}}" disabled>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Mobile</label>
+                    <span *ngFor="let item of listData?.data.phones; index as i">
+                        <div class="row">
+                            <div class="col-md-1" style="margin-top: 4px;">{{i + 1}}</div>
+                            <div class="col-md"><input type="text" class="form-control"  value="{{item}}" disabled></div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label>Address</label>
+                    <label class="float-right">Reported Date</label>
+                    <ol class="list-group">
+                        <li class="list-group-item text-muted" *ngFor="let item of listData?.data.addresses; index as i">
+                            <label>{{i+1}}. {{item.Address}}</label>
+                            <label class="float-right">{{item.Date_Reported}}</label>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Total Account</label>
+                    <input type="text" class="form-control" value="{{listData?.data.total_account_count}}" disabled>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Active Account</label>
+                    <input type="text" class="form-control" value="{{listData?.data.active_account_count}}" disabled>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Default Account</label>
+                    <input type="text" class="form-control" value="{{listData?.data.default_account_count}}" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md">
+                <h4>Accounts</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Type</th>
+                            <th>Sanctioned Amount</th>
+                            <th>Balance Amount</th>
+                            <th>Overdue Amount</th>
+                            <th>Last Six DPD</th>
+                            <th>Open Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of listData?.data.accounts; index as i">
+                            <th scope="row">{{ i + 1}}</th>
+                            <td>{{data.account_type | removeUnderscore}}</td>
+                            <td>{{data.sanctioned_amount}}</td>
+                            <td>{{data.balance_amount}}</td>
+                            <td>{{data.overdue}}</td>
+                            <td><span *ngFor="let dpd of data.last_6_dpds track">
+                                    {{dpd}},
+                                    </span></td>
+                            <td>{{data.open_date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-brand btn-block btn-square btn-tall" (click)="dismiss()">Close</button>

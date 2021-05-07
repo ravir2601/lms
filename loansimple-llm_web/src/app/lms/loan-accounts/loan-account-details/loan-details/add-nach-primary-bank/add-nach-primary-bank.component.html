@@ -1,0 +1,90 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">Add Nach Primary Bank</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="text-muted">Bank Name</label>
+                            <input class="form-control" type="text" name="ifsc" [(ngModel)]="bankDetails.name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="text-muted">Account Holder Name</label>
+                            <input class="form-control" [(ngModel)]="primaryBankDetails.account_holder_name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="text-muted">Account Number</label>
+                            <input class="form-control" [(ngModel)]="primaryBankDetails.account_number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="text-muted">Account Type</label>
+                            <select class="form-control" [(ngModel)]="primaryBankDetails.account_type">
+                                <option value="{{accType.value}}" *ngFor="let accType of coreConstant.bank_account_types">{{accType.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="text-muted">IFSC </label>
+                            <input class="form-control" type="text" name="ifsc" [(ngModel)]="bankDetails.ifsc" (change)="getBankDetails($event)">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="text-muted">Branch Name </label>
+                            <input class="form-control" [(ngModel)]="bankDetails.branch_name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="text-muted">Document Name</label>
+                            <select class="form-control" [(ngModel)]="primaryBankDetails.doc_name">
+                                <option value="{{doc.value}}" *ngFor="let doc of coreConstant.business_bank_doc_names">{{doc.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="text-muted">Document Name</label>
+                            <div class="custom-file">
+                                <input class="custom-file-input" id="document" type="file" (change)="selectDocument($event.target.files)">
+                                <label class="custom-file-label" for="document" (change)="selectDocument($event.target.files)">{{fileName || 'Choose file'}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Is Primary?</label><br/>
+                            <label class="kt-checkbox kt-checkbox--single kt-checkbox--all kt-checkbox--solid">
+                                <input type="checkbox" [(ngModel)]="primaryBankDetails.is_primary">&nbsp;
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-brand btn-block btn-square btn-tall" type="button" (click)="submitRequest()">Submit
+    </button>
+</div>

@@ -1,0 +1,38 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">Penalty History (Total Penalty: {{userData?.extra.penalty_total}}, Penalty Paid: {{userData?.extra.penalty_paid}})</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Payment Mode</th>
+                        <th>Status</th>
+                        <th>User</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of listdata?.results; index as i">
+                        <th scope="row">{{ i + 1}}</th>
+                        <td>{{data.date}}</td>
+                        <td>{{data.amount | currency: '&#8377;'}}</td>
+                        <td>{{data.repayment.payment_mode | constant}}</td>
+                        <td>{{data.repayment.status | constant}}</td>
+                        <td>{{data.user.display_name}}</td>
+                        <td>{{data.comment}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button class="btn btn-brand btn-block btn-square btn-tall" type="button" (click)="dismiss()">Close
+    </button>
+</div>

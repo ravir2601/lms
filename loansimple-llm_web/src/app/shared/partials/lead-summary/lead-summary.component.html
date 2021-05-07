@@ -1,0 +1,143 @@
+<div class="kt-quick-panel__content-padding-x">
+    <form class="kt-form">
+        <div class="kt-heading kt-heading--sm kt-heading--space-sm">Basic Info</div>
+
+        <div class="form-group form-group-xs row">
+            <div class="col-md col-form-label">
+                <div class="kt-widget__info">
+                    <label >ID:</label>
+                    <label class="float-right">{{leadSummary?.basic_info.business_id}}
+                    </label>
+                </div>
+                <div class="kt-widget__info">
+                    <label >Business Name:</label>
+                    <label class="float-right">{{leadSummary?.basic_info.name | nullValue}}</label>
+                </div>
+                <div class="kt-widget__info">
+                    <label >Last  Activity:</label>
+                    <label class="float-right">
+                        {{(leadSummary?.basic_info.last_activity_at | dateTime) | nullValue}}
+                    </label>
+                </div>
+                <div class="kt-widget__info">
+                    <label>Created At:</label>
+                    <label class="float-right">
+                        {{(leadSummary?.basic_info.created_at | dateTime) | nullValue}}
+                    </label>
+                </div>
+                <!-- <div class="kt-widget__info">
+                    <label >Applicant:</label>
+                    <label class="float-right">{{businessData?.primary_person?.person.full_name}}
+                        <span *ngIf="!businessData?.primary_person.person.full_name" ngbTooltip="Not Available" placement="left">NA</span>
+                    </label>
+                </div> -->
+                <div class="kt-widget__info">
+                    <label >Status:</label>
+                    <label class="float-right">
+                        {{leadSummary?.basic_info.status | nullValue}}
+                    </label>
+                </div>
+                <div *ngIf="leadSummary?.basic_info.pan" class="kt-widget__info">
+                    <label >PAN:</label>
+                    <label class="float-right">
+                        {{leadSummary?.basic_info.pan | hideString}}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
+
+        <div class="kt-heading kt-heading--sm kt-heading--space-sm">Primary Applicant</div>
+
+        <div class="form-group form-group-xs row">
+            <div class="col-md col-form-label">
+                <div class="kt-widget__info">
+                    <label >Full Name:</label>
+                    <label class="float-right">{{leadSummary?.primary_applicant.full_name | nullValue}}</label>
+                </div>
+                <div class="kt-widget__info">
+                    <label >DOB:</label>
+                    <label class="float-right">{{leadSummary?.primary_applicant.dob | nullValue}}</label>
+                </div>
+                <div class="kt-widget__info">
+                    <label>PAN:</label>
+                    <label class="float-right">{{leadSummary?.primary_applicant.pan | hideString}}</label>
+                </div>
+                <div class="kt-widget__info">
+                    <label>Aadhar:</label>
+                    <label class="float-right">{{leadSummary?.primary_applicant.aadhaar | hideString}}</label>
+                </div>
+                <div class="kt-widget__info">
+                    <label>Mobile</label>
+                    <label class="float-right">{{leadSummary?.primary_applicant.primary_mobile | nullValue}}</label>
+                </div>
+                <div class="kt-widget__info">
+                    <label>Email</label>
+                    <label class="float-right">{{leadSummary?.primary_applicant.primary_email | nullValue}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
+
+        <div class="kt-heading kt-heading--sm kt-heading--space-sm">
+            <label>Registered Address</label>
+            <label class="float-right">
+            </label>
+        </div>
+        <span *ngIf="leadSummary?.registered_address" >
+            <div class="form-group form-group-xs row">
+                <div class="col-md col-form-label">
+                    <div class="kt-widget__info">
+                        <label>Address Line:</label>
+                        <label class="float-right">{{leadSummary?.registered_address.address_line | nullValue}}</label>
+                    </div>
+                    <div class="kt-widget__info">
+                        <label>Locality:</label>
+                        <label class="float-right">{{leadSummary?.registered_address.locality | nullValue}}</label>
+                    </div>
+                    <div class="kt-widget__info">
+                        <label >City:</label>
+                        <label class="float-right">{{leadSummary?.registered_address.city | nullValue}}</label>
+                    </div>
+                    <div class="kt-widget__info">
+                        <label >State:</label>
+                        <label class="float-right">{{leadSummary?.registered_address.state | nullValue}}</label>
+                    </div>
+                </div>
+            </div>
+        </span>
+
+        <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
+
+
+        <div class="kt-heading kt-heading--sm kt-heading--space-sm">
+            <label>Residence Address</label>
+            <label class="float-right">
+            </label>
+        </div>
+        <span *ngIf="leadSummary?.residence_address" >
+            <div class="form-group form-group-xs row">
+                <div class="col-md col-form-label">
+                    <div class="kt-widget__info">
+                        <label>Address Line:</label>
+                        <label class="float-right">{{leadSummary?.residence_address.address_line | nullValue}}</label>
+                    </div>
+                    <div class="kt-widget__info">
+                        <label>Locality:</label>
+                        <label class="float-right">{{leadSummary?.residence_address.locality | nullValue}}</label>
+                    </div>
+                    <div class="kt-widget__info">
+                        <label >City:</label>
+                        <label class="float-right">{{leadSummary?.residence_address.city | nullValue}}</label>
+                    </div>
+                    <div class="kt-widget__info">
+                        <label >State:</label>
+                        <label class="float-right">{{leadSummary?.residence_address.state | nullValue}}</label>
+                    </div>
+                </div>
+            </div>
+        </span>
+    </form>
+</div>

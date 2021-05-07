@@ -1,0 +1,16 @@
+export const ERROR_KEY = {
+    date: 'Date ',
+    received_receipt_no: 'Receveived Receipt No ',
+    detail: 'Details ',
+    amount: 'Amount ',
+    total_expected: 'Amount ',
+    payment_mode: 'Payment Mode ',
+    reason: 'Reason ',
+    settlement_date: 'Settlement Date ',
+    bounce_reason : 'Bounce Reason ',
+    comment: 'Comment ',
+    status: 'Status ',
+    to_date: 'To Date ',
+    from_date: 'From Date ',
+    file: 'File ',
+};

@@ -1,0 +1,11 @@
+<form class="">
+    <div class="form-group">
+        <label>{{ label }}</label>
+        <div class="kt-checkbox-inline">
+            <label *ngFor="let option of options" class="kt-checkbox kt-checkbox--tick kt-checkbox--brand">
+                <input [value]="option.key" [name]="option.name" type="checkbox" [(ngModel)]="option.isChecked" (change)="check()"> {{option.value}}
+                <span></span>
+            </label>
+        </div>
+    </div>
+</form>

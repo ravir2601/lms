@@ -1,0 +1,32 @@
+<form class="lead-form ls-form-alt" #bankForm="ngForm" (ngSubmit)="addBank()">
+    <div class="modal-header">
+        <h4 class="modal-title">Add Bank</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-md">
+                <div class="form-group">
+                    <label>IFSC :</label>
+                    <input class="form-control" type="text" name="ifsc" [(ngModel)]="bankDetails.ifsc" (change)="getBankDetails($event)">
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label>Branch Name :</label>
+                    <input class="form-control" type="text" name="branch_name" [(ngModel)]="bankDetails.branch_name" disabled>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label>Bank Name :</label>
+                    <input class="form-control" type="text" name="bank_name" [(ngModel)]="bankDetails.name" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-brand btn-block btn-square btn-tall" type="submit">Add
+    </button>
+</form>

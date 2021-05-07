@@ -1,0 +1,11 @@
+<i *ngIf="extras && extras.length" [ngbTooltip]="tip" [ngClass]="class" data-placement="{{ placement }}" tooltipClass="ls-tooltip">
+<ng-template #tip>
+    <table class="table table-bordered table-sm table-striped mb-0">
+        <ng-container *ngFor="let row of extras">
+            <tr *ngIf="row">
+                <td class="text-left">{{ row.key | beautifyString }}</td>
+                <th class="text-right">{{ row.value }}{{ match ? '%' : '' }}</th>
+            </tr>
+        </ng-container>
+    </table>
+</ng-template>

@@ -1,0 +1,44 @@
+<form class="kt-portlet" #financialData="ngForm" (ngSubmit)="saveData()">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Banking
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button type="submit" class="btn btn-success btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-save"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>ABB</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="average_bank_balance" [(ngModel)]="data.average_bank_balance">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Loan EMI Bounces</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="loan_emi_bounces" [(ngModel)]="data.loan_emi_bounces">
+                    </div>
+                    <small class="text-info">(Last 90 Days)</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Other Cheque Bounces</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="other_cheque_bounces" [(ngModel)]="data.other_cheque_bounces">
+                    </div>
+                    <small class="text-info">(Last 90 Days)</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

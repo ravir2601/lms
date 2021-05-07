@@ -1,0 +1,118 @@
+
+<div class="row">
+    <div class="col-md" style="padding-right: 0;">
+        <div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+            <div class="kt-portlet__head kt-portlet__head--lg">
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-wrapper">
+                        <div class="kt-portlet__head-actions">
+                            <h4>Update Cash/Cheque Request</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Mode of Payment</label>
+                            <input type="text" class="form-control" value="{{cashCheckData.expected_payment_mode}}" disabled>
+                        </div>
+                    </div>
+                    <span class="col-8" *ngIf="cashCheckData.payment_mode == 'cheque' || cashCheckData.payment_mode == 'cash'">
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Amount</label>
+                                    <input type="text" class="form-control" [(ngModel)]="cashCheckData.total_expected" value="{{cashCheckData.total_expected}}">
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="dateSettlement">Date</label>
+                                        <input id="dateSettlement" class="form-control" [(ngModel)]="cashCheckData.date" value="{{cashCheckData.date}}" (click)="dp.toggle()" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <div class="form-group" *ngIf="cashCheckData.payment_mode == 'pdc'">
+                            <div class="col-xs-12">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Cheque No.</th>
+                                        <th>Link</th>
+                                        <th>Mark</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let data of pdcs">
+                                        <td>{{data.date | date}}</td>
+                                        <td>{{data.amount | currency:'&#8377;'}}</td>
+                                        <td>{{data.cheque_no}}</td>
+                                        <td><a *ngIf="data.file" [routerLink]="" (click)="openAttachment(data.file)" target="_blank">Link</a></td>
+                                        <td><input type="radio" name="pdc" [(ngModel)]="data.is_selected" value="true"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Picked Up Amount (Rs.)</label>
+                            <input type="text" class="form-control" [(ngModel)]="cashCheckData.picked_up_amount" value="{{cashCheckData.picked_up_amount}}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Picked Up Date</label>
+                            <input type="datetime" id="dateSettlement" class="form-control" (change)="changeTime()" [(ngModel)]="pickedUpDate" value="{{pickedUpDate}}" (click)="dp.toggle()" placeholder="yyyy-mm-dd hh-mm-ss" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <!-- <label>Picked Up time</label> -->
+                            <!-- <ngb-timepicker [(ngModel)]="time" [seconds]="true"
+                                [hourStep]="hourStep" [minuteStep]="minuteStep" [secondStep]="secondStep"></ngb-timepicker> -->
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label for="changeHourStep">Hour</label>
+                                    <input id="changeHourStep" type="number" class="form-control form-control-sm" (change)="changeTime()" [(ngModel)]="hourStep"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="changeMinuteStep">Minute</label>
+                                    <input id="changeMinuteStep" type="number" class="form-control form-control-sm" (change)="changeTime()" [(ngModel)]="minuteStep"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="changeSecondStep">Second</label>
+                                    <input id="changeSecondStep" type="number" class="form-control form-control-sm" (change)="changeTime()" [(ngModel)]="secondStep"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <label>Comment</label>
+                        <textarea type="text" class="form-control" rows="2" [(ngModel)]="comment" value="{{cashCheckData.comment}}"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-block btn-square btn-tall" (click)="delete()">delete</button>
+    <button type="button" class="btn btn-dark btn-block btn-square btn-tall" (click)="dismiss()">Close</button>
+    <button type="button" class="btn btn-brand btn-block btn-square btn-tall" (click)="save()">Submit</button>
+</div>

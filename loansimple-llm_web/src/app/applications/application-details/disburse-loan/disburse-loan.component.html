@@ -1,0 +1,134 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Loan Summary
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Sanctioned Loan</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Processing Fee</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Final Disbursed Amount</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Tenure(days)</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Daily Repayment</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Interest Rate</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Reducing Rate</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Disbursement Bank
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Bank Name</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>IFSC</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Branch</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Account Number</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>A/C Holder Name</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Account Type</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        NEFT Details
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>UTR :</label>
+                            <input class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Date & Time :</label>
+                            <input (focus)="picker.open()" [matDatepicker]="picker" class="form-control" matInput
+                                placeholder="Date & Time" [(ngModel)]="currentDate">
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Partner Application ID
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Partner Application Id:</label>
+                            <input class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

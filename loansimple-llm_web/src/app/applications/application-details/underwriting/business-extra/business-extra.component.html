@@ -1,0 +1,127 @@
+<form class="kt-portlet" #businessExtra="ngForm" (submit)="saveData()">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Business Extra + Income
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button type="submit" class="btn btn-success btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-save"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Business Vertical:</label>
+                    <select class="form-control" name="business_vertical" [(ngModel)]="data.business_vertical" (change)="getBusinessCategories()">
+                        <option value="">Select Vertical</option>
+                        <option [value]="item.id" *ngFor="let item of businessVerticals">{{ item.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Business Model:</label>
+                    <select class="form-control" name="business_model" [(ngModel)]="data.business_model" (change)="getBusinessCategories()">
+                        <option value="">Select Model</option>
+                        <option [value]="item.value" *ngFor="let item of businessModels">{{ item.name }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="data.business_model && data.business_vertical">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title"> 
+                    Business Income
+                </h3>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <div class="row align-item-center">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="input-group head-input">
+                            <input class="form-control" value="Category" readonly="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <div class="input-group head-input">
+                            <input class="form-control" value="Pieces" readonly="" *ngIf="data.business_model === 'job' || data.business_model === 'manufacturing'" >
+                            <input class="form-control" value="Price/Pc" readonly="" *ngIf="data.business_model === 'job' || data.business_model === 'manufacturing'" >
+                            <input class="form-control" value="Margin%" readonly="">
+                            <input class="form-control" value="Revenue" readonly="">
+                            <input class="form-control" value="Income" readonly="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngFor="let row of selectedCategories; let i = index;">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select class="form-control" name="category_{{i}}" [(ngModel)]="row.category">
+                                <option value="">Select Category</option>
+                                <option [value]="item.id" *ngFor="let item of businessCategories">{{ item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" 
+                                placeholder="No. of Pieces"
+                                *ngIf="data.business_model === 'job' || data.business_model === 'manufacturing'" 
+                                type="text" 
+                                name="no_of_pieces_{{i}}" 
+                                (keyup)="calculateIncome(i)" 
+                                [(ngModel)]="row.no_of_pieces">
+                            <input class="form-control" 
+                                placeholder="Price/Piece" 
+                                *ngIf="data.business_model === 'job' || data.business_model === 'manufacturing'"
+                                type="text" 
+                                name="price_per_piece_{{i}}" 
+                                (keyup)="calculateIncome(i)" 
+                                [(ngModel)]="row.price_per_piece">
+                            <input class="form-control" 
+                                placeholder="Margin %"
+                                type="text" 
+                                name="margin_{{i}}" 
+                                (keyup)="calculateIncome(i)" 
+                                [(ngModel)]="row.margin">
+                            <input class="form-control" 
+                                placeholder="Revenue" 
+                                type="text"
+                                [readonly]="data.business_model === 'job' || data.business_model === 'manufacturing'"
+                                name="revenue_{{i}}" 
+                                (keyup)="calculateIncome(i)" 
+                                [(ngModel)]="row.revenue">
+                            <input 
+                                class="form-control" 
+                                placeholder="Income"
+                                type="text"
+                                readonly="" 
+                                name="income_{{i}}" 
+                                (keyup)="calculateIncome(i)" 
+                                [(ngModel)]="row.income">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <a (click)="removeIncome(i)" href="javascript:" class="kt-badge kt-badge--danger"><i class="la la-remove"></i></a>
+                    &nbsp;
+                    <a (click)="addIncome()" href="javascript:" *ngIf="i === selectedCategories.length - 1" class="kt-badge kt-badge--info">
+                        <i class="la la-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

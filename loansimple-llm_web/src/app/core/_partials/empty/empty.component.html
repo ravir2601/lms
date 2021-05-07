@@ -1,0 +1,12 @@
+<div class="section-empty">
+    <i [class]="iconClass"></i>
+    <h3>
+        {{ title }}
+        <div><small class="text-muted">{{ text }}</small></div>
+    </h3>
+    <br />
+    <button type="button" class="btn btn-success btn-elevate btn-elevate-air" *ngIf="btnText">
+        <i class="fa fa-plus"></i>
+        {{ btnText }}
+    </button>
+</div>

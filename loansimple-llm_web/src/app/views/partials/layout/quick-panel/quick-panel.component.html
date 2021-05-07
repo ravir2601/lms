@@ -1,0 +1,184 @@
+<mat-sidenav-container (backdropClick)="close()" *ngIf="shouldRun">
+  <mat-sidenav class="kt-quick-panel" mode="over" #sidenav position="end" (keydown.escape)="close()" [ngStyle]="{'overflow': 'hidden'}">
+    <a class="kt-quick-panel__close" (click)="close()"><i class="flaticon2-delete"></i></a>
+
+    <div>
+        <div class="kt-quick-panel__nav" id="nav-tab">
+            <ul ktTabClickEvent
+                class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand kt-notification-item-padding-x"
+                role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{'active': activeTab === 'summary'}"
+                    (click)="tab.select('tab-summary'); changeTab('summary')" role="tab">Summary</a>
+                </li>
+                <li class="nav-item" *ngIf="source !== 'leads'">
+                    <a class="nav-link" [ngClass]="{'active': activeTab === 'hot_keys'}"
+                    (click)="tab.select('tab-hot_keys'); changeTab('hot_keys')" role="tab">Hot Keys</a>
+                </li>
+                <li class="nav-item" *ngIf="source !== 'leads'">
+                    <a class="nav-link" [ngClass]="{'active': activeTab === 'assignees'}"
+                    (click)="tab.select('tab-assignees'); changeTab('assignees')" role="tab">Assignees</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{'active': activeTab === 'activities'}"
+                    (click)="tab.select('tab-activities'); changeTab('activities')" role="tab">Activities</a>
+                </li>
+            </ul>
+        </div>
+        <div class="kt-quick-panel__content" >
+            <ngb-tabset #tab="ngbTabset">
+                <ngb-tab id="tab-summary">
+                    <ng-template ngbTabContent>
+                        <div perfectScrollbar [ngStyle]="{'max-height': '85vh', 'position': 'relative'}"
+                        class="kt-notification-v2">
+                            <kt-lead-summary [leadSummary]="leadSummary"></kt-lead-summary>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab id="tab-hot_keys">
+                    <ng-template ngbTabContent>
+                        <div perfectScrollbar [ngStyle]="{'max-height': '85vh', 'position': 'relative'}"
+                        class="kt-notification-v2">
+                            <kt-hot-keys></kt-hot-keys>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab id="tab-assignees">
+                    <ng-template ngbTabContent>
+                        <div perfectScrollbar [ngStyle]="{'max-height': '85vh', 'position': 'relative'}" class="kt-notification-v2">
+                            <kt-assignees></kt-assignees>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab id="tab-activities">
+                    <ng-template ngbTabContent>
+                        <div perfectScrollbar [ngStyle]="{'max-height': '85vh', 'position': 'relative'}"
+                            class="kt-notification-v2">
+                            <kt-lead-activities [businessUrl]="businessData.update_url"></kt-lead-activities>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab id="tab-id-5">
+                    <ng-template ngbTabContent>
+                        <div class="kt-quick-panel__content-padding-x">
+                            <form class="kt-form">
+                                <div class="kt-heading kt-heading--sm kt-heading--space-sm">Customer Care</div>
+
+                                <div class="form-group form-group-xs row">
+                                    <label class="col-8 col-form-label">Enable Notifications:</label>
+                                    <div class="col-4 kt-align-right">
+                                        <span class="kt-switch kt-switch--success kt-switch--sm">
+                                            <label>
+                                                <input type="checkbox" checked="checked" name="quick_panel_notifications_1">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-xs row">
+                                    <label class="col-8 col-form-label">Enable Case Tracking:</label>
+                                    <div class="col-4 kt-align-right">
+                                        <span class="kt-switch kt-switch--success kt-switch--sm">
+                                            <label>
+                                                <input type="checkbox" name="quick_panel_notifications_2">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-last form-group-xs row">
+                                    <label class="col-8 col-form-label">Support Portal:</label>
+                                    <div class="col-4 kt-align-right">
+                                        <span class="kt-switch kt-switch--success kt-switch--sm">
+                                            <label>
+                                                <input type="checkbox" checked="checked" name="quick_panel_notifications_2">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
+
+                                <div class="kt-heading kt-heading--sm kt-heading--space-sm">Reports</div>
+
+                                <div class="form-group form-group-xs row">
+                                    <label class="col-8 col-form-label">Generate Reports:</label>
+                                    <div class="col-4 kt-align-right">
+                                        <span class="kt-switch kt-switch--sm kt-switch--danger">
+                                            <label>
+                                                <input type="checkbox" checked="checked" name="quick_panel_notifications_3">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-xs row">
+                                    <label class="col-8 col-form-label">Enable Report Export:</label>
+                                    <div class="col-4 kt-align-right">
+                                        <span class="kt-switch kt-switch--sm kt-switch--danger">
+                                            <label>
+                                                <input type="checkbox" name="quick_panel_notifications_3">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-last form-group-xs row">
+                                    <label class="col-8 col-form-label">Allow Data Collection:</label>
+                                    <div class="col-4 kt-align-right">
+                                        <span class="kt-switch kt-switch--sm kt-switch--danger">
+                                            <label>
+                                                <input type="checkbox" checked="checked" name="quick_panel_notifications_4">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
+
+                                <div class="kt-heading kt-heading--sm kt-heading--space-sm">Memebers</div>
+
+                                <div class="form-group form-group-xs row">
+                                    <label class="col-8 col-form-label">Enable Member singup:</label>
+                                    <div class="col-4 kt-align-right">
+                                        <span class="kt-switch kt-switch--sm kt-switch--brand">
+                                            <label>
+                                                <input type="checkbox" checked="checked" name="quick_panel_notifications_5">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-xs row">
+                                    <label class="col-8 col-form-label">Allow User Feedbacks:</label>
+                                    <div class="col-4 kt-align-right">
+                                        <span class="kt-switch kt-switch--sm kt-switch--brand">
+                                            <label>
+                                                <input type="checkbox" name="quick_panel_notifications_5">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-last form-group-xs row">
+                                    <label class="col-8 col-form-label">Enable Customer Portal:</label>
+                                    <div class="col-4 kt-align-right">
+                                        <span class="kt-switch kt-switch--sm kt-switch--brand">
+                                            <label>
+                                                <input type="checkbox" checked="checked" name="quick_panel_notifications_6">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

@@ -1,0 +1,154 @@
+//
+// Core
+//
+
+
+// Base
+@import "../../../sass/theme/core/base/container";
+@import "../../../sass/theme/core/base/page-loader";
+@import "../../../sass/theme/core/base/normalize";
+@import "../../../sass/theme/core/base/animations";
+@import "../../../sass/theme/core/base/helpers";
+@import "../../../sass/theme/core/base/mixins/grid";
+@import "../../../sass/theme/core/base/grid";
+@import "../../../sass/theme/core/base/portlet";
+@import "../../../sass/theme/core/base/datatable";
+@import "../../../sass/theme/core/base/scrolltop";
+@import "../../../sass/theme/core/base/form";
+@import "../../../sass/theme/core/base/input-icon";
+@import "../../../sass/theme/core/base/checkbox";
+@import "../../../sass/theme/core/base/radio";
+@import "../../../sass/theme/core/base/switch";
+@import "../../../sass/theme/core/base/option";
+@import "../../../sass/theme/core/base/avatar";
+@import "../../../sass/theme/core/base/spinner";
+@import "../../../sass/theme/core/base/loader";
+@import "../../../sass/theme/core/base/pulse";
+@import "../../../sass/theme/core/base/dialog";
+@import "../../../sass/theme/core/base/mixins/wave";
+
+// Vendors
+@import "../../../sass/vendors/perfect-scrollbar";
+@import "../../../sass/vendors/blockui";
+@import "../../../sass/vendors/fullcalendar";
+@import "../../../sass/vendors/bootstrap-datepicker";
+@import "../../../sass/vendors/bootstrap-notify";
+@import "../../../sass/vendors/bootstrap-switch";
+@import "../../../sass/vendors/bootstrap-datetimepicker";
+@import "../../../sass/vendors/bootstrap-timepicker";
+@import "../../../sass/vendors/bootstrap-daterangepicker";
+@import "../../../sass/vendors/bootstrap-touchspin";
+@import "../../../sass/vendors/bootstrap-maxlength";
+@import "../../../sass/vendors/bootstrap-select";
+@import "../../../sass/vendors/bootstrap-session-timeout";
+@import "../../../sass/vendors/jqvmap";
+@import "../../../sass/vendors/ion-range-slider";
+@import "../../../sass/vendors/typeahead";
+@import "../../../sass/vendors/nouislider";
+@import "../../../sass/vendors/summernote";
+@import "../../../sass/vendors/bootstrap-markdown";
+@import "../../../sass/vendors/dropzone";
+@import "../../../sass/vendors/recaptcha";
+@import "../../../sass/vendors/toastr";
+@import "../../../sass/vendors/gmaps";
+@import "../../../sass/vendors/fontawesome5";
+@import "../../../sass/vendors/jstree";
+@import "../../../sass/vendors/select2";
+@import "../../../sass/vendors/sweetalert2";
+@import "../../../sass/vendors/datatables";
+@import "../../../sass/vendors/jquery-repeater";
+@import "../../../sass/vendors/duallistbox";
+@import "../../../sass/vendors/uppy";
+@import "../../../sass/vendors/quill";
+@import "../../../sass/vendors/tagify";
+
+// General
+@import "general/grid-nav-v2";
+@import "general/grid-nav";
+@import "general/head";
+@import "general/list-pics";
+@import "general/list-timeline";
+@import "general/my-cart";
+@import "general/nav";
+@import "general/notification";
+@import "general/notification-v2";
+@import "general/profile";
+@import "general/notes";
+@import "general/timeline-v1";
+@import "general/timeline-v2";
+@import "general/timeline-v3";
+@import "general/user-card";
+@import "general/user-card-v2";
+@import "general/user-card-v3";
+@import "general/media";
+@import "general/pagination";
+@import "general/searchbar";
+@import "general/callout";
+@import "general/iconbox";
+@import "general/infobox";
+@import "general/ribbon";
+
+// Widgets - Chat
+@import "general/chat";
+
+
+// Layout
+@import "layout/demo-panel";
+@import "layout/offcanvas-panel";
+@import "layout/quick-panel";
+@import "layout/quick-search";
+@import "layout/scroll";
+@import "layout/sticky-toolbar";
+@import "layout/app";
+@import "layout/subheader";
+
+// Typography
+@import "typography/badge";
+@import "typography/demo";
+@import "typography/divider";
+@import "typography/heading";
+@import "typography/link";
+@import "typography/section";
+@import "typography/separator";
+@import "typography/svg-icon";
+
+// Widgets - Dashboard
+@import "widgets/dashboard/widget1";
+@import "widgets/dashboard/widget2";
+@import "widgets/dashboard/widget3";
+@import "widgets/dashboard/widget4";
+@import "widgets/dashboard/widget5";
+@import "widgets/dashboard/widget6";
+@import "widgets/dashboard/widget7";
+@import "widgets/dashboard/widget9";
+@import "widgets/dashboard/widget10";
+@import "widgets/dashboard/widget11";
+@import "widgets/dashboard/widget12";
+@import "widgets/dashboard/widget13";
+@import "widgets/dashboard/widget14";
+@import "widgets/dashboard/widget15";
+@import "widgets/dashboard/widget16";
+@import "widgets/dashboard/widget17";
+@import "widgets/dashboard/widget19";
+@import "widgets/dashboard/widget20";
+@import "widgets/dashboard/widget21";
+@import "widgets/dashboard/widget24";
+@import "widgets/dashboard/widget25";
+@import "widgets/dashboard/widget26";
+@import "widgets/dashboard/widget27";
+@import "widgets/dashboard/widget28";
+@import "widgets/dashboard/widget29";
+@import "widgets/dashboard/widget30";
+@import "widgets/dashboard/widget31";
+
+// Widgets - General
+@import "widgets/general/profile-1";
+@import "widgets/general/profile-2";
+@import "widgets/general/profile-3";
+@import "widgets/general/profile-4";
+
+// Widgets - General - Users
+@import "widgets/general/users";
+
+// Widgets - Projects
+@import "widgets/general/project-1";

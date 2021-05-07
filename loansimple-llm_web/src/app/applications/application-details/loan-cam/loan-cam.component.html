@@ -1,0 +1,78 @@
+<div class="row" *ngIf="data">
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="kt-portlet kt-iconbox kt-iconbox--success kt-iconbox--animate-slow">
+                    <div class="kt-portlet__body text-center ">
+                        <h2 class="display-3 text-success">887</h2>
+                        <strong class="kt--font-bold">updated at 11:09 AM, 26 Sep</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Choose Product Type
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="kt-radio-list">
+                    <ng-container *ngFor="let row of productTypes">
+                        <label class="kt-radio">
+                            <input type="radio" [value]="row.value" name="product_type" [(ngModel)]="data.product_type"
+                                (ngModelChange)="saveProductType()">{{ row.name }}
+                            <span></span>
+                        </label>
+                        <ol *ngIf="data.product_type === row.value">
+                            <li *ngFor="let term of terms[row.value]">{{ term }}</li>
+                        </ol>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Choose Tenure
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn" 
+                        [ngClass]="{'btn-secondary': row.value !== data.loan_data.tenure_in_months, 'btn-dark': row.value === data.loan_data.tenure_in_months}" 
+                        *ngFor="let row of tenures">
+                        <input type="radio" name="tenure_in_months" [value]="row.value" [(ngModel)]="data.loan_data.tenure_in_months" (ngModelChange)="saveLoanData(['tenure_in_months'])"> {{ row.name }}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Choose NBFC
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="form-group">
+                    <div class="kt-radio-list">
+                        <label class="kt-radio" *ngFor="let row of nbfcs">
+                            <input type="radio" [value]="row.id" name="nbfc" [(ngModel)]="data.nbfc" (ngModelChange)="saveApplication(['nbfc'])">{{ row.name }}
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <kt-cam-structure [data]="data.loan_data"></kt-cam-structure>
+    </div>
+</div>

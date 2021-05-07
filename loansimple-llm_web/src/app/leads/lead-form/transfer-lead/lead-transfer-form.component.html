@@ -1,0 +1,38 @@
+<div class="lead-form">
+    <div class="modal-header">
+        <h4 class="modal-title">Transfer Lead</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form name="transferLeadForm" (ngSubmit)="transferLeadForm.form.valid && transferLead(oldLead.id)" #transferLeadForm="ngForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Business Name</label>
+                <input disabled matInput name="oldLead.name" class="form-control" [value]="oldLead.name">
+            </div>
+            <div class="form-group">
+                <label>Mobile</label>
+                <input disabled matInput name="oldLead.mobile" class="form-control" [value]="oldLead.mobile">
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <input disabled matInput name="oldLead.status" class="form-control" [value]="oldLead.status">
+            </div>
+            <div class="form-group">
+                <label>Sub Status</label>
+                <input disabled matInput name="oldLead.sub_status" class="form-control" [value]="oldLead.sub_status">
+            </div>
+            <div class="form-group">
+                <label>Created at</label>
+                <input disabled matInput name="oldLead.created_at" class="form-control" [value]="oldLead.created_at">
+            </div>
+            <div class="form-group">
+                <label>Assigned User</label>
+                <input disabled matInput name="user" class="form-control" [value]="oldLead.user">
+            </div>
+            <button class="btn btn-primary">Request Lead Transfer</button>
+        </div>
+    </form>
+</div>

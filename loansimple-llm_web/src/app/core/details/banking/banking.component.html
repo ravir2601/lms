@@ -1,0 +1,316 @@
+<div class="kt-portlet" *ngIf="!branch.ifsc">
+    <div class="kt-portlet__body flex-centered">
+        <kt-empty (click)="openBankForm()"
+            [title]="'No Banks Found'"
+            [text]="'You must add a bank to upload statements.'"
+            [btnText]="'Add Bank'"
+        ></kt-empty>
+    </div>
+</div>
+<div class="row" *ngIf="branch.ifsc">
+    <div class="col-md-6" *ngIf="businessId">
+        <kt-document #banking [rootUrl]="selectedBank.update_url" [key]="bankName">
+        </kt-document>
+    </div>
+    <div class="col-md-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-11">
+                        <select class="form-control" name="bank" [(ngModel)]="selectedBank" (ngModelChange)="getSelectedBankDetails()">
+                            <option [ngValue]="row" *ngFor="let row of bankList; let i = index;">{{i + 1}}. {{row.branch.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-sm btn-outline-brand btn-elevate btn-circle btn-icon" type="button" (click)="openBankForm()"><i
+                            class="la la-plus" data-placement="left" ngbTooltip="Add a Bank"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Bank Details
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="dropdown" ngbDropdown>
+                        <button class="btn btn-success btn-circle btn-elevate btn-icon btn-sm btn-icon-md mr-1" (click)="saveDetails()">
+                                <i class="la la-save" data-placement="left" ngbTooltip="Save Bank"></i>
+                        </button>
+                    </div>
+                    <div class="dropdown" ngbDropdown>
+                        <button class="btn btn-danger btn-circle btn-elevate btn-icon btn-sm btn-icon-md mr-1" (click)="delete(selectedBank.update_url, '')">
+                                <i class="la la-trash" data-placement="left" ngbTooltip="Delete Bank"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body" *ngIf="!branch.ifsc">
+                <div class="kt-section__content kt-section__content--solid flex-centered">
+                    <h3>
+                        <small class="text-muted">No banks added, Add a bank to continue</small>
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body" *ngIf="branch.ifsc">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>IFSC :</label>
+                            <input class="form-control" name="ifsc" type="text" [(ngModel)]="branch.ifsc" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Branch Name :</label>
+                            <input class="form-control" name="branchName" type="text" [(ngModel)]="branch.branch_name" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Bank Name :</label>
+                            <input class="form-control" name="bankName" type="text" [(ngModel)]="branch.name" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Account Holder Name :</label>
+                            <input class="form-control" name="accountHolder" type="text" [(ngModel)]="selectedBank.account_holder_name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Account Number :</label>
+                            <input class="form-control" name="accountNumber" type="text" [(ngModel)]="selectedBank.account_number">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Account Type :</label>
+                            <select class="form-control" name="accountType" [(ngModel)]="selectedBank.account_type">
+                                <option value="">Select Account Type</option>
+                                <option value="saving">Saving</option>
+                                <option value="current">Current</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Has Internet Banking?</label>
+                            <select class="form-control" name="netbanking" [(ngModel)]="selectedBank.is_netbanking_available">
+                                <option value="">Has Internet Banking?</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <kt-ls-checkbox [label]="'Mark this bank as'" [options]="markBankAsOptions" (checkedOption)="changedOption($event)">
+                            </kt-ls-checkbox>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>PDCs Count:</label>
+                            <input type="text" class="form-control" placeholder="PDC Count" [(ngModel)]="selectedBank.pdcs_count">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Security PDCs Count:</label>
+                            <input type="text" class="form-control" placeholder="PDC Count" [(ngModel)]="selectedBank.spdcs_count">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Bank Statements
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body" *ngIf="!branch.ifsc">
+                <div class="kt-section__content kt-section__content--solid flex-centered">
+                    <h3>
+                        <small class="text-muted">No banks added, Add a bank to continue</small>
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body" *ngIf="branch.ifsc">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input class="form-control" name="password" type="password" [(ngModel)]="bankStatement.password" placeholder="Bank Statement File Password">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>From :</label>
+                            <div class="form-inline">
+                                <div class="input-group">
+                                    <input [matDatepicker]="picker1" name="dob" placeholder="Select Date" class="form-control datePicker"
+                                           [(ngModel)]="bankStatement.from_date">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-icon btn-primary" (click)="picker1.open()" type="button">
+                                            <i class="la la-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>To :</label>
+                            <div class="form-inline">
+                                <div class="input-group">
+                                    <input [matDatepicker]="picker2" name="dob" placeholder="Select Date" class="form-control datePicker"
+                                           [(ngModel)]="bankStatement.to_date">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-icon btn-primary" (click)="picker2.open()" type="button">
+                                            <i class="la la-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="upload-form">
+                            <div class="inline-block">
+                                <label ngfDrop
+                                    multiple = "5"
+                                    [(files)] = "files"
+                                    accept = "image/*,application/pdf"
+                                    class = "jumbotron jumbotron-compact text-center ls-drop-zone"
+                                    >
+                                    <input ngfSelect multiple type="file" [(files)]="files" accept="image/*,application/pdf"/>
+                                    <h4>
+                                    Drag & Drop or Click to Upload
+                                    <br /><small>You can upload Images & PDF files</small>
+                                    </h4>
+                                </label>
+                            </div>
+                            <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded" *ngIf="files && files.length">
+                                <table class="kt-d atatable__table ls-drop-zone-files" style="display: block;">
+                                    <tbody class="kt-datatable__body ps ps--active-y">
+                                        <tr class="kt-datatable__row" *ngFor="let file of files; let i = index;">
+                                            <td class="kt-datatable__cell" style="width: 80%;">
+                                                <div _ngcontent-ela-c27="" class="kt-user-card-v2">
+                                                    <div _ngcontent-ela-c27="" class="kt-user-card-v2__pic">
+                                                        <div class="preview" [ngfBackground]="file"></div>
+                                                    </div>
+                                                    <div _ngcontent-ela-c27="" class="kt-user-card-v2__details">
+                                                        <span _ngcontent-ela-c27="" class="kt-user-card-v2__name">{{ file.name }}</span>
+                                                        <span _ngcontent-ela-c27="" class="kt-user-card-v2__email">{{ file.type  }}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="kt-datatable__cell">
+                                                {{ file.size/1024/1024 | number:'.2' }} MB
+                                            </td>
+                                            <td class="kt-datatable__cell">
+                                                <a class="btn btn-sm btn-label-danger btn-icon btn-icon-md" (click)="files.splice(i, 1)">
+                                                    <i class="la la-trash text-danger"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngIf="files && files.length">
+                                    <br />
+                                    <button type="button" class="btn btn-brand" (click)="updloadStatement()">
+                                        <i class="la la-files-o"></i>
+                                        Upload Statement(s)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="bankName">
+                    <div class="col-md-12 mt-3">
+                        <label>Files ({{bankStatementList?.length}} files)</label>
+                        <div class="dropzone dropzone-multi">
+                            <div class="dropzone-items" *ngFor="let row of bankStatementList; let i = index;">
+                                <ng-container *ngFor="let issue of row.doc_issues; let j = index;">
+                                    <div *ngIf="issue.status !== 'approved'"
+                                        class="alert fade show mb-2"
+                                        [ngClass]="{ 'alert-outline-danger': (issue.status === 'pending'), 'alert-outline-warning': (issue.status === 'uploaded') }"
+                                        role="alert">
+                                        <div class="alert-text">{{ issue.remark }}</div>
+                                        <div class="alert-close">
+                                            <button type="button"
+                                                class="btn btn-sm btn-icon btn-elevate-hover"
+                                                [ngClass]="{ 'btn-danger': (issue.status === 'pending'), 'btn-warning': (issue.status === 'uploaded') }"
+                                                data-dismiss="alert"
+                                                aria-label="Close"
+                                                [ngbTooltip]="issue.status === 'uploaded' ? 'Approve Uploaded Document' : 'Mark as Fixed'"
+                                                (click)="updateIssue(issue, i, j)">
+                                                <i class="la la-check"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <div class="dropzone-item dz-processing dz-image-preview">
+                                    <div class="dropzone-file">
+                                        <div class="dropzone-filename" title="some_image_file_name.jpg">
+                                            <a data-dz-name="" href="javascript:;" (click)="openStatement(row.file)" class="anchor-link"
+                                                target="_blank">Bank Statement {{i+1}}</a>
+                                            <div *ngIf="row.is_password_protected">
+                                                <small>
+                                                    <span>{{showPassword == i ? row.password : (row.password | replace)}}</span>
+                                                </small> &nbsp;
+                                                <a (click)="toggleShowPassword(i)" class="text-danger">{{ showPassword == i ? 'Hide Password' : 'Show Password' }}</a>
+                                            </div>
+                                        </div>
+                                        <div class="dropzone-error" data-dz-errormessage=""></div>
+                                    </div>
+                                    <div class="">
+                                        <div class="dropdown" ngbDropdown>
+                                            <button
+                                                class="btn btn-hover-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle"
+                                                ngbDropdownToggle>
+                                                <i class="flaticon-more-1"></i>
+                                            </button>
+                                            <div aria-labelledby="dropdownConfig"
+                                                class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                                                <a class="dropdown-item" (click)="issueForm(row.update_url, i)"><i class="la la-edit"></i> Raise Issue</a>
+                                                <a class="dropdown-item" (click)="delete(row.update_url, 'Statement')"><i class="la la-trash"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

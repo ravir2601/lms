@@ -1,0 +1,19 @@
+<div class="row" *ngIf="data">
+    <div class="col-md-6">
+        <kt-check-list [data]="data.onboarding_call_checks"></kt-check-list>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <kt-primary-nach [businessId]="data.business.id"></kt-primary-nach>
+            </div>
+            <div class="col-md-6">
+                <kt-call-recording></kt-call-recording>
+            </div>
+        </div>
+        <kt-contacts *ngFor="let row of data.business.persons"
+            [fluid]="false"
+            [personUrl]="row.person.update_url" [type]="'mobile'" 
+            [title]="row.person.full_name + '\'s Mobile ' + (row.is_primary ? '(Primary Applicant)' : '(Co-Applicant)')"></kt-contacts>
+    </div>
+</div>

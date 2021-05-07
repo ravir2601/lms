@@ -1,0 +1,26 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Check List
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <div class="kt-checkbox-list">
+                        <div *ngFor="let row of data">
+                            <label class="kt-checkbox">
+                                <input type="checkbox" value="{{ row.is_done }}" [(ngModel)]="row.is_done" (change)="updateOnboardingCallCheck(row)">{{row.subject}}
+                                <span></span>
+                            </label>
+                            <div class="kt-separator kt-separator--space-lg kt-separator--border-dashed"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

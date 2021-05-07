@@ -1,0 +1,76 @@
+<div class="row" *ngIf="businessDetails">
+    <div class="col-md-6">
+        <kt-documents #documents [key]="'business_doc_types'" [docNamesKeys]="{address_proof: 'business_address_doc_names', id_proof: 'business_doc_names'}" [rootUrl]="businessDetails.update_url"></kt-documents>
+    </div>
+    <div class="col-md-6">
+        <kt-business-basic-form [businessId]="businessId"></kt-business-basic-form>
+        <div class="row">
+            <ng-container *ngFor="let doc of docs; let i = index;">
+                <div [ngClass]="((i === docs.length - 1) && (docs.length % 2 !== 0)) ? 'col-md-12' : 'col-md-6'" >
+                    <kt-proof-numbers-form [doc]="doc"></kt-proof-numbers-form>
+                </div>
+            </ng-container>
+        </div>
+        <div *ngFor="let address of addresses.registered_address">
+            <kt-address
+                (saved)="onSaveAddress()"
+                [address]="address"
+                [addressType]="address.address_type"
+                [businessId]="businessId"
+                [rootUrl]="businessDetails.update_url"
+                [residingSince]="false"
+                [isCurrentAddress]="false"
+                [title]="'Registered Address'"></kt-address>
+        </div>
+        <div *ngIf="newAddress.registered_address">
+            <kt-address
+                (saved)="onSaveAddress()"
+                [addressType]="'registered_address'"
+                [rootUrl]="businessDetails.update_url"
+                [residingSince]="false"
+                [isCurrentAddress]="false"
+                [title]="'Registered Address'"></kt-address>
+        </div>
+        <div class="flex-centered mb-4">
+            <button (click)="addAddress('registered_address')" class="btn btn-label-info">
+            <i class="flaticon2-plus"></i>
+            Add New Registered Address
+            </button>
+        </div>
+        <div *ngFor="let address of addresses.mailing_address">
+            <kt-address
+                (saved)="onSaveAddress()"
+                [address]="address"
+                [addressType]="address.address_type"
+                [same]="'is_same_as_registered'"
+                [residingSince]="false"
+                [isCurrentAddress]="false"
+                [rootUrl]="businessDetails.update_url"
+                [title]="'Shop/Mailing Address'"></kt-address>
+        </div>
+        <div *ngIf="newAddress.mailing_address">
+            <kt-address
+                (saved)="onSaveAddress()"
+                [addressType]="'mailing_address'"
+                [same]="'is_same_as_registered'"
+                [residingSince]="false"
+                [isCurrentAddress]="false"
+                [rootUrl]="businessDetails.update_url"
+                [title]="'Shop/Mailing Address'"></kt-address>
+        </div>
+        <div class="flex-centered mb-4">
+            <button (click)="addAddress('mailing_address')" class="btn btn-label-info">
+            <i class="flaticon2-plus"></i>
+            Add New Shop/Mailing Address
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <kt-references [limit]="1" [rootUrl]="businessDetails.update_url" [type]="'nominee'" [relationsKey]="'relation_types'" [title]="'Nominee'" [fluid]="true" [formTitle]="'Add Nominee'"></kt-references>
+            </div>
+            <div class="col-md-6">
+                <kt-references [rootUrl]="businessDetails.update_url" [type]="'reference'" [relationsKey]="'relation_types'" [title]="'Business Reference'" [fluid]="true" [formTitle]="'Add Business Reference'"></kt-references>
+            </div>
+        </div>
+    </div>
+</div>

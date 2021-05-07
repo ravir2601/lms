@@ -1,0 +1,84 @@
+<div class="kt-container">
+    <div class="row">
+        <div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+                <div #listView class="kt-portlet__body">
+                    <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded"
+                         id="kt_datatable_latest_orders">
+                        <table class="kt-datatable__table" style="display: block;">
+                            <thead class="kt-datatable__head">
+                            <tr class="kt-datatable__row" style="left: 0px;">
+                                <th class="kt-datatable__cell" data-autohide-disabled="false">
+                                    <span style="width: 50px;">S.no </span></th>
+                                <th class="kt-datatable__cell" data-autohide-disabled="false">
+                                    <span style="width: 120px;"> Date/Time </span></th>
+                                <th class="kt-datatable__cell" data-autohide-disabled="false">
+                                    <span style="width: 120px;">App Name </span></th>
+                                <th class="kt-datatable__cell" data-autohide-disabled="false">
+                                    <span style="width: 80px;"> Version </span></th>
+                                <th class="kt-datatable__cell" data-autohide-disabled="false">
+                                    <span style="width: 80px;">Platform </span></th>
+                                <th class="kt-datatable__cell" data-autohide-disabled="false">
+                                    <span style="width: 100px;"> Action </span></th>
+                                <th class="kt-datatable__cell" data-autohide-disabled="false">
+                                    <span style="width: 250px;"> Lat/Long </span></th>
+                                <th class="kt-datatable__cell" data-autohide-disabled="false">
+                                    <span style="width: 80px;"> Vendor </span></th>
+                                <th class="kt-datatable__cell" data-autohide-disabled="false">
+                                    <span style="width: 80px;">Model </span></th>
+                                <th class="kt-datatable__cell" data-autohide-disabled="false"><span style="width: 80px;">OS</span></th>
+                            </tr>
+                            </thead>
+
+                            <tbody class="kt-datatable__body ps ps--active-y">
+                            <ng-container *ngFor="let user of list; let i = index;">
+                                <tr class="kt-datatable__row">
+                                    <td class="kt-datatable__cell">
+                                        <span style="width: 50px;"> {{ (i + (paginator.pageSize * paginator.pageIndex)) + 1 }}</span>
+                                    </td>
+                                    <td class="kt-datatable__cell">
+                                        <span style="width: 120px;"> <a class="anchor-link">{{ user.datetime | date:'hh:mm a, d MMM'}}</a> </span>
+                                    </td>
+                                    <td class="kt-datatable__cell">
+                                        <span style="width: 120px;"> {{ user.app_name | constant }} </span>
+                                    </td>
+                                    <td class="kt-datatable__cell">
+                                        <span style="width: 80px;"> {{ user.version }} </span>
+                                    </td>
+                                    <td class="kt-datatable__cell">
+                                        <span style="width: 80px;"> {{ user.platform}} </span>
+                                    </td>
+                                    <td class="kt-datatable__cell">
+                                        <span style="width: 100px;"> {{ user.action | constant}} </span>
+                                    </td>
+                                    <td class="kt-datatable__cell">
+                                       <span style="width: 250px;">  <a class="anchor-link" (click)="openMap(user)">
+                                            Show lat and long on map (see google)
+                                       </a> </span>
+                                    </td>
+                                    <td class="kt-datatable__cell">
+                                        <span style="width: 80px;"> {{ user.vendor }} </span>
+                                    </td>
+                                    <td class="kt-datatable__cell">
+                                        <span style="width: 80px;"> {{ user.model }} </span>
+                                    </td>
+                                    <td class="kt-datatable__cell">
+                                        <span style="width: 80px;"> {{ user.os }} </span>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            <div
+                                [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--sm kt-spinner--brand kt-spinner--right': loadingSearchData}"></div>
+                            </tbody>
+                        </table>
+                        <div [hidden]="listData?.count === 0"
+                             class="mat-table__bottom mat-table__bottom--padding kt-datatable__pager kt-datatable--paging-loaded">
+                            <mat-paginator #paginator (page)="paginate($event)" [length]="listData?.count"
+                                           [pageSizeOptions]="[15, 30, 50]"
+                                           [pageSize]="15" [showFirstLastButtons]="true"></mat-paginator>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>

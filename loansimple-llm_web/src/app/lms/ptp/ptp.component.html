@@ -1,0 +1,185 @@
+<div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-toolbar">
+            <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line nav-tabs-line-right nav-tabs-line-brand"
+                role="tablist">
+                <li class="nav-item" (click)="currentApplicationTab('pending')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === 'pending'}">
+                        Pending
+                        &nbsp; <span
+                            class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.pending}}</span>
+                    </a>
+                </li>
+                <li class="nav-item" (click)="currentApplicationTab('broken')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === 'broken'}">
+                        Broken
+                        &nbsp; <span
+                            class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.broken}}</span>
+                    </a>
+                </li>
+                <li class="nav-item" (click)="currentApplicationTab('accepted')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === 'accepted'}">
+                        Accepted &nbsp;
+                        <span class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.accepted}}</span>
+                    </a>
+                </li>
+                <li class="nav-item" (click)="currentApplicationTab('all')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === 'all'}">
+                        All
+                        &nbsp; <span
+                            class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.all}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact">
+                        <div class="kt-quick-search__form">
+                            <div class="input-group border-bottom-gray">
+                                <div class="input-group-prepend"><span class="input-group-text"><i
+                                    class="flaticon2-search-1"></i></span></div>
+                                <input #searchField (keyup.enter)="search(searchField.value)"
+                                       class="form-control kt-quick-search__input" placeholder="Search..."
+                                       type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div #listView class="kt-portlet__body">
+        <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded"
+            id="kt_datatable_latest_orders">
+            <table class="kt-datatable__table" style="display: block;overflow: scroll;">
+                <thead class="kt-datatable__head">
+                    <tr class="kt-datatable__row" style="left: 0px;">
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-30">S.No</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-80">Loan ID</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-120">Business</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-80">Amount</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-100">Repayment</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-120">Right Person Contact</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-80">Payment Mode</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-80">Date</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-100">Field Visit Detail</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-80">Created At</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-60">Status</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest wp-80">Remark</span>
+                        </th>
+                        <th class="kt-datatable__cell text-right">
+                            <span class="kt-font-boldest wp-60">Action</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="kt-datatable__body ps--active-y">
+                    <ng-container *ngFor="let data of listData?.results; let i = index;">
+                        <tr class="kt-datatable__row">
+                            <td class="kt-datatable__cell cursor-pointer">
+                                <span style="width: 30px;">{{ (i + (paginator.pageSize * paginator.pageIndex)) + 1 }}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-80">
+                                    <a class="kt-font-bold">{{data.loan_account?.loan_account_id}} &nbsp;</a>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-120"> {{data.loan_account?.business.name}} </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-80"> {{data.amount}} </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-100">
+                                    <a [routerLink]="'/lms/loan-accounts/' + data.loan_account.id + '/repayments'"> {{data.repayment?.txn_id}} </a>
+                                    <span class="font-s12">{{data.repayment?.status | constant}}</span>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-120"> {{data.right_person_contact}} </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-80"> {{data.payment_mode | constant}} </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-80"> {{data.date}} </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-100">
+                                    <button *ngIf="data.repayment?.field_visit && data.repayment?.field_visit.is_visit_done" class="btn btn-label-primary btn-sm" type="button" (click)="fieldVisitDetail(data.repayment.field_visit)">
+                                        Visit Done
+                                    </button>
+                                    <button *ngIf="data.repayment?.field_visit && !data.repayment?.field_visit.is_visit_done" class="btn btn-label-danger btn-sm" type="button" (click)="fieldVisitDetail(data.repayment.field_visit)">
+                                        Not Visit Done
+                                    </button>
+                                </span>
+                                 <span class="kt-font-bold wp-100 text-center" *ngIf="!data.repayment?.field_visit"> - </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-80">{{data.created_at | date}}</span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                 <span
+                                     class="wp-60 btn btn-bold btn-sm btn-font-sm btn-label-{{data.status | class }}">
+                                        {{ data.status | constant}}
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-80">
+                                    <span>{{data.reason}}</span>
+                                    <span class="text-center" *ngIf="!data.reason"> - </span>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span class="kt-font-bold wp-60 text-right">
+                                    <button *ngIf="data.status == 'pending'" type="button" (click)="deleteEntity('PTP', data)" class="btn btn-sm btn-danger">Delete</button>
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="listData?.count === 0">
+                        <tr class="kt-datatable__row">
+                            <td class="kt-datatable__cell">
+                                <span class="no-data"> No data found </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+            <div style="margin-top: 20px;"
+                [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--md kt-spinner--brand kt-spinner--center': loadingSearchData}"></div>
+            <div [hidden]="listData?.count === 0"
+                 class="mat-table__bottom mat-table__bottom--padding kt-datatable__pager kt-datatable--paging-loaded">
+                <mat-paginator #paginator (page)="paginate($event)" [length]="listData?.count"
+                               [pageSizeOptions]="[15, 30, 50]"
+                               [pageSize]="15" [showFirstLastButtons]="true"></mat-paginator>
+            </div>
+        </div>
+        <!--end: Datatable -->
+    </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="row" *ngIf="businessPersons">
+    <div class="col-md-6">
+        <kt-documents 
+            #documents 
+            (saved)="onSaveDocument($event)"
+            [extra]="docExtraMap" 
+            [key]="'person_doc_types'" 
+            [docNamesKeys]="{address_proof: 'person_address_doc_names'}" 
+            [rootUrl]="businessPerson.person.update_url"></kt-documents>
+    </div>
+    <div class="col-md-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-11">
+                        <select class="form-control" name="persons" [(ngModel)]="businessPerson" (ngModelChange)="getPersonData()">
+                            <option *ngFor="let row of businessPersons" [ngValue]="row">
+                                {{ row.person.full_name }} - {{ row.is_primary ? 'Primary Applicant' : 'Co-Applicant' }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 text-right">
+                        <button (click)="coApplicantForm()" class="btn btn-sm btn-outline-brand btn-elevate btn-circle btn-icon" type="button"><i
+                        class="la la-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <kt-person-basic-form #basicForm 
+            [extra]="extra" 
+            [businessPerson]="businessPerson"
+            [personUrl]="businessPerson.person.update_url"></kt-person-basic-form>
+        <div class="row">
+            <ng-container *ngFor="let doc of docs; let i = index;">
+                <div [ngClass]="((i === docs.length - 1) && (docs.length % 2 !== 0)) ? 'col-md-12' : 'col-md-6'" >
+                    <kt-proof-numbers-form [doc]="doc" [extra]="extra[extraKeys[doc.doc_type]]"></kt-proof-numbers-form>
+                </div>
+            </ng-container>
+        </div>
+        <div class="kt-portlet kt-portlet--skin-solid kt-portlet-- kt-bg-brand" *ngIf="suggestedAddress && suggestedAddress.address_line && !suggestedAddressExists">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Suggested Address <small>Source: Aadhaar</small>
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div>{{ suggestedAddress.address_line }}</div>
+                        <div>
+                            {{ suggestedAddress.locality }}
+                            {{ suggestedAddress.city }}
+                            {{ suggestedAddress.state }}
+                            {{ suggestedAddress.pincode }}
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <div class="dropdown" container="body" ngbDropdown>
+                            <button class="btn btn-outline-light dropdown-toggle" ngbDropdownToggle>Add this Address</button>
+                            <div aria-labelledby="dropdownConfig" class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                                <button class="dropdown-item" (click)="saveSuggestedAddress('mailing_address')">Save as Residence Address</button>
+                                <button class="dropdown-item" (click)="saveSuggestedAddress('permanent_address')">Save as Permanent Address</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="addresses">
+            <div *ngFor="let address of addresses.permanent_address">
+                <kt-address (saved)="onSaveAddress()" [address]="address" [addressType]="address.address_type"
+                    [residingSince]="true" [isCurrentAddress]="true" [businessId]="businessId"
+                    [rootUrl]="businessPerson.person.update_url" [title]="'Permanent Address'"></kt-address>
+            </div>
+        </div>
+        <div *ngIf="newAddress && newAddress.permanent_address">
+            <kt-address
+                (saved)="onSaveAddress()"
+                [addressType]="'permanent_address'"
+                [residingSince]="true"
+                [isCurrentAddress]="true"
+                [rootUrl]="businessPerson.person.update_url"
+                [title]="'Permanent Address'"></kt-address>
+        </div>
+        <div class="flex-centered mb-4">
+            <button (click)="addAddress('permanent_address')" class="btn btn-label-info">
+            <i class="flaticon2-plus"></i>
+            Add New Permanent Address
+            </button>
+        </div>
+        <div *ngIf="addresses">
+            <div *ngFor="let address of addresses.mailing_address">
+                <kt-address (saved)="onSaveAddress()" [address]="address" [addressType]="address.address_type"
+                    [same]="'is_same_as_permanent'" [residingSince]="true" [isCurrentAddress]="true"
+                    [rootUrl]="businessPerson.person.update_url" [title]="'Residence Address'"></kt-address>
+            </div>
+        </div>
+        <div *ngIf="newAddress && newAddress.mailing_address">
+            <kt-address
+                (saved)="onSaveAddress()"
+                [addressType]="'mailing_address'"
+                [same]="'is_same_as_permanent'"
+                [residingSince]="true"
+                [isCurrentAddress]="true"
+                [rootUrl]="businessPerson.person.update_url"
+                [title]="'Residence/Mailing Address'"></kt-address>
+        </div>
+        <div class="flex-centered mb-4">
+            <button (click)="addAddress('mailing_address')" class="btn btn-label-info">
+            <i class="flaticon2-plus"></i>
+            Add New Residence Address
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <kt-contacts [personUrl]="businessPerson.person.update_url" [type]="'mobile'" [title]="'Mobile'"></kt-contacts>
+            </div>
+            <div class="col-md-6">
+                <kt-contacts [personUrl]="businessPerson.person.update_url" [type]="'email'" [title]="'Email'"></kt-contacts>
+            </div>
+        </div>
+        <kt-references [limit]="1" [extra]="extra['person_pan_father_name_match']" [rootUrl]="businessPerson.person.update_url" [relationsKey]="'father_or_spouse_relation_types'" [type]="'father_or_spouse'" [title]="'Father/Spouse'" [formTitle]="' Add Father/Spouse Details'"></kt-references>
+        <div class="row">
+            <div class="col-md-6">
+                <kt-references [limit]="1" [extra]="extra['person_pan_father_name_match']" [rootUrl]="businessPerson.person.update_url" [relationsKey]="'relation_types'" [type]="'emergency_contact'" [title]="'Emergency Contacts'" [formTitle]="'Add Emergency Contact'"></kt-references>
+            </div>
+            <div class="col-md-6">
+                <kt-references extra="extra['person_pan_father_name_match']" [rootUrl]="businessPerson.person.update_url" [relationsKey]="'relation_types'" [type]="'reference'" [title]="'Personal References'" [formTitle]="'Add Personal Reference'"></kt-references>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Mark PDC Credited</h4>
+        <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label>
+                        Cheque No.
+                        <a matTooltip="Cheque link" *ngIf="repaymentData.pdc.file !== null" target="_blank" class="btn btn-success btn-icon btn-sm"
+                           href="{{repaymentData.pdc.file}}"> <i class="fa fa-file-alt"></i></a>
+                    </label>
+                    <input type="text" class="form-control" [(ngModel)]="chequeNo" name="chequeNo" disabled>
+                </div>
+                <div class="col">
+                    <label>Amount(Rs.)</label>
+                    <input type="text" class="form-control" placeholder="0.00" [(ngModel)]="amount" name="amount">
+                </div>
+
+                <div class="col">
+                    <div class="form-group">
+                        <label>Settlement Date :</label>
+                        <div class="form-inline">
+                            <div class="input-group">
+                                <input [matDatepicker]="picker" placeholder="Select Date" class="form-control datePicker"
+                                       [(ngModel)]="date">
+                                <div class="input-group-append">
+                                    <button class="btn btn-icon btn-primary" (click)="picker.open()" type="button">
+                                        <i class="la la-calendar"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12">
+                    <label>Bounce Reason <sup>Required when cheque is bounced</sup></label>
+                    <textarea class="form-control" [(ngModel)]="bounce_reason" name="comment" rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12">
+                    <label>Comment<sup>*</sup></label>
+                    <textarea class="form-control" [(ngModel)]="comment" name="comment" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <button type="button" class="btn btn-danger btn-block btn-square btn-tall" (click)="save('bounced')">Bounced</button>
+            </div>
+            <div class="col-md">
+                <button type="button" class="btn btn-success btn-block btn-square btn-tall" (click)="save('credited')">Credited</button>
+            </div>
+        </div>
+    </div>
+</div>

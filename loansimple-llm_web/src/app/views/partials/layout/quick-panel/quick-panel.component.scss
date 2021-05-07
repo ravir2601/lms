@@ -1,0 +1,50 @@
+
+::ng-deep {
+ngb-tabset > .nav-tabs {
+        display: none;
+    }
+}
+
+
+::ng-deep .btn.btn-link{
+    background-color: white;
+    width: 100% !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+::ng-deep .btn.btn-link:hover{
+    background-color: rgb(118, 110, 231) !important;
+    width: 100% !important;
+    text-decoration: none;
+}
+
+::ng-deep title{
+    font-weight: bold;
+}
+
+ngb-tabset ul.nav-tabs li a.nav-link.active {
+    background-color: transparent;
+  }
+
+  ngb-tabset ul.nav-tabs li a.nav-link {
+    background-color: #eeeeee;
+  }
+
+
+::ng-deep .mat-drawer-backdrop {
+    position: fixed !important;
+    background-color: rgba(0,0,0,0.2) !important;
+}
+
+.mat-drawer-container {
+    position: inherit !important;
+}
+
+::ng-deep .mat-drawer {
+    position: fixed !important;
+    top: 60px !important;
+}
+
+::ng-deep .mat-drawer-inner-container {
+    overflow: hidden !important;
+}

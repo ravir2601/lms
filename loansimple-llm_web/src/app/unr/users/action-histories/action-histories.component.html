@@ -1,0 +1,52 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width: 30px;">S.no</th>
+            <th>Date/Time</th>
+            <th>App Name</th>
+            <th>Version</th>
+            <th>Platform</th>
+            <th>Action</th>
+            <th>Lat/Long</th>
+            <th>Vendor</th>
+            <th>Model</th>
+            <th>OS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngIf="actionHistoriesList?.count > 0">
+            <tr *ngFor="let d of actionHistoriesList?.results;let i = index;">
+                <td style="width: 30px;">{{ (i + (pageNumber))+ 1 }}</td>
+                <td>{{d.datetime | date:'hh:mm a, d MMM'}}</td>
+                <td>{{d.app_name | constant}}</td>
+                <td>{{d.version}}</td>
+                <td>
+                    {{d.platform | constant}}
+                </td>
+                <td>
+                    {{d.action | constant}}
+                </td>
+                <td>
+                    <a class="anchor-link" (click)="openMap(d)">Show lat and
+                        long on map (see google)
+                    </a>
+                </td>
+                <td>{{d.vendor}}</td>
+                <td>
+                    {{d.model}}
+                </td>
+                <td> {{d.os}}
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+
+    <!-- Message for empty data  -->
+
+</table>
+<div class="mat-table__message text-center" *ngIf="actionHistoriesList?.count === 0">
+    <h3>No records found</h3>
+</div>
+<div class="mat-table__message text-center" *ngIf="!actionHistoriesList">
+    <h3>Loading...</h3>
+</div>

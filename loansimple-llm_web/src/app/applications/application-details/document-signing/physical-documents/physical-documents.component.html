@@ -1,0 +1,59 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Documents
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <ng-container *ngFor="let row of documents">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <strong>{{ row['title'] }}</strong>
+                </div>
+                <div class="col-md-2">
+                    <a *ngIf="row.generated" target="_blank" href=""> <i class="fa fa-file-alt"></i></a>
+                    &nbsp;&nbsp;
+                    <a *ngIf="row.signed" target="_blank" href=""><i class="fa fa-signature"></i> </a>
+                </div>
+                <div class="col-md-5">
+                    <div *ngIf="!verification">
+                        <div class="input-group" *ngIf="row.upload">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                <label class="custom-file-label" for="inputGroupFile02">Select File</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-success btn-icon">
+                                    <i class="la la-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-group" *ngIf="row.date">
+                            <input type="" class="form-control">
+                            <div class="input-group-append">
+                                <button class="btn btn-success btn-icon">
+                                    <i class="la la-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="verification">
+                        <label class="kt-checkbox">
+                            <input type="checkbox"> Is Verified?
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-1 text-right" *ngIf="!verification">
+                    <button class="btn btn-brand btn-circle btn-elevate btn-icon btn-sm btn-icon-md"
+                        ngbTooltip="Regenerate">
+                        <i class="la la-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="kt-separator kt-separator--space-lg kt-separator--border-dashed"></div>
+        </ng-container>
+    </div>
+</div>

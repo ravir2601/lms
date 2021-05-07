@@ -1,0 +1,57 @@
+<div class="lead-form">
+    <div class="modal-header">
+        <h4 class="modal-title">Add Log</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form name="logForm" (ngSubmit)="logForm.form.valid && onSubmit()" #logForm="ngForm" novalidate>
+        <div class="modal-body">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="text-muted">Log Type</label>
+                        <select name="call_log_type" class="form-control" [(ngModel)]="data.call_log_type" required>
+                            <option value="">Select Log Type</option>
+                            <option value="outgoing_call">Outgoing Call</option>
+                            <option value="incoming_call">Incoming Call</option>
+                            <option value="note">Note</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6"
+                    *ngIf="data.call_log_type === 'outgoing_call' || data.call_log_type === 'incoming_call'">
+                    <div class="form-group">
+                        <label class="text-muted">Call Outcome</label>
+                        <select name="call_log_outcome" class="form-control" [(ngModel)]="data.call_log_outcome"
+                            required>
+                            <option value="no_answer">No Answer</option>
+                            <option value="busy">Busy</option>
+                            <option value="switched_off">Switched Off</option>
+                            <option value="wrong_number">Wrong Number</option>
+                            <option value="connected">Connected</option>
+                            <option value="received">Received</option>
+                            <option value="product_discussed">Product Discussed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="text-muted">Discussion:</label>
+                        <textarea class="form-control" #text name="text" [(ngModel)]="data.text" rows="3"
+                            maxlength="320" required></textarea>
+                        <div *ngIf="logForm.submitted && text.errors?.required" class="form-text text-danger">
+                            Please enter text
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="dismiss()" class="btn btn-secondary" type="button">Cancel</button>
+            <button [disabled]="logForm.invalid" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>

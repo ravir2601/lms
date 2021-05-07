@@ -1,0 +1,95 @@
+<div class="kt-portlet kt-portlet--tabs">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-toolbar">
+            <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-success nav-tabs-line-2x" role="tablist">
+                <ng-container *ngFor="let row of nav">
+                    <li class="nav-item" *ngIf="statusIndex >= row.step">
+                        <a [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']" [routerLink]="row.link"
+                            class="nav-link">
+                            <i class="la" [ngClass]="[row.icon]"></i> {{ row.text }}
+                        </a>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="kt-subheader kt-grid__item" id="kt_subheader" *ngIf="data">
+    <div class="kt-container">
+        <div class="kt-subheader__main">
+            <h3 class="kt-subheader__title">
+                {{ data.application_id }}
+            </h3>
+            <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+            <div class="kt-subheader__group" id="kt_subheader_search">
+                <span class="kt-subheader__desc" id="kt_subheader_total">
+                    {{ data.business.name }}
+                </span>
+            </div>
+            <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+            <div class="kt-subheader__group" id="kt_subheader_search">
+                <span class="kt-subheader__desc" id="kt_subheader_total">
+                    {{ data.business.primary_person.person.full_name }}
+                </span>
+            </div>
+        </div>
+        <div class="kt-subheader__toolbar">
+            <ng-container *ngIf="states[statusIndex]">
+                <ng-container *ngFor="let arr of states[statusIndex].nav; let i = index;">
+                    <ng-container *ngFor="let item of arr.actions">
+                        <button class="btn" [ngClass]="arr.class" (click)="saveState(item.key, item.name)">{{ item.name }}</button>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+            <div class="dropdown" container="body" ngbDropdown>
+                <button class="btn btn-elevate btn-icon btn-danger" ngbDropdownToggle>
+                    <i class="kt-text-brand fa fa-angle-down"></i>
+                </button>
+                <div aria-labelledby="dropdownConfig" class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                    <ng-container *ngFor="let item of negativeStates">
+                        <a class="dropdown-item text-danger" (click)="saveState(item.key, item.name)">{{ item.name }}</a>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kt-container-alt">
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <ng-container *ngFor="let row of states; let i = index;">
+                <div class="stepwizard-step" *ngIf="i < statusIndex">
+                    <button type="button" class="btn btn-sm btn-success btn-icon btn-circle">
+                        <i class="fa fa-check"></i>
+                    </button>
+                    <p>{{ row.name }}</p>
+                </div>
+                <div class="stepwizard-step" *ngIf="i > statusIndex"
+                    [ngClass]="'inactive inactive_' + (i - statusIndex)">
+                    <button type="button" class="btn btn-sm btn-icon btn-circle cursor-default btn-outline-dark">
+                        <i class="fa" [ngClass]="row.icon"></i>
+                    </button>
+                    <p>{{ row.name }}</p>
+                </div>
+                <div class="stepwizard-step" *ngIf="i === statusIndex">
+                    <div class="dropdown" container="body" ngbDropdown>
+                        <button class="btn btn-sm btn-elevate btn-icon btn-circle btn-brand" ngbDropdownToggle>
+                            <i class="kt-text-brand fa" [ngClass]="row.icon"></i>
+                        </button>
+                        <div aria-labelledby="dropdownConfig" class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                            <ng-container *ngFor="let arr of row.nav; let i = index;">
+                                <ng-container *ngFor="let item of arr.actions">
+                                    <a class="dropdown-item" [ngClass]="arr.class"
+                                        (click)="saveState(item.key)">{{ item.name }}</a>
+                                </ng-container>
+                                <div class="dropdown-divider" *ngIf="i !== row.nav.length - 1"></div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <p>{{ row.name }}</p>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

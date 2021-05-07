@@ -1,0 +1,107 @@
+<div class="form-container">
+        <div class="modal-header">
+            <h4 class="modal-title">Promise To Pay</h4>
+            <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-muted">PTP Date</label>
+                                <div class="form-inline">
+                                    <div class="input-group example-full-width">
+                                        <input [matDatepicker]="picker" placeholder="Select Date" class="form-control datePicker"
+                                               [(ngModel)]="ptpData.date">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-icon btn-primary" (click)="picker.open()" type="button">
+                                                <i class="la la-calendar"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-muted">PTP Mode</label>
+                                <select class="form-control sl-h-30" [(ngModel)]="ptpData.payment_mode">
+                                    <option value="{{mode.value}}" *ngFor="let mode  of lmsConstant.repayment_modes">{{mode.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div *ngIf="ptpData.payment_mode != 'pdc'" class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-muted">DPD Amount</label><br/>
+                                <mat-slider class="form-control border-0" [min]="0" [max]="max" [thumbLabel]="true"
+                                 [step]="step" (change)="changeDpdAmount($event)"
+                                >
+                            </mat-slider>
+                            <div class="col-xs-12 clearfix">
+                                <label class="float-left">{{selectedDpdValue}}</label>
+                                <label class="float-right">{{max}}</label>
+                            </div>
+                            </div>
+                        </div>
+                        <div *ngIf="ptpData.payment_mode != 'pdc'" class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-muted">PTP Amount</label>
+                                <input type="text" class="form-control" [(ngModel)]="ptpData.amount">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-muted">Right Person Contact</label>
+                                <select class="form-control sl-h-30" [(ngModel)]="ptpData.right_person_contact">
+                                    <option value="{{person.name}}" *ngFor="let person  of rpcConstant">{{person.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="text-muted">Remark</label>
+                        <textarea type="text" class="form-control" rows="4" placeholder="Add Comment..."
+                            [(ngModel)]="ptpData.reason"></textarea>
+                    </div>
+                </div>
+                <div *ngIf="ptpData.payment_mode == 'pdc'" class="col-md-12 form-group">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Cheque No.</th>
+                            <th>Link</th>
+                            <th>Mark</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let d of pendingPDCS?.active_pdcs">
+                            <td>{{d.date | date}}</td>
+                            <td>{{d.amount | currency:'&#8377;'}}</td>
+                            <td>{{d.cheque_no}}</td>
+                            <td><a *ngIf="d.file" (click)="openAttachment(d.file)" class="anchor-link">Link</a></td>
+                            <td><input type="radio" name="pdc" [(ngModel)]="d.is_selected" [value]="true"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12" *ngIf="pendingPDCS.length == 0">
+                        <div><h5 class="text-danger text-center">No data found</h5></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-brand btn-block btn-square btn-tall" type="button" (click)="submitRequest()">Submit
+        </button>
+    </div>

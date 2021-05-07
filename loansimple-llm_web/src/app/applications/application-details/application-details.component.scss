@@ -1,0 +1,96 @@
+.stepwizard-step p {
+    margin-top: 10px;
+}
+.stepwizard-row {
+    display: table-row;
+}
+.stepwizard {
+    display: table;
+    position: relative;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+.stepwizard-step {
+    &.inactive .btn {
+        background: #ffffff;
+    }
+    &.inactive_1, &.inactive_1 * { 
+        color: rgba(0, 0, 0, 0.55);
+        .btn {
+            border-color: rgba(0, 0, 0, 0.55);
+        }
+    }
+    &.inactive_2, &.inactive_2 * { 
+        color: rgba(0, 0, 0, 0.50);
+        .btn {
+            border-color: rgba(0, 0, 0, 0.50);
+        }
+    }
+    &.inactive_3, &.inactive_3 * { 
+        color: rgba(0, 0, 0, 0.45);
+        .btn {
+            border-color: rgba(0, 0, 0, 0.45);
+        }
+    }
+    &.inactive_4, &.inactive_4 * { 
+        color: rgba(0, 0, 0, 0.40);
+        .btn {
+            border-color: rgba(0, 0, 0, 0.40);
+        }
+    }
+    &.inactive_5, &.inactive_5 * { 
+        color: rgba(0, 0, 0, 0.35);
+        .btn {
+            border-color: rgba(0, 0, 0, 0.35);
+        }
+    }
+    &.inactive_6, &.inactive_6 * { 
+        color: rgba(0, 0, 0, 0.30);
+        .btn {
+            border-color: rgba(0, 0, 0, 0.30);
+        }
+    }
+    &.inactive_7, &.inactive_7 * { 
+        color: rgba(0, 0, 0, 0.25);
+        .btn {
+            border-color: rgba(0, 0, 0, 0.25);
+        }
+    }
+    &.inactive_8, &.inactive_8 * { 
+        color: rgba(0, 0, 0, 0.20);
+        .btn {
+            border-color: rgba(0, 0, 0, 0.20);
+        }
+    }
+    &.inactive_9, &.inactive_9 * { 
+        color: rgba(0, 0, 0, 0.15);
+        .btn {
+            border-color: rgba(0, 0, 0, 0.15);
+        }
+    }
+}
+.stepwizard-row:before {
+    top: 15px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    border-bottom: 2px dotted rgba(0, 0, 0, 0.1);
+    z-index: 0;
+}
+.stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+.kt-portlet--tabs {
+    margin-bottom: 0;
+}
+.kt-subheader {
+    margin: 0;
+    .kt-container {
+        width: 100% !important; 
+    }
+}

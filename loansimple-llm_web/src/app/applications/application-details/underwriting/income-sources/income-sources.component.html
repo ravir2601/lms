@@ -1,0 +1,39 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Additional source of Income
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button (click)="openIncomeForm()"
+                    class="btn btn-outline-primary btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="kt-portlet__body" *ngIf="incomeSources?.length == 0">
+            <div class="kt-section__content kt-section__content--solid flex-centered">
+                <h4>
+                    <small class="text-muted">You haven't added any Additional Income Sources</small>
+                </h4>
+            </div>
+        </div>
+        <div class="kt-widget4">
+            <div class="kt-widget4__item" *ngFor="let row of incomeSources">
+                <div>
+                    <strong>{{row.amount }}</strong>
+                    <small class="ml-2 mr-2">
+                        {{ row.type | constant }}
+                    </small>
+                    <a [href]="row.file">{{ row.file }}</a>
+                </div>
+                <a class="kt-widget4__number kt-font-dark">
+                    <span class="mr-3" (click)="openIncomeForm(row)"><i class="la la-edit"></i></span>
+                    <span (click)="delete(row)"><i class="la la-remove"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

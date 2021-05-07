@@ -1,0 +1,38 @@
+<div class="kt-portlet kt-portlet--tabs">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-toolbar">
+            <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-success nav-tabs-line-2x" role="tablist">
+                <li class="nav-item">
+                    <a [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']"
+                       [routerLink]="'overview'" class="nav-link">
+                        <i class="la la-home"></i> Overview
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']"
+                       [routerLink]="'personal-details'" class="nav-link">
+                        <i class="la la-user"></i> Personal
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLinkActive]="['active']" [routerLink]="'business-details'" class="nav-link">
+                        <i class="la la-building"></i>Business
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLinkActive]="['active']" [routerLink]="'photos'" class="nav-link">
+                        <i class="la la-image"></i> Photos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLinkActive]="['active']" [routerLink]="'banking'" class="nav-link">
+                        <i class="la la-money"></i> Banking
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="kt-container">
+    <router-outlet></router-outlet>
+</div>

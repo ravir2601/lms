@@ -1,0 +1,133 @@
+<div class="kt-portlet" #docView>
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <select class="form-control" [(ngModel)]="doc" (ngModelChange)="onDocChange($event)" name="doc" style="min-width: 150px;max-width: 300px;">
+                <option [ngValue]="doc" *ngFor="let doc of docs">{{ doc.display_name }}</option>
+            </select>
+            &nbsp; <kt-ls-badge *ngIf="extra" [extras]="extra[doc.doc_type]"></kt-ls-badge>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button class="btn btn-hover-warning btn-elevate btn-circle btn-icon" type="button" ngbTooltip="Raise Issue" (click)="issueForm()">
+                <i class="la la-warning"></i>
+            </button>&nbsp;
+            <button class="btn btn-hover-info btn-elevate btn-circle btn-icon" type="button" (click)="edit = true" ngbTooltip="Edit Photo">
+                <i class="la la-edit"></i>
+            </button>&nbsp;
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <!-- <div [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--sm kt-spinner--brand kt-spinner--right': loading}"></div> -->
+        <ng-container *ngFor="let issue of doc.doc_issues; let i = index;">
+            <div *ngIf="issue.status !== 'approved'"
+                class="alert fade show mb-2"
+                [ngClass]="{ 'alert-outline-danger': (issue.status === 'pending'), 'alert-outline-warning': (issue.status === 'uploaded') }"
+                role="alert">
+                <div class="alert-text">{{ issue.remark }}</div>
+                <div class="alert-close">
+                    <button type="button"
+                        class="btn btn-sm btn-icon btn-elevate-hover"
+                        [ngClass]="{ 'btn-danger': (issue.status === 'pending'), 'btn-warning': (issue.status === 'uploaded') }"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                        [ngbTooltip]="issue.status === 'uploaded' ? 'Approve Uploaded Document' : 'Mark as Fixed'"
+                        (click)="updateIssue(issue, i)">
+                        <i class="la la-check"></i>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+        <div class="upload-form" *ngIf="!doc.file || edit">
+            <div class="form-group" *ngIf="docNames?.length">
+                <select class="form-control" [(ngModel)]="doc.doc_name" name="doc_name">
+                    <option value="">Select Document Name</option>
+                    <option [ngValue]="docName.value" *ngFor="let docName of docNames">{{ docName.name }}</option>
+                </select>
+            </div>
+            <div class="inline-block">
+                <label ngfDrop
+                    multiple = "5"
+                    [(files)] = "files"
+                    accept = "image/*,application/pdf"
+                    class = "jumbotron text-center ls-drop-zone"
+                    (filesChange)="lastFileAt=getDate();">
+                    <input ngfSelect multiple type="file" [(files)]="files" accept="image/*,application/pdf" (filesChange)="lastFileAt=getDate();"/>
+                    <h4>
+                    Drag & Drop or Click to Upload
+                    <br /><small>You can upload Images & PDF files</small>
+                    </h4>
+                </label>
+            </div>
+            <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded" *ngIf="files && files.length">
+                <table class="kt-d atatable__table ls-drop-zone-files" style="display: block;">
+                    <tbody class="kt-datatable__body ps ps--active-y">
+                        <tr class="kt-datatable__row" *ngFor="let file of files; let i = index;">
+                            <td class="kt-datatable__cell" style="width: 80%;">
+                                <div _ngcontent-ela-c27="" class="kt-user-card-v2">
+                                    <div _ngcontent-ela-c27="" class="kt-user-card-v2__pic">
+                                        <div class="preview" [ngfBackground]="file"></div>
+                                    </div>
+                                    <div _ngcontent-ela-c27="" class="kt-user-card-v2__details">
+                                        <span _ngcontent-ela-c27="" class="kt-user-card-v2__name">{{ file.name }}</span>
+                                        <span _ngcontent-ela-c27="" class="kt-user-card-v2__email">{{ file.type  }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                {{ file.size/1024/1024 | number:'.2' }} MB
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <a class="btn btn-sm btn-label-danger btn-icon btn-icon-md" (click)="files.splice(i, 1)">
+                                    <i class="la la-trash text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="files && files.length">
+                    <br />
+                    <button type="button" class="btn btn-brand" (click)="uploadDoc()">
+                        <i class="la la-files-o"></i>
+                        Upload Document(s)
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="document-preview" *ngIf="doc.file">
+            <h3 *ngIf="doc.doc_name && doc.doc_type !== doc.doc_name">{{ doc.doc_name | constant }}</h3>
+            <iframe height="800px" *ngIf="doc.file.includes('pdf')"
+                [src]="doc.file | safe: 'resourceUrl'"
+                style="border: none;background-color: #fff;" width="100%"></iframe>
+            <img *ngIf="!doc.file.includes('pdf')" [src]="doc.file | safe:'url'" width="100%">
+        </div>
+    </div>
+</div>
+<div class="kt-portlet" *ngIf="doc.doc_histories && doc.doc_histories.length">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h4 class="kt-portlet__head-title">
+                Document History
+            </h4>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="tab-content">
+            <div class="tab-pane active" id="kt_widget6_tab1_content" aria-expanded="true">
+                <div class="kt-notification">
+                    <a [href]="history.file" target="_blank" class="kt-notification__item" *ngFor="let history of doc.doc_histories; let i = index;">
+                        <div class="kt-notification__item-icon">
+                            <i class="la la-file-pdf-o"></i>
+                        </div>
+                        <div class="kt-notification__item-details">
+                            <div class="kt-notification__item-title">
+                                File {{ i + 1 }}
+                            </div>
+                            <div class="kt-notification__item-time">
+                                Uploaded on {{ history.created_at | dateTime }} by {{ history.created_by.full_name }}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

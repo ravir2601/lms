@@ -1,0 +1,68 @@
+<div class="lead-form ls-form-alt">
+    <div class="modal-header">
+        <h4 class="modal-title">Add Task</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="text-muted">Task Type</label>
+                    <select class="form-control">
+                        <option value="">Select Type</option>
+                        <option value="">Call</option>
+                        <option value="">Field Visit</option>
+                        <!--                    <option value="">eSign</option>-->
+                        <!--                    <option value="">eMandate</option>-->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="text-muted">Purpose</label>
+                    <select class="form-control">
+                        <option value="">Select Purpose</option>
+                        <option value="">Document Collection</option>
+                        <option value="">Document Signing</option>
+                        <option value="">eSign</option>
+                        <option value="">eMandate</option>
+                        <option value="">Paper Mandate</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="text-muted">Reminder</label>
+                    <select class="form-control">
+                        <option value="">Never</option>
+                        <option value="">5 minutes before Task</option>
+                        <option value="">30 minutes before Task</option>
+                        <option value="">1 hr before Task</option>
+                        <option value="">at 10 AM in morning</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="text-muted">Due Date & Time</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input (focus)="picker.open()" [matDatepicker]="picker" class="form-control" matInput>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" placeholder="Hours" type="text">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" placeholder="Minutes" type="text" value="00">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="text-muted">Notes</label>
+                    <textarea class="form-control" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button _ngcontent-aym-c27="" class="btn btn-brand btn-block btn-square btn-tall" type="button">Save Task
+    </button>
+</div>

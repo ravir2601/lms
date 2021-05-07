@@ -1,0 +1,75 @@
+<div class="lead-form ls-form-alt">
+    <div class="modal-header">
+        <h4 class="modal-title">Add Reminder</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form name="reminderForm" (ngSubmit)="reminderForm.form.valid && onSubmit()" #reminderForm="ngForm" novalidate>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label class="text-muted">Reminder Date</label>
+
+                <div class="input-group example-full-width">
+                    <input name="currentDate" [matDatepicker]="picker" placeholder="Reminder Date" class="form-control datePicker"
+                        (focus)="picker.open()"
+                        [(ngModel)]="currentDate" #currentDateReminder="ngModel"
+                        [ngClass]="{ 'is-invalid': reminderForm.submitted && currentDateReminder.invalid}" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-icon btn-primary" (click)="picker.open()" type="button">
+                            <i class="la la-calendar"></i>
+                        </button>
+                    </div>
+                </div>
+                <mat-datepicker #picker></mat-datepicker>
+                <div *ngIf="reminderForm.submitted && currentDateReminder.errors?.required" class="form-text text-danger">Please Select date</div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Reminder Time</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="input-group-text" id="basic-addon1">
+                                <i class="la la-minus-circle" (click)="getTimeBefore(15)"></i>
+                            </button>
+                        </div>
+                        <input class="form-control text-center" name="hour" [(ngModel)]="hour" placeholder="Hours" type="number">
+                        <input class="form-control text-center" name="minute" [(ngModel)]="minute" placeholder="Minutes" type="number">
+                        <div class="input-group-append">
+                            <button class="input-group-text" id="basic-addon2">
+                                <i class="la la-plus-circle" (click)="getTimeAfter(15)"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="text-muted">Purpose</label>
+                <textarea class="form-control" name="purpose" [(ngModel)]="data.purpose" rows="3"
+                          [ngClass]="{ 'is-invalid': reminderForm.submitted && purpose.invalid }" #purpose required></textarea>
+                <div *ngIf="reminderForm.submitted && purpose.errors?.required" class="form-text text-danger">Please enter Purpose</div>
+            </div>
+<!--            <div class="col-md-12 mt-4">-->
+<!--                <label class="kt-checkbox kt-checkbox&#45;&#45;single kt-checkbox&#45;&#45;all kt-checkbox&#45;&#45;solid">-->
+<!--                    <input type="checkbox">&nbsp;-->
+<!--                    <span></span>-->
+<!--                </label>-->
+<!--                <label class="text-muted">Snooze until done</label>-->
+<!--                <select name="" class="form-control">-->
+<!--                    <option>Select snooze time</option>-->
+<!--                    <option>2 hrs</option>-->
+<!--                    <option>4 hrs</option>-->
+<!--                    <option>1 day</option>-->
+<!--                </select>-->
+<!--            </div>-->
+        </div>
+    </div>
+        <div class="modal-footer">
+            <button (click)="dismiss()" class="btn btn-secondary" type="button">Cancel</button>
+            <button [disabled]="reminderForm.invalid" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>

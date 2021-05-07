@@ -1,0 +1,220 @@
+<div class="kt-portlet kt-portlet--mobile kt-portlet--tabs" *ngIf="badges">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-toolbar">
+            <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand"
+                role="tablist">
+                <li class="nav-item" (click)="changeTab('0_15_dpd')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === '0_15_dpd'}">
+                        0-15 DPD
+                        &nbsp; <span
+                            class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.pos_only}}</span>
+                    </a>
+                </li>
+                <li class="nav-item" (click)="changeTab('15_45_dpd')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === '15_45_dpd'}">
+                        15-45 DPD
+                        &nbsp; <span
+                            class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.nach_only}}</span>
+                    </a>
+                </li>
+                <li class="nav-item" (click)="changeTab('45_dpd')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === '45_dpd'}">
+                        45+ DPD &nbsp; <span
+                            class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.pos_and_nach}}</span>
+                    </a>
+                </li>
+                <li class="nav-item" (click)="changeTab('single_loan')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === 'single_loan'}">
+                        Single Loan &nbsp; <span
+                            class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.single_loan}}</span>
+                    </a>
+                </li>
+                <li class="nav-item" (click)="changeTab('with_topups')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === 'with_topups'}">
+                        With Topups &nbsp; <span
+                            class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.with_topups}}</span>
+                    </a>
+                </li>
+                <li class="nav-item" (click)="changeTab('closed')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === 'closed'}">
+                        Closed
+                        &nbsp; <span
+                            class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.closed}}</span>
+                    </a>
+                </li>
+                <li class="nav-item" (click)="changeTab('all')">
+                    <a class="nav-link" [ngClass]="{'active': currentTab === 'all'}">
+                        All
+                        &nbsp; <span
+                            class="kt-badge kt-badge--unified-default kt-badge--inline kt-badge--pill">{{badges.all}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact d-flex">
+                        <div class="kt-quick-search__form mr-4">
+                            <div class="input-group border-bottom-gray">
+                                <div class="input-group-prepend"><span class="input-group-text"><i
+                                            class="flaticon2-search-1"></i></span></div>
+                                <input #searchField (keyup.enter)="search(searchField.value)"
+                                       class="form-control kt-quick-search__input" placeholder="Search..."
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <a (click)="openFilters()" class="btn btn-default btn-icon-sm">
+                            <i class="la la-filter"></i>
+                        </a>
+                        &nbsp;
+                        <a class="btn btn-default btn-icon-sm" (click)="topupReport()" href="javascript:void(0)">
+                            <i class="la la-download"></i>
+                            Eligible Topup Report
+                        </a>
+                        &nbsp;
+                        <!-- <button class="btn btn-brand btn-elevate btn-icon-sm" (click)="exportLoanAccount()">
+                            <i class="la la-download"></i>
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded"
+            id="kt_datatable_latest_orders">
+            <table class="kt-datatable__table" style="display: block;">
+                <thead class="kt-datatable__head">
+                    <tr class="kt-datatable__row" style="left: 0px;">
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 30px;">S.No</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 100px;">Loan ID / Type</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 120px;">Merchant</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 80px;">Contact No.</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 80px;">CO / TO</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 80px;">Account Manager</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 80px;">Overdue Amount</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 60px;">Days On board</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 80px;">Active PDC/SPSC</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 50px;">NACH Active</span>
+                        </th>
+                        <!-- <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest">DLR Bounce Count</span>
+                        </th> -->
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-boldest" style="width: 80px;">C.DPD</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="kt-datatable__body ps--active-y">
+                    <ng-container *ngFor="let data of list; let i = index;">
+                        <tr class="kt-datatable__row">
+                            <td class="kt-datatable__cell">
+                                <span style="width: 30px;"> {{ (i + (paginator.pageSize * paginator.pageIndex)) + 1 }} </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 100px;">
+                                    <div class="kt-font-bold">
+                                        <a class="kt-font-bold" [routerLink]="data.id">{{data.business.business_id}}
+                                        </a>
+                                    </div>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 120px;">
+                                    <div class="kt-font-bold">{{data.business.name}}</div>
+                                    <small class="text-muted">{{data.business.primary_person.person.full_name}}</small>
+                                 </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 80px;"> {{data.business.primary_person.person.primary_mobile.detail}} </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 80px;">
+                                    <div class="kt-font-bold">
+                                        {{data.business.extra.case_owner.display_name}}
+                                    </div>
+                                    <small class="text-muted">
+                                        {{data.business.extra.territory_owner?.display_name}}
+                                    </small>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 80px;"> {{data.account_manager.display_name}} </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 80px;">{{data.extra.total_outstanding | currency:'INR'}}
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 60px;">
+                                    <label class="label label-primary">{{data.extra.days_onboard}}</label>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 80px;">
+                                    <label *ngIf="data.extra.active_pdcs?.length >= 2"
+                                        class="label label-default">{{data.extra.active_pdcs?.length}}</label>
+                                    <label *ngIf="data.extra.active_pdcs?.length < 2"
+                                        class="label label-danger">{{data.extra.active_pdcs?.length}}</label>
+                                    <label class="label label-default">{{data.extra.active_spdcs?.length}}</label>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 50px;">
+                                    <label *ngIf="data.is_nach_active" class="label label-success">Yes</label>
+                                    <label *ngIf="!data.is_nach_active" class="label label-danger">No</label>
+                                </span>
+                            </td>
+                            <!-- <td class="kt-datatable__cell">
+                                <span>
+                                    <label style="display: inline-flex;"
+                                        class="label label-default">{{data.extra.total_repayment_bounces}}</label>
+                                </span>
+                            </td> -->
+                            <td class="kt-datatable__cell">
+                                <span style="width: 80px;">
+                                    <label style="display: inline-flex;"
+                                        class="label label-default">{{data.extra.current_dpds}}</label>
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="listData?.count === 0">
+                        <tr class="kt-datatable__row">
+                            <td class="kt-datatable__cell">
+                                <span class="no-data"> No data found </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+            <div class="mat-table__bottom mat-table__bottom--padding kt-datatable__pager kt-datatable--paging-loaded"
+                [hidden]="listData?.count === 0">
+                <mat-paginator #paginator (page)="paginate($event)" [length]="listData?.count"
+                                [pageSizeOptions]="[15, 30, 50]" [pageSize]="15"
+                                [showFirstLastButtons]="true"></mat-paginator>
+            </div>
+        </div>
+        <!--end: Datatable -->
+    </div>
+</div>

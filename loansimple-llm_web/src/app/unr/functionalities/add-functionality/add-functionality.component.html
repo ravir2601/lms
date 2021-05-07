@@ -1,0 +1,42 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">{{infoDataSet.actionType === 'UPDATE' ? 'Update' : 'Add'}} Functionality</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <kt-auth-notice></kt-auth-notice>
+        <div class="row">
+            <div class="col-md-4" *ngIf="infoDataSet?.actionType === 'UPDATE'">
+                <div class="form-group">
+                    <label class="text-muted">Code :</label>
+                    <input class="form-control" type="text" [(ngModel)]="unique_code" disabled>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="text-muted">Name :</label>
+                    <input class="form-control" type="text" [(ngModel)]="name">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="text-muted">Permissions</label>
+                    <div class="kt-checkbox-inline">
+                        <label *ngFor="let permission of permissionsList"
+                            class="kt-checkbox kt-checkbox--tick kt-checkbox--brand w-100">
+                            <input [value]="permission.value" (change)="addPermissions($event, permission)"
+                                [checked]="permissionsListMap[permission.value]" type="checkbox">
+                            {{permission.name}}
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button _ngcontent-aym-c27="" class="btn btn-brand btn-block btn-square btn-tall" type="button"
+        (click)="assignFuctionality()">Save
+    </button>
+</div>

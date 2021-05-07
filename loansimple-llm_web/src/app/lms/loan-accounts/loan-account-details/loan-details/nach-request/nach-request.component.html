@@ -1,0 +1,39 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">Nach Request</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="text-muted">Amount(Rs.)</label>
+                            <input type="text" class="form-control" [(ngModel)]="amount">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="text-muted">Date</label>
+                            <input (focus)="picker.open()" [matDatepicker]="picker" matInput placeholder="Select Date"
+                                class="form-control datePicker" [(ngModel)]="date">
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="text-muted">Comment</label>
+                    <textarea type="text" class="form-control" rows="4" placeholder="Add Comment..."
+                        [(ngModel)]="comment"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-brand btn-block btn-square btn-tall" type="button" (click)="submitRequest()">Submit
+    </button>
+</div>

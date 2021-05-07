@@ -1,0 +1,19 @@
+<form class="lead-form ls-form-alt" #personForm="ngForm" (ngSubmit)="save()">
+    <div class="modal-header">
+        <h4 class="modal-title">Add Co-Applicant</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label>Full Name:</label>
+            <div class="input-group">
+                <input class="form-control" name="first_name" placeholder="First Name" type="text" [(ngModel)]="businessPerson.person.first_name">
+                <input class="form-control" name="middle_name" placeholder="Middle Name" type="text" [(ngModel)]="businessPerson.person.middle_name">
+                <input class="form-control" name="last_name" placeholder="Last Name" type="text" [(ngModel)]="businessPerson.person.last_name">
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-brand btn-block btn-square btn-tall" type="submit">Create Co-Applicant</button>
+</form>

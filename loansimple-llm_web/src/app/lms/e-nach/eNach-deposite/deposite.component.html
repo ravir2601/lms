@@ -1,0 +1,84 @@
+<div>
+    <div class="kt-portlet__body">
+        <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded"
+                id="kt_datatable_latest_orders">
+            <table class="kt-datatable__table" style="display: block;">
+                <thead class="kt-datatable__head">
+                <tr class="kt-datatable__row" style="left: 0px;">
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-80">S. No.</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-220">NBFC</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-100">Deposited Date</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-120">Generated File Link</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-100">No. of NACHs</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-100">Amount</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-140">Upload Settlement File</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="kt-datatable__body ps ps--active-y">
+<!--                    <div *ngIf="!listdata"><h1 class="text-center">Loading Data...</h1></div>-->
+                <ng-container *ngFor="let row of listData?.results; let i = index;">
+                    <tr class="kt-datatable__row">
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-80">{{(i + (paginator.pageSize *  paginator.pageIndex)) + 1}}</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-220">{{row.nbfc.name}}</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-100">{{row.deposited_date}}</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-120">
+                                <a (click)="openAttachment(row.generated_file)" class="kt-font-bold link-item anchor-link">
+                                    Link <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-100">{{row.nach_count}}</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-100">{{row.amount}}</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-140">
+                                <label for="file" class="btn btn-primary btn-sm" (change)="updateFile($event.target.files, row)">upload</label>
+                                <input type="file" id="file" (change)="updateFile($event.target.files, row)">
+                            </span>
+                        </th>
+                    </tr>
+                 </ng-container>
+                <ng-container *ngIf="listData?.count === 0">
+                    <tr class="kt-datatable__row">
+                        <td class="kt-datatable__cell">
+                            <span class="no-data"> No data found </span>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+            <div style="margin-top: 20px;"
+                 [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--md kt-spinner--brand kt-spinner--center': loadingSearchData}"></div>
+            <div [hidden]="listData?.count === 0"
+                 class="mat-table__bottom mat-table__bottom--padding kt-datatable__pager kt-datatable--paging-loaded">
+                <mat-paginator #paginator (page)="paginate($event)" [length]="listData?.count"
+                               [pageSizeOptions]="[15, 30, 50]"
+                               [pageSize]="15" [showFirstLastButtons]="true"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

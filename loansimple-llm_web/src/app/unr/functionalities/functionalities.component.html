@@ -1,0 +1,88 @@
+<div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    <button class="btn btn-brand btn-elevate btn-icon-sm" (click)="openFunctionalityForm()">
+                        <i class="la la-plus"></i>
+                        Add Functionality
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact">
+                        <div class="kt-quick-search__form">
+                            <div class="input-group border-bottom-gray"
+                                [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--sm kt-spinner--brand kt-spinner--right': loadingSearchData}">
+                                <div class="input-group-prepend"><span class="input-group-text"><i
+                                            class="flaticon2-search-1"></i></span></div>
+                                <input #searchInput (keyup.enter)="searchUsers($event)" type="text"
+                                    class="form-control kt-quick-search__input" placeholder="Search..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded"
+            id="kt_datatable_latest_orders" style="">
+            <table class="kt-datatable__table" style="display: block;">
+                <thead class="kt-datatable__head">
+                    <tr class="kt-datatable__row" style="left: 0px;">
+                        <th class="kt-datatable__cell" data-autohide-disabled="false">
+                            <span class="kt-font-boldest" style="width: 50px;">S.no.</span>
+                        </th>
+                        <th class="kt-datatable__cell" data-autohide-disabled="false">
+                            <span class="kt-font-boldest" style="width: 150px;">Code</span>
+                        </th>
+                        <th class="kt-datatable__cell" data-autohide-disabled="false">
+                            <span class="kt-font-boldest" style="width: 300px;">Name</span>
+                        </th>
+                        <th class="kt-datatable__cell" data-autohide-disabled="false">
+                            <span class="kt-font-boldest" style="width: 80px;">Action</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="kt-datatable__body ps ps--active-y">
+                    <ng-container *ngFor="let functionality of functionalitiesData?.results; let i = index;">
+                        <tr class="kt-datatable__row">
+                            <td class="kt-datatable__cell">
+                                <span style="width: 50px;">
+                                    <a class="kt-font-bold">{{ i + 1 }}</a>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 150px;">
+                                    <a class="kt-font-bold">{{ functionality.code }}</a>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 300px;">
+                                    <span class="kt-font-bold">{{ functionality.name }}</span>
+                                </span>
+                            </td>
+                            <td class="kt-datatable__cell">
+                                <span style="width: 80px;">
+                                    <a class="btn btn-bold btn-sm btn-font-sm btn-label-success"
+                                        (click)="updateFunctionalityForm(functionality)">Update</a>
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="functionalitiesData?.count === 0">
+                        <tr class="kt-datatable__row">
+                            <td class="kt-datatable__cell">
+                                <span class="no-data"> No data found </span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+<form class="kt-portlet" #addressForm="ngForm" (ngSubmit)="saveData()">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                <kt-ls-badge [extras]="extras"></kt-ls-badge>
+                {{ title }}
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div *ngIf="same" class="mr-2">
+                <div class="kt-checkbox-inline">
+                    <label class="kt-checkbox kt-checkbox--tick kt-checkbox--brand">
+                        <input [name]="same" type="checkbox" [(ngModel)]="data[same]" (change)="saveData()"> {{ same | beautifyString }}
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-brand btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-save"></i>
+            </button> &nbsp;
+        <button type="button" class="btn btn-danger btn-circle btn-elevate btn-icon btn-sm btn-icon-md" (click)="deleteData(data.update_url)" *ngIf="data.update_url">
+                <i class="la la-trash"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body" *ngIf="!same || data[same] !== true">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Address:</label>
+                    <input class="form-control" type="text" name="address_line" [(ngModel)]="data.address_line">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>State:</label>
+                    <select class="form-control" name="state" [(ngModel)]="data.state" (ngModelChange)="getSubRegions('city', data.state)">
+                        <option value="">Select State</option>
+                        <option [value]="state.name" *ngFor="let state of states">{{ state.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>City:</label>
+                    <select class="form-control is-warning" name="city" [(ngModel)]="data.city" (ngModelChange)="getSubRegions('locality', data.city)">
+                        <option value="">Select City</option>
+                        <option [value]="city.name" *ngFor="let city of cities">{{ city.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Locality:</label>
+                    <input class="form-control" type="text" name="locality" [(ngModel)]="data.locality">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Pincode:</label>
+                    <input class="form-control" type="text" name="pincode" [(ngModel)]="data.pincode">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>LS Region:</label>
+                    <select class="form-control" name="region" [(ngModel)]="data.region">
+                        <option value="">Select LS Region</option>
+                        <option [value]="region.id" *ngFor="let region of regions">{{ region.name }} - {{ region.pincode }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label class="text-muted">Ownership</label>
+                <div class="kt-radio-inline">
+                    <label class="kt-radio kt-radio--bold kt-radio--brand">
+                        <input name="ownership" [(ngModel)]="data.ownership" type="radio" value="owned"> Owned
+                        <span></span>
+                    </label>
+                    <label class="kt-radio kt-radio--bold kt-radio--brand">
+                        <input name="ownership" [(ngModel)]="data.ownership" type="radio" value="rented"> Rented
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="text-muted">Is Primary?</label>
+                <div class="kt-radio-inline">
+                    <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+                        <input name="is_primary" [(ngModel)]="data.is_primary" type="checkbox"> Tick, if Yes
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-4 form-group" *ngIf="isCurrentAddress">
+                <label class="text-muted">Is current address?</label>
+                <div class="kt-radio-inline">
+                    <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+                        <input name="is_current_residence_address" type="checkbox" [(ngModel)]="data.is_current_residence_address"> Tick, if Yes
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" *ngIf="residingSince">
+                <div class="form-group">
+                    <label>Residing Since:</label>
+                    <div class="input-group">
+                        <input [matDatepicker]="residingSince" name="dob" placeholder="Select Date" class="form-control datePicker"
+                            [(ngModel)]="data.residing_since" [max]="today" (focus)="residingSince.open()">
+                        <div class="input-group-append">
+                            <button class="btn btn-icon btn-primary" (click)="residingSince.open()" type="button">
+                                <i class="la la-calendar"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <mat-datepicker #residingSince></mat-datepicker>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,131 @@
+<div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-toolbar">
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+
+                    <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact">
+                        <div class="kt-quick-search__form">
+                            <div [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--sm kt-spinner--brand kt-spinner--right': loadingSearchData}"
+                                 class="input-group border-bottom-gray">
+                                <div class="input-group-prepend"><span class="input-group-text"><i
+                                    class="flaticon2-search-1"></i></span></div>
+                                <input #searchField (keyup.enter)="search(searchField.value)"
+                                       class="form-control kt-quick-search__input" placeholder="Search..."
+                                       type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div #listView class="kt-portlet__body">
+        <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded"
+             id="kt_datatable_latest_orders">
+            <table class="kt-datatable__table" style="display: block;">
+                <thead class="kt-datatable__head">
+                <tr class="kt-datatable__row" style="left: 0px;">
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest wp-40">S.no.</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest wp-100">Task ID</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest wp-200">Business</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-120">Mobile</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-150">Assigned To</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest wp-150">Raised By</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest wp-150">Created At</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest wp-120">Status</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest wp-120">Action</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="kt-datatable__body ps ps--active-y">
+                <ng-container *ngFor="let data of listData?.results; let i = index;">
+                    <tr class="kt-datatable__row">
+                        <td class="kt-datatable__cell">
+                            <span class="wp-40">{{ (i + (paginator.pageSize * paginator.pageIndex)) + 1 }}</span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span class="wp-100">
+                                <a class="kt-font-bold">{{ data.task_id }}</a>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span class="wp-200">
+                                <a class="kt-font-bold">{{ data.business.name }}</a>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span class="wp-120">
+                                <span class="kt-font-bold">{{ data.business?.primary_person?.person.primary_mobile.detail }}</span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span class="wp-150">
+                                <span class="kt-font-bold">{{ data.assigned_to?.display_name }}</span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span class="wp-150">
+                                <span class="kt-font-bold">{{ data.raised_by?.display_name }}</span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span class="wp-150">
+                                <span class="kt-font-bold">{{ data.created_at | dateTime }}</span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span class="wp-120">
+                                <span
+                                    class="btn btn-bold btn-sm btn-font-sm btn-label-{{data.status | class }}">
+                                        {{ data.status | beautifyString }}
+                                </span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span class="wp-120">
+                                <a (click)="viewDetailsForm(data)"  class="btn btn-bold btn-sm btn-font-sm btn-label-success"> View Details </a>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="listData?.count === 0">
+                    <tr class="kt-datatable__row">
+                        <td class="kt-datatable__cell">
+                            <span class="no-data"> No data found </span>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+            <div
+                [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--md kt-spinner--brand kt-spinner--center': loadingSearchData}"></div>
+            <div [hidden]="listData?.count === 0"
+                class="mat-table__bottom mat-table__bottom--padding kt-datatable__pager kt-datatable--paging-loaded">
+                <mat-paginator #paginator (page)="paginate($event)" [length]="listData?.count"
+                               [pageSizeOptions]="[15, 30, 50]"
+                               [pageSize]="15" [showFirstLastButtons]="true"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

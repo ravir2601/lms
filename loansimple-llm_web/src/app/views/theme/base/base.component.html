@@ -1,0 +1,32 @@
+<!-- begin:: Page -->
+<ng-container *ngIf="selfLayout !== 'blank' && sessionService.isLoggedIn(); else blankLayout">
+    <kt-header-mobile></kt-header-mobile>
+    <div class="kt-grid kt-grid--hor kt-grid--root">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+            <ng-container *ngIf="asideDisplay">
+                <button class="kt-aside-close" id="kt_aside_close_btn"><i class="la la-close"></i></button>
+                <kt-aside-left></kt-aside-left>
+            </ng-container>
+
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper" >
+                <kt-header></kt-header>
+
+                <div class="kt-content kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+
+                    <kt-subheader *ngIf="subheaderDisplay"></kt-subheader>
+                    <div ktContentAnimate class="kt-grid__item kt-grid__item--fluid"
+                         [ngClass]="{'kt-container--fluid': fluid}">
+                         <router-outlet></router-outlet>
+                    </div>
+                </div>
+
+                <kt-footer></kt-footer>
+            </div>
+        </div>
+        <kt-quick-panel></kt-quick-panel>
+        <kt-scroll-top></kt-scroll-top>
+    </div>
+</ng-container>
+<ng-template #blankLayout>
+    <router-outlet></router-outlet>
+</ng-template>

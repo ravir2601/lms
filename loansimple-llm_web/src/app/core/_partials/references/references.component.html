@@ -1,0 +1,43 @@
+<div class="kt-portlet" [ngClass]="{'kt-portlet--height-fluid': fluid}">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                {{ title }}
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button (click)="openRefForm('')" class="btn btn-sm btn-outline-brand btn-elevate btn-circle btn-icon"
+                *ngIf="!contact || contact.length < limit">
+                <i class="la la-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="kt-portlet__body" *ngIf="contact?.length == 0">
+            <div class="kt-section__content kt-section__content--solid flex-centered">
+                <h3>
+                    <small class="text-muted">You haven't added any {{title}}</small>
+                </h3>
+            </div>
+        </div>
+        <div class="kt-widget4">
+            <div class="kt-widget4__item" *ngFor="let row of contact">
+                <div>
+                    <span *ngIf="(row.relation === 'father' || row.relation === 'husband') && extra">
+                        <kt-ls-badge [extra]="extra"></kt-ls-badge>
+                        &nbsp;
+                    </span>
+                    <strong>{{row.name }}</strong>
+                    <small class="ml-2 mr-2">
+                        <a href="{{row.contact_number}}">{{row.contact_number}}</a>
+                    </small>
+                    {{ row.relation | beautifyString }}
+                </div>
+                <a class="kt-widget4__number kt-font-dark">
+                    <span class="mr-3" (click)="openRefForm(row)"><i class="la la-edit"></i></span>
+                    <span (click)="delete(row)"><i class="la la-remove"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

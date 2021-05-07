@@ -1,0 +1,18 @@
+.form-control > input, .form-group input {
+    height: 12px !important;
+    margin-right: 5px;
+}
+.mat-bottom-sheet-container-large {
+    overflow-y: hidden;
+}
+.search-filter {
+    position: fixed;
+    top: 62px;
+    z-index: 999;
+    width: 275px;
+    height: 63px;
+    background: white;
+}
+ul li{
+    list-style-type: none !important;
+}

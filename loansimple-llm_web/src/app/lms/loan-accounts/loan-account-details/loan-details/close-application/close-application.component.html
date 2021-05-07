@@ -1,0 +1,35 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">Close Topup</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Closing Date</label>
+                    <input (focus)="picker.open()" [matDatepicker]="picker" matInput placeholder="Select Date"
+                        class="form-control datePicker" [(ngModel)]="closingDate">
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">LS Credit Points</label>
+                    <input class="form-control datePicker" [(ngModel)]="ls_credit_point">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="text-muted">Comment</label>
+                    <textarea type="text" class="form-control" rows="4" placeholder="Add Comment..."
+                        [(ngModel)]="comment"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-brand btn-block btn-square btn-tall" type="button" (click)="submitRequest()">Submit
+    </button>
+</div>

@@ -1,0 +1,10 @@
+<div class="modal-body">
+    <form name="otpVerifyForm" (ngSubmit)="otpVerifyForm.form.valid && saveOtp(otpVerifyForm.value)" #otpVerifyForm="ngForm" novalidate>
+<!--    <form name="otpVerifyForm" (ngSubmit)="otpVerifyForm.form.valid" #otpVerifyForm="ngForm" novalidate>-->
+        <div class="form-group">
+            <label>OTP Verification:</label>
+            <input class="form-control" [(ngModel)]="otp" name="otp" #source="ngModel" [ngClass]="{ 'is-invalid': otpVerifyForm.submitted && otpVerifyForm.invalid }" required>
+        </div>
+            <button [disabled]="otpVerifyForm.invalid" class="btn btn-primary">Save</button>
+    </form>
+</div>

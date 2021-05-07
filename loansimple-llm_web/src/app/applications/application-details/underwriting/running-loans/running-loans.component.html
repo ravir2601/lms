@@ -1,0 +1,51 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Running Loans
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button (click)="openRunningLoanForm()"
+                    class="btn btn-outline-primary btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="kt-portlet__body" *ngIf="runningLoans?.length === 0">
+            <div class="kt-section__content kt-section__content--solid flex-centered">
+                <h4>
+                    <small class="text-muted">You haven't added any Running Loans</small>
+                </h4>
+            </div>
+        </div>
+        <div class="kt-widget4">
+            <div class="kt-widget4__item" *ngFor="let row of runningLoans; let i = index;">
+                <div>
+                    <div *ngIf="row.type === 'credit_card_loan'">
+                        Available: {{ row.available_credit_limit }} | Total Limit: {{ row.total_credit_limit }}
+                        <span class="kt-badge kt-badge--unified-danger kt-badge--inline kt-badge--pill" *ngIf="row.is_overdue_amount">Overdue: {{ row.overdue_amount }}</span>
+                    </div>
+                    <div *ngIf="row.type !== 'credit_card_loan'">
+                        Monthly EMI: {{ row.emi_monthly }} | Remaining Tenure: {{ row.remaining_tenure_in_month }} | EMI Day: {{ row.emi_day }}
+                    </div>
+                    <div>
+                        <strong>{{row.lender }}</strong>
+                        <small class="ml-2 mr-2">
+                            {{ row.type | constant }}
+                        </small>
+                    </div>
+                    <div class="text-warning mt-2">
+                        <input type="checkbox" value="true" name="is_to_include_{{ i }}" [(ngModel)]="row.is_to_include" (change)="updateRunningLoan(row)">
+                        &nbsp; <label>Include?</label> 
+                    </div>
+                </div>
+                <a class="kt-widget4__number kt-font-dark">
+                    <span class="mr-3" (click)="openRunningLoanForm(row)"><i class="la la-edit"></i></span>
+                    <span (click)="delete(row)"><i class="la la-remove"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

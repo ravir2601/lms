@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md">
+        <div class="kt-portlet">
+            <div class="modal-header">
+                <h4 class="modal-title">Field Visit Details</h4>
+                <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label class="kt-radio kt-radio--bold kt-radio--brand m-1">
+                                <input disabled name="address_ownership" type="radio" [value]="data.is_visit_done"> Visit Done?
+                                <span></span>
+                            </label>
+                            <label class="kt-radio kt-radio--bold kt-radio--brand">
+                                <input disabled name="address_ownership" type="radio" [value]="data.is_visit_done"> Visit Not Done?
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label>Reason</label>
+                            <textarea disabled type="text" rows="3" class="form-control" value=""></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label class="kt-radio kt-radio--bold kt-radio--brand m-1">
+                                <input disabled name="address_ownership" type="radio" [(ngModel)]="data.is_visit_done" value="true"> Customer Met?
+                                <span></span>
+                            </label>
+                            <label class="kt-radio kt-radio--bold kt-radio--brand">
+                                <input disabled name="address_ownership" type="radio" [(ngModel)]="data.is_visit_done" value="false"> Customer Not Met?
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label>Reason</label>
+                            <textarea disabled type="text" rows="3" class="form-control" value=""></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <a class="pointer pull-left" [ngClass]="{'disabled': !data.selfie}" href="{{data.selfie}}"
+                       target="_blank">Selfie Link</a>
+                    <a class="pointer pull-right" [ngClass]="{'disabled': !data.selfie_lat || !data.selfie_long}"
+                       href="{{map_url(data)}}" target="_blank">Show long and lat on map (see google)</a>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-brand btn-block btn-square btn-tall" (click)="dismiss()">Close</button>
+

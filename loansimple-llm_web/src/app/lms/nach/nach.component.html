@@ -1,0 +1,51 @@
+<div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-toolbar">
+            <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand"
+                role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="'requested'" (click)="checkCurrentTab('requested')" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                        Requested
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="'deposited'" (click)="checkCurrentTab('deposited')" [routerLinkActive]="['active']">
+                        Deposited
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    <div class="d-flex align-items-lg-center">
+                        <div class="form-group p-1">
+                            <select class="form-control" [(ngModel)]="selectedNBFC" (change)="change()">
+                                <option value="" selected="true">ALL</option>
+                                <option *ngFor="let dd of ddList; index as i" value="{{dd.id}}">{{dd.name}}</option>
+                            </select>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="kt-portlet__head-wrapper">
+                                <div class="kt-portlet__head-actions">
+                                    <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact">
+                                        <div class="kt-quick-search__form">
+                                            <div class="input-group border-bottom-gray">
+                                                <div class="input-group-prepend"><span class="input-group-text"><i
+                                                    class="flaticon2-search-1"></i></span></div>
+                                                <input #searchField (keyup.enter)="search(searchField.value)"
+                                                       class="form-control kt-quick-search__input" placeholder="Search..."
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

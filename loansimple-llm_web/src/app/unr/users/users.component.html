@@ -1,0 +1,141 @@
+<div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    <button (click)="openUserForm()" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <i class="la la-plus"></i>
+                        New User
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+
+                    <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact">
+                        <div class="kt-quick-search__form">
+                            <div [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--sm kt-spinner--brand kt-spinner--right': loadingSearchData}"
+                                 class="input-group border-bottom-gray">
+                                <div class="input-group-prepend"><span class="input-group-text"><i
+                                    class="flaticon2-search-1"></i></span></div>
+                                <input #searchField (keyup.enter)="search(searchField.value)"
+                                       class="form-control kt-quick-search__input" placeholder="Search..."
+                                       type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div #listView class="kt-portlet__body">
+        <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded"
+             id="kt_datatable_latest_orders">
+            <table class="kt-datatable__table" style="display: block;">
+                <thead class="kt-datatable__head">
+                <tr class="kt-datatable__row" style="left: 0px;">
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest" style="width: 50px;">S.no.</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest" style="width: 200px;">Username</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest" style="width: 80px;">EMP Code</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest" style="width: 150px;">Name</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest" style="width: 100px;">Mobile</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest" style="width: 150px;">Email</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest" style="width: 150px;">Reporting to</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest" style="width: 120px;">Last Login</span>
+                    </th>
+                    <th class="kt-datatable__cell" data-autohide-disabled="false">
+                        <span class="kt-font-boldest" style="width: 80px;">Is Active</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="kt-datatable__body ps ps--active-y">
+                <ng-container *ngFor="let user of list; let i = index;">
+                    <tr class="kt-datatable__row">
+                        <td class="kt-datatable__cell cursor-pointer">
+                            <span style="width: 40px;">{{ (i + (paginator.pageSize * paginator.pageIndex)) + 1 }}</span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span [routerLink]="'/unr/users/' + user.id   + '/detail'" style="width: 200px;">
+                                <a class="kt-font-bold" class="anchor-link">{{ user.username }}</a>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span style="width: 80px;">
+                                <span class="kt-font-bold">{{ user.emp_code }}</span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span style="width: 150px;">
+                                <span class="kt-font-bold">{{ user.full_name }}</span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span style="width: 100px;">
+                                <span class="kt-font-bold">{{ user.mobile }}</span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span style="width: 150px;">
+                                <span class="kt-font-bold">{{ user.email }}</span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span style="width: 150px;">
+                                <span class="kt-font-bold">{{ user.reporting_manager?.display_name }}</span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span (click)="openActionHistories(user)" style="width: 120px;">
+                                <span *ngIf="user.last_login" class="btn btn-bold btn-sm btn-font-sm btn-label"
+                                      style="cursor: pointer !important">
+                                    {{ user.last_login | date:'hh:mm a, d MMM' }}
+                                </span>
+                            </span>
+                        </td>
+                        <td class="kt-datatable__cell">
+                            <span style="width: 80px;">
+                                <span class="btn btn-bold btn-sm btn-font-sm btn-label-{{ user.is_active | class }}">
+                                    {{ user.is_active ? 'Yes' : 'No' }}
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="listData?.count === 0">
+                    <tr class="kt-datatable__row">
+                        <td class="kt-datatable__cell">
+                            <span class="no-data"> No data found </span>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+            <div
+                [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--md kt-spinner--brand kt-spinner--center': loadingSearchData}"></div>
+            <div [hidden]="listData?.count === 0"
+                class="mat-table__bottom mat-table__bottom--padding kt-datatable__pager kt-datatable--paging-loaded">
+                <mat-paginator #paginator (page)="paginate($event)" [length]="listData?.count"
+                               [pageSizeOptions]="[15, 30, 50]"
+                               [pageSize]="15" [showFirstLastButtons]="true"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

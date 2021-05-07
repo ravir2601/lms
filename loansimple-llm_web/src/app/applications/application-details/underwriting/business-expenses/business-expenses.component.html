@@ -1,0 +1,61 @@
+<form class="kt-portlet" #financialData="ngForm" (ngSubmit)="saveData()">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Expenses
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button class="btn btn-success btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-save"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Monthly Inventory Purchase</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="monthly_expenses" [(ngModel)]="data.monthly_expenses">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Other Expenses</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="other_expenses" [(ngModel)]="data.other_expenses">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Premise Area(Sq.ft)</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="premise_area_in_sqft" [(ngModel)]="data.premise_area_in_sqft">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Premise Monthly Rent</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="premise_monthly_rent" [(ngModel)]="data.premise_monthly_rent">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>No. of Employees | Total Monthly Salary Expenses</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="no_of_employees" [(ngModel)]="data.no_of_employees">
+                        <input class="form-control" type="text" name="monthly_salary" [(ngModel)]="data.monthly_salary">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,49 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">Field Visit Details</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label style="margin-right: 20px">
+                <input type="radio" [(ngModel)]="data.is_visit_done" [checked]="data.is_visit_done" [value]="true" [disabled]="true"
+                style="vertical-align: bottom;">
+                Visit Done?
+            </label>
+            <label>
+                <input type="radio" [(ngModel)]="data.is_visit_done" [checked]="data.is_visit_done" [value]="false" [disabled]="true"
+                        style="vertical-align: bottom;">
+                Visit Not done?
+            </label>
+            <div class="form-group">
+                <label>Reason</label>
+                <textarea [disabled]="true" type="text" class="form-control" rows="4" value="{{data.no_visit_reason | removeUnderscore}}"></textarea>
+            </div>
+            <label style="margin-right: 20px">
+                <input type="radio" [(ngModel)]="data.is_customer_met" [checked]="data.is_customer_met" [value]="true" [disabled]="true"
+                        style="vertical-align: bottom;">
+                Customer met?
+            </label>
+            <label>
+                <input type="radio" [(ngModel)]="data.is_customer_met" [checked]="data.is_customer_met" [value]="false" [disabled]="true"
+                        style="vertical-align: bottom;">
+                Customer not met?
+            </label>
+            <div class="form-group">
+                <label>Reason</label>
+                <textarea [disabled]="true" type="text" class="form-control" rows="4" value="{{data.no_customer_met_reason | removeUnderscore}}"></textarea>
+            </div>
+            <div class="form-group">
+                    <a class="pointer pull-left" [ngClass]="{'disabled': !data.selfie}" href="{{data.selfie}}"
+                        target="_blank">Selfie Link</a>
+                    <a class="pointer pull-right" [ngClass]="{'disabled': !data.selfie_lat || !data.selfie_long}"
+                        href="{{map_url(data)}}" target="_blank">Show long and lat on map (see google)</a>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-brand btn-block btn-square btn-tall" (click)="dismiss()">Close</button>

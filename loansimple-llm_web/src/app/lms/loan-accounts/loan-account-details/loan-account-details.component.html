@@ -1,0 +1,24 @@
+<div class="kt-portlet kt-portlet--tabs">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-toolbar">
+            <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-success nav-tabs-line-2x" role="tablist">
+                <li class="nav-item">
+                    <a [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']"
+                       [routerLink]="'details'" class="nav-link">
+                        <i class="la la-home"></i> Loan Detail
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']"
+                       [routerLink]="'repayments'" class="nav-link">
+                        <i class="la la-user"></i> Repayments
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <router-outlet></router-outlet> -->
+</div>
+<div class="kt-container">
+    <router-outlet></router-outlet>
+</div>

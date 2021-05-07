@@ -1,0 +1,67 @@
+<div class="lead-form">
+    <div class="modal-header">
+        <h4 class="modal-title">Add Lead</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form name="addLeadForm" (ngSubmit)="addLeadForm.form.valid && onSubmit(addLeadForm.value)" #addLeadForm="ngForm" novalidate>
+            <div class="modal-body">
+            <div class="form-group">
+                <label>Source:</label>
+                <select class="form-control" [(ngModel)]="data.source" name="source" #source="ngModel" [ngClass]="{ 'is-invalid': addLeadForm.submitted && source.invalid }" required>
+                    <option [disabled]="true" value="">Select Source</option>
+                    <option [value]="lead.name" *ngFor="let lead of leadSource?.results">{{lead.name}}</option>
+                </select>
+                <p class="error" *ngFor="let err of error?.source">
+                    {{err}}</p>
+                <div *ngIf="addLeadForm.submitted && source.errors?.required" class="form-text text-danger">Please select source</div>
+            </div>
+            <div class="form-group">
+                <label>Mobile Number:</label>
+                <input class="form-control" type="text" name="mobile" #mobile="ngModel" [(ngModel)]="data.mobile"
+                       [ngClass]="{ 'is-invalid': addLeadForm.submitted && mobile.invalid }" required>
+                <div *ngIf="addLeadForm.submitted && mobile.errors?.required" class="form-text text-danger">Please enter mobile number</div>
+
+                <p class="error" *ngFor="let err of error?.mobile">
+                    {{err}}</p>
+            </div>
+            <div class="form-group">
+                <label>Full Name:</label>
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="First Name" name="first_name" #first_name="ngModel" [(ngModel)]="data.first_name"
+                           [ngClass]="{ 'is-invalid': addLeadForm.submitted && first_name.invalid }" required>
+                    <input style="margin: 0 10px;" class="form-control" type="text" placeholder="Middle Name" name="middle_name" #middle_name="ngModel" [(ngModel)]="data.middle_name">
+                    <input class="form-control" type="text" placeholder="Last Name" name="last_name" #last_name="ngModel" [(ngModel)]="data.last_name"
+                           [ngClass]="{ 'is-invalid': addLeadForm.submitted && last_name.invalid }" required>
+                </div>
+                <span *ngIf="addLeadForm.submitted && (first_name.errors?.required || last_name.errors?.required)" class="form-text text-danger">Please enter full name of the contact</span>
+                <p class="error" *ngFor="let err of error?.first_name">
+                    {{err}}</p>
+            </div>
+            <div class="form-group">
+                <label>Business Name:</label>
+                <input class="form-control" type="text" name="name" #name="ngModel" [(ngModel)]="data.name"
+                       [ngClass]="{ 'is-invalid': addLeadForm.submitted && name.invalid }" required>
+                <div *ngIf="addLeadForm.submitted && name.errors?.required" class="form-text text-danger">Please enter name of the business</div>
+                <p class="error" *ngFor="let err of error?.name">
+                    {{err}}</p>
+            </div>
+    <!--        <div class="form-group">-->
+    <!--            <label>City:</label>-->
+    <!--            <select class="form-control" [(ngModel)]="data.address.city" name="city" #city="ngModel" [ngClass]="{ 'is-invalid': addLeadForm.submitted && address.city.invalid }" required>-->
+    <!--                <option [disabled]="true" value="">Select City</option>-->
+    <!--                <option value="{{city.name}}" *ngFor="let city of cities?.results">{{city.name}}</option>-->
+    <!--            </select>-->
+    <!--            <p class="error" *ngFor="let err of error?.city">-->
+    <!--                {{err}}</p>-->
+    <!--            <div *ngIf="addLeadForm.submitted && city.errors?.required" class="form-text text-danger">Please select City</div>-->
+    <!--        </div>-->
+        </div>
+            <div class="modal-footer">
+                <button (click)="dismiss()" class="btn btn-secondary"  type="button">Cancel</button>
+                <button class="btn btn-primary">Save</button>
+            </div>
+    </form>
+</div>

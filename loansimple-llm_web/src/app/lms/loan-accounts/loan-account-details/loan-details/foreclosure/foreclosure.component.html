@@ -1,0 +1,87 @@
+<div class="form-container width-700">
+    <div class="modal-header">
+        <h4 class="modal-title">Loan Foreclosure</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col-md-12 mb-3">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="wp-100"></th>
+                            <th>Principal</th>
+                            <th>Interest </th>
+                            <th>Total </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="wp-100">Outstanding</th>
+                            <td>{{loan_foreclosure?.principal_outstanding}}</td>
+                            <td>{{loan_foreclosure?.interest_outstanding}}</td>
+                            <td>{{loan_foreclosure?.loan_outstanding}}</td>
+                        </tr>
+                        <tr>
+                            <th class="wp-100">Collection</th>
+                            <td>
+                                <input class="form-control" placeholder="Enter Amount"
+                                    [(ngModel)]="principal_collection" [disabled]="is_foreclosure">
+                            </td>
+                            <td>
+                                <input class="form-control" placeholder="Enter Amount"
+                                    [(ngModel)]="interest_collection" [disabled]="is_foreclosure">
+                            </td>
+                            <td>
+                                <span
+                                    *ngIf="principal_collection && interest_collection">{{principal_collection + interest_collection}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="wp-100">Waiver</th>
+                            <td>{{(loan_foreclosure?.principal_outstanding - principal_collection)}}
+                            </td>
+                            <td>{{(loan_foreclosure?.interest_outstanding - interest_collection)}}</td>
+                            <td>
+                                <span *ngIf="principal_collection && interest_collection">
+                                    {{loan_foreclosure?.loan_outstanding}}
+                                </span>
+                                <span
+                                    *ngIf="loan_foreclosure?.loan_outstanding && (!principal_collection && !interest_collection)">
+                                    {{loan_foreclosure?.loan_outstanding}} </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Foreclosure Fees (Including GST)</label>
+                    <input class="form-control" [(ngModel)]="foreclosure_fees" [disabled]="is_foreclosure">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Payment Mode</label>
+                    <select class="form-control" [(ngModel)]="payment_mode" [disabled]="is_foreclosure">
+                        <option value="">Select Payment Mode</option>
+                        <option *ngFor="let mode of lmsService.lmsConstants.repayment_modes" [value]="mode.value">
+                            {{mode.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="text-muted">Date</label>
+                    <input (focus)="picker.open()" [matDatepicker]="picker" matInput placeholder="Select Date"
+                        class="form-control datePicker" [(ngModel)]="date" [disabled]="is_foreclosure">
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-brand btn-block btn-square btn-tall" type="button" (click)="submitRequest()">Submit
+    </button>
+</div>

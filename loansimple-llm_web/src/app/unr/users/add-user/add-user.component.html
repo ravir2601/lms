@@ -1,0 +1,27 @@
+<div class="lead-form">
+    <div class="modal-header">
+        <h4 class="modal-title">Add User</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <kt-auth-notice></kt-auth-notice>
+
+        <div class="form-group">
+            <label class="text-muted">Username :</label>
+            <input class="form-control" id="" [(ngModel)]="userName" type="text">
+        </div>
+        <div class="form-group">
+            <label class="text-muted">First Name :</label>
+            <input class="form-control" id="" [(ngModel)]="firstName" type="text">
+        </div>
+        <div class="form-group">
+            <label class="text-muted">Last Name :</label>
+            <input class="form-control" id="" [(ngModel)]="lastName" type="text">
+        </div>
+    </div>
+    <button _ngcontent-aym-c27="" class="btn btn-brand btn-block btn-square btn-tall" type="button"
+        (click)="addNewUser()">Save
+    </button>
+</div>

@@ -1,0 +1,45 @@
+<form class="kt-portlet" *ngIf="data" #personKnowledge="ngForm" (ngSubmit)="saveData()">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                <span *ngIf="data.first_name">{{ data.first_name }}'s </span>Knowledge
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button class="btn btn-success btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                <i class="la la-save"></i>
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Qualification:</label>
+                    <select class="form-control" name="education_qualification" [(ngModel)]="data.education_qualification">
+                        <option value="">Select</option>
+                        <option *ngFor="let row of qualificationTypes" 
+                            [value]="row.value">{{ row.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Business Experience (in yrs):</label>
+                    <select class="form-control" name="business_experience" [(ngModel)]="data.business_experience">
+                        <option value="">Select</option>
+                        <option *ngFor="let i of ['1','2','3','4','5+']">{{ i }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Comment:</label>
+                    <textarea class="form-control" placeholder="" type="text" rows="5" name="business_experience_comment" [(ngModel)]="data.business_experience_comment"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,55 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Mark Cash Credited</h4>
+        <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6">
+                        <label>Amount(Rs.)</label>
+                        <input type="text" class="form-control" placeholder="0.00" [(ngModel)]="repaymentData.total_actual" name="amount">
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Settlement Date :</label>
+                            <div class="form-inline">
+                                <div class="input-group">
+                                    <input [matDatepicker]="picker" placeholder="Select Date" class="form-control datePicker"
+                                           [(ngModel)]="repaymentData.settlement_date">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-icon btn-primary" (click)="picker.open()" type="button">
+                                            <i class="la la-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-12">
+                        <label>Comment</label>
+                        <textarea class="form-control" [(ngModel)]="comment" name="repaymentData.comment" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+                <div class="col-md">
+                    <button type="button" class="btn btn-danger btn-block btn-square btn-tall" (click)="save('not_credited')">Not Received</button>
+                </div>
+                <div class="col-md">
+                    <button type="button" class="btn btn-success btn-block btn-square btn-tall" (click)="save('credited')">Submit</button>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+

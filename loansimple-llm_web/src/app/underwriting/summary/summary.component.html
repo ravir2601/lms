@@ -1,0 +1,832 @@
+<!--*ngIf="bureauData[bureauTab]"-->
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-grid kt-grid--desktop kt-grid--ver kt-grid--ver-desktop kt-app">
+        <button class="kt-app__aside-close" id="kt_user_profile_aside_close">
+            <i class="la la-close"></i>
+        </button>
+        <div class="kt-grid__item kt-app__toggle kt-app__aside" id="kt_user_profile_aside" style="opacity: 1;">
+            <!--begin:: Widgets/Applications/User/Profile1-->
+            <div class="kt-portlet kt-portlet--height-fluid-">
+                <div class="kt-portlet__head  kt-portlet__head--noborder">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                        </h3>
+                    </div>
+                </div>
+                <div *ngIf="applicationData" class="kt-portlet__body kt-portlet__body--fit-y">
+                    <!--begin::Widget -->
+                    <div class="kt-widget kt-widget--user-profile-1">
+                        <div class="kt-widget__head">
+                            <div class="kt-widget__media">
+                                <img
+                                    alt="image"
+                                    src="https://assets.loansimple.in/placeholders/avatars/b.png">
+                            </div>
+                            <div class="kt-widget__content">
+                                <div class="kt-widget__section">
+                                    <a class="kt-widget__username" href="#">
+                                        {{ applicationData['application_id'] }}
+                                        <i class="flaticon2-corrkausahect kt-font-success"></i>
+                                    </a>
+                                    <span *ngIf="applicationData['business']" class="kt-widget__subtitle">
+                                        {{ applicationData['business']['name'] }}
+                                    </span>
+                                    <small *ngIf="applicationData['business']" class="kt-widget__subtitle">
+                                        {{ applicationData['business']['primary_person']['person']['full_name'] }}
+                                    </small>
+                                </div>
+
+                                <div class="kt-widget__action">
+                                    <button class="btn btn-label-{{overall.class}} btn-sm"
+                                            type="button">{{ overall.value }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-widget__body">
+                            <div class="kt-widget__content">
+                                <div class="kt-widget__info">
+                                    <span class="kt-widget__label">Applicant's Photo &#8652; PAN Photo</span>
+                                    <span class="kt-widget__data">
+                                        <i class="flaticon2-correct kt-font-success"></i>
+                                    </span>
+                                </div>
+                                <div class="kt-widget__info">
+                                    <span class="kt-widget__label">Applicant's Photo &#8652; Aadhaar Photo</span>
+                                    <span class="kt-widget__data">
+                                        <i class="flaticon2-correct kt-font-success"></i>
+                                    </span>
+                                </div>
+                                <div class="kt-widget__info">
+                                    <span class="kt-widget__label">PAN & DOB Authentication</span>
+                                    <span class="kt-widget__data">
+                                        <i class="flaticon2-correct kt-font-success"></i>
+                                    </span>
+                                </div>
+                                <div class="kt-widget__info">
+                                    <span class="kt-widget__label">PAN Status</span>
+                                    <span class="kt-widget__data">
+                                        <span class="kt-font-success">Active</span>
+                                    </span>
+                                </div>
+                                <!--                                <div class="kt-widget__info">-->
+                                <!--                                    <span class="kt-widget__label">TelCo Authentication</span>-->
+                                <!--                                    <span class="kt-widget__data">-->
+                                <!--                                        <i class="flaticon2-correct kt-font-success"> &nbsp; </i><span-->
+                                <!--                                        class="kt-font-brand">Airtel</span>-->
+                                <!--                                    </span>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="kt-separator kt-separator&#45;&#45;dashed"></div>-->
+                                <!--                                <div class="kt-widget__info">-->
+                                <!--                                    <span class="kt-widget__label">Address &#8652; TelCo</span>-->
+                                <!--                                    <span class="kt-widget__data">-->
+                                <!--                                        <span-->
+                                <!--                                            class="kt-badge kt-badge&#45;&#45;success  kt-badge&#45;&#45;inline kt-badge&#45;&#45;pill">87%</span>-->
+                                <!--                                    </span>-->
+                                <!--                                </div>-->
+                                <div *ngIf="karzaData['karza_aadhar_address_match_percentage']" class="kt-widget__info">
+                                    <span class="kt-widget__label">Mailing Address &#8652; Aadhaar Proof</span>
+                                    <span class="kt-widget__data">
+                                        <span
+                                            class="kt-badge kt-badge--danger  kt-badge--inline kt-badge--pill">{{ karzaData['karza_aadhar_address_match_percentage'] }}
+                                            %</span>
+                                    </span>
+                                </div>
+                                <div *ngIf="karzaData['cibil_aadhar_address_match_percentage']" class="kt-widget__info">
+                                    <span class="kt-widget__label">CIBIL Address &#8652; Aadhaar Proof</span>
+                                    <span class="kt-widget__data">
+                                        <span
+                                            class="kt-badge kt-badge--danger  kt-badge--inline kt-badge--pill">{{ karzaData['cibil_aadhar_address_match_percentage'] }}
+                                            %</span>
+                                    </span>
+                                </div>
+                                <div *ngIf="karzaData['cibil_mailing_address']"
+                                     class="kt-widget__info">
+                                    <span class="kt-widget__label">Mailing &#8652; CIBIL Address</span>
+                                    <span class="kt-widget__data">
+                                        <span
+                                            class="kt-badge kt-badge--danger  kt-badge--inline kt-badge--pill">{{ karzaData['cibil_mailing_address']['match'] }}
+                                            %</span>
+                                    </span>
+                                </div>
+                                <div *ngIf="karzaData['cibil_registered_address']"
+                                     class="kt-widget__info">
+                                    <span class="kt-widget__label">Registered &#8652; CIBIL Address</span>
+                                    <span class="kt-widget__data">
+                                        <span
+                                            class="kt-badge kt-badge--danger  kt-badge--inline kt-badge--pill">{{ karzaData['cibil_registered_address']['match'] }}
+                                            %</span>
+                                    </span>
+                                </div>
+                                <div *ngIf="karzaData['cibil_permanent_address']"
+                                     class="kt-widget__info">
+                                    <span class="kt-widget__label">Permanent &#8652; CIBIL Address</span>
+                                    <span class="kt-widget__data">
+                                        <span
+                                            class="kt-badge kt-badge--danger  kt-badge--inline kt-badge--pill">{{ karzaData['cibil_permanent_address']['match'] }}
+                                            %</span>
+                                    </span>
+                                </div>
+                                <div class="kt-separator kt-separator--dashed"></div>
+                                <div class="kt-widget__info">
+                                    <span class="kt-widget__label">Hunter Trigger Count</span>
+                                    <span class="kt-widget__data">
+                                        0
+                                    </span>
+                                </div>
+                                <div class="kt-widget__info">
+                                    <span class="kt-widget__label">Affluence/Market Index</span>
+                                    <span class="kt-widget__data">
+                                        <span
+                                            class="kt-badge kt-badge--danger  kt-badge--inline kt-badge--pill">7.5/10</span>
+                                    </span>
+                                </div>
+                                <!--                                <div class="kt-widget__info">-->
+                                <!--                                    <span class="kt-widget__label">Trusting Social Score</span>-->
+                                <!--                                    <span class="kt-widget__data">-->
+                                <!--                                        <span-->
+                                <!--                                            class="kt-badge kt-badge&#45;&#45;success  kt-badge&#45;&#45;inline kt-badge&#45;&#45;pill">794</span>-->
+                                <!--                                    </span>-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+                        <!--end::Widget -->
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            UPI Transactions x Verification
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-form">
+                    <div class="kt-portlet__body">
+                        <div>
+                            <span *ngIf="applicationData['primary_bank_statement']">
+                                <span class="kt-badge kt-badge--success  kt-badge--inline kt-badge--pill">
+                                    {{ applicationData['primary_bank_statement']['bank_name'] }}
+                                </span>&nbsp;
+                                <span class="kt-badge kt-badge--info  kt-badge--inline kt-badge--pill">
+                                    {{ applicationData['primary_bank_statement']['account_type'] }}
+                                </span>
+                            </span>
+                            <br /><br />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 text-muted">{{ fakeUtrs[0] }}</div>
+                            <div class="col-md-3">Jun, 2019</div>
+                            <div class="col-md-2">
+                                <i class="flaticon2-correct kt-font-success"></i>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <span class="qr-icon google"></span>
+                            </div>
+                        </div>
+                        <div class="kt-separator"></div>
+                        <div class="row">
+                            <div class="col-md-5 text-muted">{{ fakeUtrs[1] }}</div>
+                            <div class="col-md-3">Jul, 2019</div>
+                            <div class="col-md-2">
+                                <i class="flaticon2-correct kt-font-success"></i>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <span class="qr-icon phonepe"></span>
+                            </div>
+                        </div>
+                        <div class="kt-separator"></div>
+                        <div class="row">
+                            <div class="col-md-5 text-muted">{{ fakeUtrs[2] }}</div>
+                            <div class="col-md-3">Aug, 2019</div>
+                            <div class="col-md-2">
+                                <!--                                        <i class="fa fa-exclamation-triangle kt-font-danger"></i>-->
+                                <i class="flaticon2-correct kt-font-success"></i>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <span class="qr-icon paytm"></span>
+                            </div>
+                        </div>
+                        <div class="kt-separator"></div>
+                        <div class="row">
+                            <div class="col-md-5 text-muted">{{ fakeUtrs[3] }}</div>
+                            <div class="col-md-3">Sep, 2019</div>
+                            <div class="col-md-2">
+                                <i class="flaticon2-correct kt-font-success"></i>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <span class="qr-icon phonepe"></span>
+                            </div>
+                        </div>
+                        <div class="kt-separator"></div>
+                        <div class="row">
+                            <div class="col-md-5 text-muted">{{ fakeUtrs[4] }}</div>
+                            <div class="col-md-3">Oct, 2019</div>
+                            <div class="col-md-2">
+                                <i class="flaticon2-correct kt-font-success"></i>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <span class="qr-icon amazonpay"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            References
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <h6 class="text-info">
+                        <span class="flaticon2-position"></span> &nbsp;
+                        Source: Google Maps
+                    </h6>
+                    <div class="kt-widget4">
+                        <div class="kt-widget4__item">
+                            <div>
+                                <strong>Gupta General Store</strong><br/>
+                                <small><a href="tel:9310297082">93102 97082</a></small>
+                            </div>
+                            <a class="kt-widget4__number kt-font-dark" href="#">
+                                <i class="la la-remove"></i>
+                            </a>
+                        </div>
+                        <div class="kt-widget4__item">
+                            <div>
+                                <strong>Balaji Computer World</strong> <br/>
+                                <small><a href="tel:01125634115">011 2563 4115</a></small>
+                            </div>
+                            <a class="kt-widget4__number kt-font-dark" href="#">
+                                <i class="la la-remove"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <br/>
+                    <h6 class="text-info">
+                        <span class="flaticon2-file-1"></span> &nbsp;
+                        Source: Bank Statement
+                    </h6>
+                    <div class="kt-widget4">
+                        <div class="kt-widget4__item">
+                            <div>
+                                <strong>One Kirana</strong><br/>
+                            </div>
+                        </div>
+                        <div class="kt-widget4__item">
+                            <div>
+                                <strong>Balaji Computer World</strong> <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Competition
+                        </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <span
+                            class="kt-badge kt-badge--danger kt-badge--unified-danger kt-badge--inline kt-badge--pill">43
+                            shops found</span>
+                    </div>
+                </div>
+                <div class="kt-widget kt-widget--user-profile-1" style="padding: 0 20px;">
+                    <div class="kt-widget__body">
+                        <div class="kt-widget__content">
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">Apparels</span>
+                                <span class="kt-widget__data">
+                                    6
+                                </span>
+                            </div>
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">Food</span>
+                                <span class="kt-widget__data">
+                                    <span class="flaticon-up-arrow text-danger"></span> 14
+                                </span>
+                            </div>
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label kt-font-bold text-info">Grocery</span>
+                                <span class="kt-widget__data kt-font-bold text-info">
+                                    <span class="flaticon-up-arrow text-danger"></span> 13
+                                </span>
+                            </div>
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">Lodging</span>
+                                <span class="kt-widget__data">
+                                    2
+                                </span>
+                            </div>
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">Real Estate</span>
+                                <span class="kt-widget__data">
+                                    3
+                                </span>
+                            </div>
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">Salon</span>
+                                <span class="kt-widget__data">
+                                    3
+                                </span>
+                            </div>
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">Spa</span>
+                                <span class="kt-widget__data">
+                                    2
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Top 5 Partners in last 6 months
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-widget kt-widget--user-profile-1" style="padding: 0 20px;">
+                    <div class="kt-widget__body">
+                        <div class="kt-widget__content">
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">One Kirana</span>
+                                <span class="kt-widget__data">
+                                    ₹ 17,840
+                                </span>
+                            </div>
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">Foodoo Suppliers</span>
+                                <span class="kt-widget__data">
+                                    ₹ 13,240
+                                </span>
+                            </div>
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">Balaji Spices</span>
+                                <span class="kt-widget__data">
+                                    ₹ 12,140
+                                </span>
+                            </div>
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">Maxx Snacks</span>
+                                <span class="kt-widget__data">
+                                    ₹ 6,140
+                                </span>
+                            </div>
+                            <div class="kt-widget__info">
+                                <span class="kt-widget__label">Sabir Kirana</span>
+                                <span class="kt-widget__data">
+                                    ₹ 11,140
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Begin:: App Content-->
+        <div class="kt-grid__item kt-grid__item--fluid kt-app__content">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="kt-portlet kt-iconbox kt-iconbox--success kt-iconbox--animate-slow"
+                         style="padding: 0;">
+                        <div class="kt-portlet__body text-center ">
+                            <h2 class="display-3 text-success">{{ summary.ls_score }}</h2>
+                            <strong class="kt--font-bold">LoanSimple Score</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="kt-portlet kt-iconbox kt-iconbox--success kt-iconbox--animate-slow"
+                         style="padding: 0;">
+                        <div class="kt-portlet__body text-center ">
+                            <h2 class="display-3 text-success">₹ {{ summary.repayment }}</h2>
+                            <strong class="kt--font-bold">Daily Repayment Capacity</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="kt-portlet kt-iconbox kt-iconbox--success kt-iconbox--animate-slow"
+                         style="padding: 0;">
+                        <div class="kt-portlet__body text-center ">
+                            <h2 class="display-3 text-success">{{ summary.default }}%</h2>
+                            <strong class="kt--font-bold">Probability of Default</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="kt-portlet kt-portlet--height-fluid">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Address Verification
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-form">
+                            <div class="kt-portlet__body">
+                                <div class="row">
+                                    <div class="col-md-2 kt-font-boldest">Type</div>
+                                    <div class="col-md-4 kt-font-boldest">Entered</div>
+                                    <div class="col-md-4 kt-font-boldest">CIBIL</div>
+                                    <div class="col-md-2 kt-font-boldest">Match %</div>
+                                </div>
+                                <div class="kt-separator"></div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <strong>Mailing</strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ karzaData['lead_mailing_address'] }}
+                                    </div>
+                                    <div class="col-md-4" *ngIf="karzaData['cibil_mailing_address']">
+                                        {{ karzaData['cibil_mailing_address']['address'] }}
+                                    </div>
+                                    <div class="col-md-2" *ngIf="karzaData['cibil_mailing_address']">
+                                        {{ karzaData['cibil_mailing_address']['match'] }}
+                                    </div>
+                                </div>
+                                <div class="kt-separator"></div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <strong>Registered</strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ karzaData['lead_registered_address'] }}
+                                    </div>
+                                    <div class="col-md-4" *ngIf="karzaData['cibil_registered_address']">
+                                        {{ karzaData['cibil_registered_address']['address'] }}
+                                    </div>
+                                    <div class="col-md-2" *ngIf="karzaData['cibil_registered_address']">
+                                        {{ karzaData['cibil_registered_address']['match'] }}
+                                    </div>
+                                </div>
+                                <div class="kt-separator"></div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <strong>Permanent</strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ karzaData['lead_permanent_address'] }}
+                                    </div>
+                                    <div class="col-md-4" *ngIf="karzaData['cibil_permanent_address']">
+                                        {{ karzaData['cibil_permanent_address']['address'] }}
+                                    </div>
+                                    <div class="col-md-2" *ngIf="karzaData['cibil_permanent_address']">
+                                        {{ karzaData['cibil_permanent_address']['match'] }}
+                                    </div>
+                                </div>
+                                <div class="kt-separator"></div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <strong>Aadhaar</strong>
+                                    </div>
+                                    <div class="col-md-9 text-danger">
+                                        <!--                                        <i class="flaticon2-correct kt-font-warning"></i> -->
+                                        {{ karzaData['karza_aadhar_address'] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Bureau Data
+                        </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="btn-group btn-group-sm" role="group" style="display: inline-block;">
+                            <button (click)="setBureauTab('cibil_data')"
+                                    [ngClass]="{'btn-outline-info': bureauTab !== 'cibil_data', 'btn-info': bureauTab === 'cibil_data'}"
+                                    class="btn"
+                                    type="button">CIBIL
+                            </button>
+                            <button (click)="setBureauTab('experian_data')"
+                                    [ngClass]="{'btn-outline-info': bureauTab !== 'experian_data', 'btn-info': bureauTab === 'experian_data'}"
+                                    class="btn"
+                                    type="button">Experian
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="bureauData[bureauTab]" class="kt-form">
+                    <div class="kt-portlet__body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="kt-portlet kt-iconbox kt-iconbox--success kt-iconbox--animate-slow"
+                                     style="padding: 0;">
+                                    <div class="kt-portlet__body">
+                                        <h2 class="display-1 text-center text-success">{{ bureauData[bureauTab]['score'] }}</h2>
+                                    </div>
+                                </div>
+                                <h5 class="text-info">Accounts in Last 6 Months</h5>
+                                <div class="kt-separator"></div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        Total Balance
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        ₹ {{ bureauData[bureauTab]['total_balance'] }}
+                                    </div>
+                                </div>
+                                <div class="kt-separator kt-separator--dashed"></div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        Total Accounts
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        {{ bureauData[bureauTab]['total_accounts'] }}
+                                    </div>
+                                </div>
+                                <div class="kt-separator kt-separator--dashed"></div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        Total A/Cs with DPDs
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        {{ bureauData[bureauTab]['total_account_with_dpds'] }}
+                                    </div>
+                                </div>
+                                <div class="kt-separator kt-separator--dashed"></div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        Total Number of Enquiries
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        {{ bureauData[bureauTab]['total_enquiry'] }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7 offset-md-1">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h5 class="text-info">A/C Summary</h5>
+                                    </div>
+                                    <div class="col-md-2 text-center text-info kt-font-bold">
+                                        Credit Card
+                                    </div>
+                                    <div class="col-md-2 text-center text-info kt-font-bold">
+                                        Secured
+                                    </div>
+                                    <div class="col-md-2 text-center text-info kt-font-bold">
+                                        Unsecured
+                                    </div>
+                                    <div class="col-md-2 text-center text-info kt-font-bold">
+                                        Others
+                                    </div>
+                                </div>
+                                <div class="kt-separator"></div>
+                                <div class="row kt-font-bold">
+                                    <div class="col-md-4">
+                                        Total Accounts
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['credit_cards']['total_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['secured']['total_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['unsecured']['total_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['others']['total_account'] }}
+                                    </div>
+                                </div>
+                                <div class="kt-separator kt-separator--dashed"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Total Balance
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['credit_cards']['total_balance'] | prefix: '₹' }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['secured']['total_balance'] | prefix: '₹' }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['unsecured']['total_balance'] | prefix: '₹' }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['others']['total_balance'] | prefix: '₹' }}
+                                    </div>
+                                </div>
+                                <div class="kt-separator kt-separator--dashed"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Monthly EMI
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['credit_cards']['total_emi'] | prefix: '₹' }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['secured']['total_emi'] | prefix: '₹' }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['unsecured']['total_emi'] | prefix: '₹' }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['others']['total_emi'] | prefix: '₹' }}
+                                    </div>
+                                </div>
+                                <div class="kt-separator kt-separator--dashed"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Active Accounts
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['credit_cards']['active_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['secured']['active_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['unsecured']['active_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['others']['active_account'] }}
+                                    </div>
+                                </div>
+                                <!--                                <div class="kt-separator kt-separator--dashed"></div>-->
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Default
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['credit_cards']['default_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['secured']['default_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['unsecured']['default_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['others']['default_account'] }}
+                                    </div>
+                                </div>
+                                <!--                                <div class="kt-separator kt-separator--dashed"></div>-->
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Closed
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['credit_cards']['closed_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['secured']['closed_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['unsecured']['closed_account'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['others']['closed_account'] }}
+                                    </div>
+                                </div>
+                                <div class="kt-separator kt-separator--dashed"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Total A/Cs with DPDs
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['credit_cards']['total_account_with_dpds'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['secured']['total_account_with_dpds'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['unsecured']['total_account_with_dpds'] }}
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        {{ bureauData[bureauTab]['others']['total_account_with_dpds'] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    UPI Transactions
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-form">
+                            <div class="kt-portlet__body">
+                                <div class="kt-widget21" style="display: block;">
+                                    <canvas [chartType]="lineChartType" [colors]="lineChartColors"
+                                            [datasets]="upiChartData"
+                                            [labels]="upiChartLabels"
+                                            [options]="lineChartOptions"
+                                            [plugins]="lineChartPlugins"
+                                            baseChart>
+                                    </canvas>
+                                </div>
+                                <div class="kt-widget16">
+                                    <div class="kt-widget16__items">
+                                        <div class="kt-widget16__item">
+                                            <span class="kt-widget16__sceduled">
+                                                Month
+                                            </span>
+                                            <span class="kt-widget16__sceduled">
+                                                Count
+                                            </span>
+                                            <span class="kt-widget16__amount">
+                                                Amount
+                                            </span>
+                                        </div>
+                                        <div *ngFor="let row of upiData" class="kt-widget16__item">
+                                            <span class="kt-widget16__date">
+                                                {{ row.month }}
+                                            </span>
+                                            <span class="kt-widget16__date">
+                                                {{ row.count }}
+                                            </span>
+                                            <span class="kt-widget16__price  kt-font-brand">
+                                                ₹ {{ row.amount }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Credits in Last 6 months
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-form">
+                            <div class="kt-portlet__body">
+                                <div class="kt-widget21" style="display: block;">
+                                    <canvas [chartType]="'bar'" [colors]="lineChartColors"
+                                            [datasets]="creditsChartData"
+                                            [labels]="creditsChartLabels"
+                                            [legend]="lineChartLegend"
+                                            [options]="lineChartOptions"
+                                            [plugins]="lineChartPlugins"
+                                            baseChart>
+                                    </canvas>
+                                </div>
+                                <div class="kt-widget16">
+                                    <div class="kt-widget16__items">
+                                        <div class="kt-widget16__item">
+                                            <span class="kt-widget16__sceduled">
+                                                Month
+                                            </span>
+                                            <span class="kt-widget16__sceduled">
+                                                Count
+                                            </span>
+                                            <span class="kt-widget16__amount">
+                                                Amount
+                                            </span>
+                                        </div>
+                                        <div *ngFor="let row of creditsData" class="kt-widget16__item">
+                                            <span class="kt-widget16__date">
+                                                {{ row.month }}
+                                            </span>
+                                            <span class="kt-widget16__date">
+                                                {{ row.count }}
+                                            </span>
+                                            <span class="kt-widget16__price  kt-font-brand">
+                                                ₹ {{ row.amount }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End:: App Content-->
+    </div>
+    <!--End::App-->
+
+</div>

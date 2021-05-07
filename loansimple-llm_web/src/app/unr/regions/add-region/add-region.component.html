@@ -1,0 +1,90 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">{{infoDataSet.actionType === 'UPDATE' ? 'Update' : 'Add'}} Region</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <kt-auth-notice></kt-auth-notice>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Name :</label>
+                    <input class="form-control" type="text" [(ngModel)]="name" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="text-muted">Type</label>
+                <select name="" class="form-control" [(ngModel)]="regionType">
+                    <option>Select Type</option>
+                    <option [value]="regtype.value" *ngFor="let regtype of regionTypeList">{{ regtype.name }}</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="text-muted">Pincode :</label>
+                    <input class="form-control" id="" type="text" [(ngModel)]="pincode" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="text-muted">KYC Pincode :</label>
+                    <ul class="list-group list-group-horizontal-md form-control p-0" (click)="focusToKycInput()">
+                        <li class="list-group-item borderless p-2" *ngFor="let kycPincode of kycPincodeList;let i=index"
+                            [hidden]="kycPincodeList[0] === 'No results found'">
+                            <span class="highlight-option">
+                                <i class="flaticon2-cross" (click)="deleteKycPinCode(i)" style="font-size: 10px;"></i>
+                                <span class="ml-2">{{kycPincode}}</span>
+                            </span>
+                        </li>
+                        <li class="list-group-item borderless p-2">
+                            <input id="typeahead-focus" autocomplete="new-password" type="text"
+                                [(ngModel)]="kyc_pincode" [ngbTypeahead]="search"
+                                (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)"
+                                #instance="ngbTypeahead" #focusToInput placement="bottom" (keyup.enter)="addKycPincode($event)"
+                                (selectItem)="addKycPincodeFromDropDown($event)" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="text-muted">Belongs To :</label>
+            <input class="form-control" placeholder="Select Region" type="text" [(ngModel)]="belongsToLocation"
+                (focus)="showlistPopover()" (keyup)="searchBelongsToLocation($event)" />
+            <div class="belongToBox" *ngIf="showBelongsToLocation" infiniteScroll [infiniteScrollDistance]="4"
+                [infiniteScrollThrottle]="0" (scrolled)="getNextBelongsToLocationData()" [scrollWindow]="false"
+                [alwaysCallback]="true">
+                <label *ngFor="let belongsTo of belongsToLocationList" class="w-100 text-muted cursor-pointer"
+                    (click)="saveCurrentBelongsToLocation(belongsTo)">{{ belongsTo.name }}({{ belongsTo.type }}) -
+                    {{
+                        belongsTo.belongs_to && belongsTo.belongs_to.name
+                    }}</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="kt-radio-inline">
+                <label class="kt-radio kt-radio--tick kt-radio--brand">
+                    <input [(ngModel)]="isRegionApproved" name="radio" type="radio" value="approved" />
+                    Approved
+                    <span></span>
+                </label>
+                <label class="kt-radio kt-radio--tick kt-radio--brand">
+                    <input [(ngModel)]="isRegionApproved" name="radio" type="radio" value="not_approved" />
+                    Not Approved
+                    <span></span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="isRegionApproved === 'not_approved'">
+            <label class="text-muted">Not Approved Reason :</label>
+            <textarea class="form-control" placeholder="Add Comment..." name="" rows="3"
+                [(ngModel)]="unapprovedReason"></textarea>
+        </div>
+    </div>
+    <button _ngcontent-aym-c27="" class="btn btn-brand btn-block btn-square btn-tall" type="button"
+        (click)="assignRegion()">
+        Save
+    </button>
+</div>

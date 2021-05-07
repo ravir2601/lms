@@ -1,0 +1,15 @@
+:host {
+	::ng-deep {
+		ngb-tabset > .nav-tabs {
+			display: none;
+		}
+	}
+}
+
+::ng-deep .mat-drawer-inner-container{
+    overflow-y: auto !important;
+}
+
+::ng-deep .dropdown-menu {
+    left: 22px !important;
+}

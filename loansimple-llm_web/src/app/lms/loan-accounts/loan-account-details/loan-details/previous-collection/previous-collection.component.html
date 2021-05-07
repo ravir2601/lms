@@ -1,0 +1,38 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">Collection History</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Requested</th>
+                        <th>Received</th>
+                        <th>Payment Mode</th>
+                        <th>Ref. No.</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of listData?.results; index as i">
+                        <th scope="row">{{ i + 1}}</th>
+                        <td>{{data.date}}</td>
+                        <td>{{data.total_expected | currency: '&#8377;'}}</td>
+                        <td>{{data.total_actual | currency:'&#8377;'}}</td>
+                        <td>{{data.payment_mode | constant}}</td>
+                        <td>{{data.received_receipt_no}}</td>
+                        <td>{{data.status | constant}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-brand btn-block btn-square btn-tall" (click)="dismiss()">Close</button>

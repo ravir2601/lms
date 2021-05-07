@@ -1,0 +1,72 @@
+<div class="kt-quick-panel__content-padding-x">
+    <div class="form-group form-group-xs">
+        <div class="row">
+            <div class="col-md">
+                <div class="kt-widget__info">
+                    <label>User:</label>
+                    <label *ngIf="!isChange" class="float-right">
+                        <a class="link" (click)="change()" (blur)="isChange = !isChange"><i
+                                class="flaticon-edit mr-1"></i></a><span class="ml-2">{{user}}</span>
+                    </label>
+                    <label *ngIf="isChange" class="float-right" (focusout)="userChange()" (change)="userChange()">
+                        <select class="form-control" [(ngModel)]="user">
+                            <option value="Ajay Kumar">Ajay Kumar</option>
+                            <option value="Sachin Choudhary">Sachin Choudhary</option>
+                            <option value="Vijay Kumar">Vijay Kumar</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="kt-widget__info">
+                    <label class="float-left">Functionality:</label>
+                    <label class="float-right">Case Owner</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
+
+</div>
+
+<!-- <div class="kt-quick-panel__content-padding-x">
+    <form class="kt-form">
+        <div class="kt-heading kt-heading--sm kt-heading--space-sm"></div>
+
+        <div class="form-group form-group-xs row">
+            <div class="col-md col-form-label">
+                <div class="row">
+                    <div class="col-md">
+                        <div class="kt-widget__info">
+                            <label>User:</label>
+                            <label *ngIf="!isChange" class="float-right">
+                                <a class="link" (click)="change()" (blur)="isChange = !isChange"><i
+                                        class="flaticon-edit mr-1"></i></a><span class="ml-2">{{user}}</span>
+                            </label>
+                            <label *ngIf="isChange" class="float-right" (focusout)="userChange()" (change)="userChange()">
+                                <select class="form-control" [(ngModel)]="user">
+                                    <option value="Ajay Kumar">Ajay Kumar</option>
+                                    <option value="Sachin Choudhary">Sachin Choudhary</option>
+                                    <option value="Vijay Kumar">Vijay Kumar</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <div class="kt-widget__info">
+                            <label class="float-left">Functionality:</label>
+                            <label class="float-right">Case Owner</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-separator kt-separator--space-md kt-separator--border-dashed"></div>
+
+    </form>
+</div> -->

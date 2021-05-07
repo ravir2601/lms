@@ -1,0 +1,227 @@
+<div class="kt-container">
+    <div class="row">
+    <div class="col-md-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head align-items-center">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Basic Details ({{usersInfo?.emp_code}} - {{usersInfo?.username}})
+                    </h3>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-brand btn-circle btn-elevate btn-icon btn-sm btn-icon-md" style="margin-left: 10px" (click)="updateUserDetails()">
+                        <i class="la la-save"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Username :</label>
+                            <input class="form-control" [(ngModel)]="usersInfo.username" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Reset Password :</label>
+                            <input class="form-control" [(ngModel)]="usersInfo.password" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>First Name :</label>
+                            <input class="form-control" [(ngModel)]="usersInfo.first_name" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Middle Name (Optional) :</label>
+                            <input class="form-control" [(ngModel)]="usersInfo.middle_name" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Last Name :</label>
+                            <input class="form-control" [(ngModel)]="usersInfo.last_name" type="text">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Joining Date :</label>
+                            <div class="form-inline">
+                                <div class="input-group">
+                                    <input [matDatepicker]="picker1" placeholder="Joining Date" class="form-control datePicker"
+                                           [(ngModel)]="usersInfo.joining_date">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-icon btn-primary" (click)="picker1.open()" type="button">
+                                            <i class="la la-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>DOB :</label>
+                            <div class="form-inline">
+                                <div class="input-group">
+                                    <input [matDatepicker]="picker2" placeholder="DOB" class="form-control datePicker"
+                                        [(ngModel)]="usersInfo.dob">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-icon btn-primary" (click)="picker2.open()" type="button">
+                                                <i class="la la-calendar"></i>
+                                            </button>
+                                        </div>
+                                </div>
+                            </div>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Mobile :</label>
+                            <input class="form-control" [(ngModel)]="usersInfo.mobile" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Email :</label>
+                            <input class="form-control" [(ngModel)]="usersInfo.email" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Is Active :</label>
+                        <div>
+                            <mat-slide-toggle [checked]="usersInfo.is_active" (change)="updateActiveStatus($event)"></mat-slide-toggle>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="btn btn-brand btn-sm btn-upper btn-danger" type="button"
+                                (click)="logout()">
+                            Logout User
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Mapped Regions
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="kt-portlet__body" *ngIf="mapper_regions?.length == 0">
+                        <div class="kt-section__content kt-section__content--solid flex-centered">
+                            <h4>
+                                <small class="text-muted">No Mapped Regions to display!!</small>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="kt-widget4">
+                        <div class="kt-widget4__item pb-0" *ngFor="let row of mapper_regions; let i = index;">
+                            {{i+1}}. {{row.name | uppercase}} <span *ngIf="row.pincode"> ({{row.pincode}}) </span> - {{row.code}}
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Designation Details
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-6">
+                            <h6>Reporting Manager :</h6>
+                            <mat-form-field class="example-full-width" floatLabel="never">
+                                <input matInput #managerInput aria-label="Manager" [matAutocomplete]="autoManager" [formControl]="managerListCtrl"
+                                       [(ngModel)]="reporting_manager">
+                                <mat-placeholder class="placeholder">Type to search...</mat-placeholder>
+                                <mat-autocomplete #autoManager="matAutocomplete" (optionSelected)="selectedReportingManager($event)">
+                                    <mat-option *ngFor="let manager of filteredManagerList | async" [value]="manager">
+                                       {{ manager.display_name }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="col-md-12">
+            <div class="kt-portlet kt-portlet--height-fluid">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label" style="display: flex; width: 100%; justify-content: space-between">
+                        <div>
+                            <h3 class="kt-portlet__head-title">
+                                Functionality
+                            </h3>
+                        </div>
+                        <div>
+                            <button [disabled]="!is_functionality_selected"  type="submit" class="btn btn-brand btn-circle btn-elevate btn-icon btn-sm btn-icon-md" (click)="updateFunctionalities();">
+                                <i class="la la-save"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <mat-form-field class="example-full-width" floatLabel="never">
+                        <mat-chip-list #chipList>
+                            <mat-chip *ngFor="let functionality of functionalities; let i=index;" [selectable]="selectable"
+                                      [removable]="removable" (removed)="remove(functionality, i)">
+                                {{functionality.name}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                            <input
+                                #functionalityInput
+                                [formControl]="functionalityCtrl"
+                                [matAutocomplete]="auto"
+                                [matChipInputFor]="chipList"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur"
+                                (matChipInputTokenEnd)="add($event)">
+                        </mat-chip-list>
+                        <mat-placeholder class="placeholder">Type to search...</mat-placeholder>
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                            <ng-container *ngFor="let functionality of filteredFunctionalities | async">
+                            <mat-option [value]="functionality">
+                                {{ functionality.name}}
+                            </mat-option>
+                            </ng-container>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <div class="form-group">
+                        <label> <b> Allowed Permissions : </b></label>
+                        <ul class="p-0" style="max-height: 400px;overflow: scroll">
+                            <li class="list-group-item borderless" *ngFor="let permissions of permissionsList">
+                                <label class="w-100">{{permissions | constant}}</label>
+                            </li>
+                        </ul>
+                        <div *ngIf="permissionsList?.length == 0">
+                            <div>
+                                <h4>
+                                    <small class="text-muted">No Permission allowed!!</small>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+</div>

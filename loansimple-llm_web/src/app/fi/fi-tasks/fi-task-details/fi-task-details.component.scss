@@ -1,0 +1,7 @@
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+.input-group-append .btn.btn-icon, .input-group-prepend .btn.btn-icon {
+    height: 38px;
+}

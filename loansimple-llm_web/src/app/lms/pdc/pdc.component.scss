@@ -1,0 +1,38 @@
+#grayOutDiv
+{
+    background-color: #333;
+    opacity: 0.7;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.flash-message
+{
+    z-index: 10000;
+    position: relative;
+}
+.active{
+    color: #591df1;
+    border-bottom: 1px solid #591df1;
+}
+
+// th span, td span, td a {
+//     // width: 120px;
+//     float: left;
+// }
+
+.no-data{
+    width:100% !important;
+    text-align:center !important;
+    font-weight: bold;
+    font-size: 20px;
+}
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}

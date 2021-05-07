@@ -1,0 +1,116 @@
+
+<div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+    <div class="kt-portlet__head kt-portlet__head--lg">
+        <div class="kt-portlet__head-toolbar">
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-wrapper">
+                <div class="kt-portlet__head-actions">
+                    <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact">
+                        <div class="kt-quick-search__form">
+                            <div class="input-group border-bottom-gray">
+                                <div class="input-group-prepend"><span class="input-group-text"><i
+                                    class="flaticon2-search-1"></i></span></div>
+                                <input #searchField (keyup.enter)="search(searchField.value)"
+                                        class="form-control kt-quick-search__input" placeholder="Search..."
+                                        type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="kt-portlet__body">
+             <div class="kt-datatable kt-datatable--default kt-datatable--brand kt-datatable--loaded"
+                id="kt_datatable_latest_orders">
+                <table class="kt-datatable__table" style="display: block;">
+                <thead class="kt-datatable__head">
+                <tr class="kt-datatable__row" style="left: 0px;">
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-60">S. No.</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-100">Loan ID</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-100">Date</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-160">Bussiness</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-160">Borrower</span>
+                    </th>
+                    <th class="kt-datatable__cell" >
+                        <span class="kt-font-boldest wp-120">Expected Amount</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-60">UTR No.</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-140">Status</span>
+                    </th>
+                    <th class="kt-datatable__cell">
+                        <span class="kt-font-boldest wp-100">Action</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="kt-datatable__body ps ps--active-y">
+                <ng-container *ngFor="let row of listData?.results; let i = index;">
+                    <tr class="kt-datatable__row">
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-60">{{(i + (paginator.pageSize *  paginator.pageIndex)) + 1}}</span>
+                        </th>
+                        <th class="kt-datatable__cell" >
+                            <span class="kt-font-bold wp-100">
+                              {{row.loan_account.loan_account_id}}
+                            </span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-100">{{row.date}}</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-160">{{row.loan_account.business.name}}</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-160">{{row.loan_account.business.primary_person.person.full_name}}</span>
+                        </th>
+                        <th class="kt-datatable__cell" >
+                            <span class="kt-font-bold wp-120">{{row.loan_expected | currency:'&#8377;'}}</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                            <span class="kt-font-bold wp-60">{{row.received_receipt_no}}</span>
+                        </th>
+                        <th class="kt-datatable__cell">
+                             <span class="wp-140 btn btn-bold btn-sm btn-font-sm btn-label-{{row.status | class }}">
+                                 {{ row.status | constant}}
+                              </span>
+                        </th>
+                        <th class="kt-datatable__cell" >
+                            <span class="kt-font-bold wp-100">
+                                <a (click)="openNeftCredited(row)" class="btn btn-bold btn-sm btn-font-sm btn-label-success">Mark Credited</a>
+                            </span>
+                        </th>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="listData?.count === 0">
+                    <tr class="kt-datatable__row">
+                        <td class="kt-datatable__cell">
+                            <span class="no-data"> No data found </span>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+                 <div style="margin-top: 20px;"
+                      [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--md kt-spinner--brand kt-spinner--center': loadingSearchData}"></div>
+                 <div [hidden]="listData?.count === 0"
+                      class="mat-table__bottom mat-table__bottom--padding kt-datatable__pager kt-datatable--paging-loaded">
+                     <mat-paginator #paginator (page)="paginate($event)" [length]="listData?.count"
+                                    [pageSizeOptions]="[15, 30, 50]"
+                                    [pageSize]="15" [showFirstLastButtons]="true"></mat-paginator>
+                 </div>
+        </div>
+    </div>
+</div>

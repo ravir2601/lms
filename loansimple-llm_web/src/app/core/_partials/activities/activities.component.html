@@ -1,0 +1,62 @@
+<div class="kt-portlet">
+    <div _ngcontent-rxg-c18="" class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+				Recent Activities
+			</h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <select name="" id="" class="form-control" (change)="filter()" [(ngModel)]="type">
+                <option value="">View All</option>
+                <option value="address">Address</option>
+                <option value="bank">Bank</option>
+                <option value="mobile,email">Contact (Email & Mobile)</option>
+                <option value="document">Documents</option>
+                <option value="photo">Photos</option>
+                <option value="issue">Issues</option>
+                <option value="comment">Logs/Comments</option>
+                <option value="reference">References</option>
+                <option value="reminder">Reminders</option>
+            </select>
+        </div>
+    </div>
+    <div class="kt-portlet__body flex-centered" *ngIf="objectKeys(activities)?.length === 0">
+        <kt-empty [title]="'No Activities Found'"
+            [text]="'It\'s lonely here.'"
+        ></kt-empty>
+    </div>
+    <div class="p-5 kt-portlet__body" *ngIf="objectKeys(activities)?.length > 0">
+        <div class="ps ps--active-y">
+            <div class="kt-timeline-v2">
+                <div class="kt-timeline-v2__items  kt-padding-top-25 kt-padding-bottom-30">
+                    <ng-container *ngFor="let group of activities | keyvalue: activityOrder">
+                        <div class="kt-timeline-v2__item">
+                            <span class="kt-timeline-v2__item-time"></span>
+                            <div class="kt-timeline-v2__item-cricle">
+                                <i class="fa fa-genderless kt-font-success"></i>
+                            </div>
+                            <div
+                                class="kt-timeline-v2__item-text kt-timeline-v2__item-text--bold kt-font-bolder kt-font-info">
+                                {{ group.key }}
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let activity of group.value">
+                            <div class="kt-timeline-v2__item">
+                                <span class="kt-timeline-v2__item-time cursor-pointer" ngbTooltip="{{ activity.created_at | dateTime }}" placement="right">{{ activity.created_at | date:'HH:mm' }}</span>
+                                <div class="kt-timeline-v2__item-cricle">
+                                    <i class="fa fa-genderless" [ngClass]="activity.class"></i>
+                                </div>
+                                <div class="kt-timeline-v2__item-text  kt-padding-top-5" [innerHTML]="activity.text | safe:'html'"></div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__foot" *ngIf="nextUrl">
+        <div class="kt-portlet__foot-wrapper flex-row justify-content-center">
+            <button type="button" class="btn btn-label-success" (click)="getData(nextUrl)">Show More</button>
+        </div>
+    </div>
+</div>

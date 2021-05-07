@@ -1,0 +1,91 @@
+<div class="kt-portlet" *ngIf="data">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                CAM Here
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <label class="kt-checkbox">
+                <input type="checkbox" value="" (change)="negotiate($event)">Negotiation required
+                <span></span>
+            </label>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <table class="table table-bordered table-compact">
+                        <thead class="text-center">
+                            <th>Loan Structure</th>
+                            <th colspan="2">Negotiated Offer</th>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let row of structure">
+                                <tr class="text-brand">
+                                    <td>
+                                        <strong class="text-brand">{{ row['title'] }}</strong>
+                                    </td>
+                                    <td style="width: 33%;" class="text-right">
+                                        {{ data[row['key']] }}
+                                    </td>
+                                    <td style="width: 33%" class="text-right">
+                                        <div class="input-group" *ngIf="row['negotiable']">
+                                            <div class="input-group-prepend">
+                                                <button class="input-group-text" id="basic-addon1"
+                                                    (click)="increment(row, true)">
+                                                    <i class="la la-minus-circle"></i>
+                                                </button>
+                                            </div>
+                                            <input class="form-control text-center" type="text" disabled [(ngModel)]="data[row['key']]">
+                                            <div class="input-group-append">
+                                                <button class="input-group-text" id="basic-addon2" 
+                                                    (click)="increment(row)">
+                                                    <i class="la la-plus-circle"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <ng-container *ngIf="!row['negotiable']">
+                                            {{ data[row['key']] }}
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                                <ng-container *ngFor="let item of row.children">
+                                    <tr>
+                                        <td class="kt-pl50">
+                                            {{ item['title'] }}
+                                        </td>
+                                        <td style="width: 33%" class="text-right">
+                                            {{ data[item['key']] }}
+                                        </td>
+                                        <td style="width: 33%" class="text-right">
+                                        <div class="input-group" *ngIf="item['negotiable']">
+                                            <div class="input-group-prepend">
+                                                <button class="input-group-text" id="basic-addon1"
+                                                    (click)="increment(item, true)">
+                                                    <i class="la la-minus-circle"></i>
+                                                </button>
+                                            </div>
+                                            <input class="form-control text-center" type="text" disabled [(ngModel)]="data[item['key']]">
+                                            <div class="input-group-append">
+                                                <button class="input-group-text" id="basic-addon2" 
+                                                    (click)="increment(item)">
+                                                    <i class="la la-plus-circle"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <ng-container *ngIf="!item['negotiable']">
+                                            {{ data[item['key']] }}
+                                        </ng-container>
+                                    </td>
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

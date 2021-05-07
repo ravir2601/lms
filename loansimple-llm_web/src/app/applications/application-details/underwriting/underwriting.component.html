@@ -1,0 +1,92 @@
+<div class="row" *ngIf="data">
+    <div class="col-md-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">Business: <span class="text-info">{{ data.business.name }}</span> (Active Years: {{ data.business.number_of_active_years }})</h3>
+                </div>
+            </div>
+        </div>
+        <kt-cibil-details [rootUrl]="data.business.update_url"></kt-cibil-details>
+        <kt-business-banking (saved)="getSummary()" [rootUrl]="data.business.update_url" [data]="data.business.financial"></kt-business-banking>
+        <kt-business-extra (saved)="getSummary()" [data]="data.business"></kt-business-extra>
+        <kt-business-expenses (saved)="getSummary()" [rootUrl]="data.business.update_url" [data]="data.business.financial"></kt-business-expenses>
+        <kt-running-loans (saved)="getSummary()" [rootUrl]="data.business.update_url"></kt-running-loans>
+        <div class="kt-portlet" *ngIf="data">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Summary
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <button (click)="getSummary()"
+                        class="btn btn-outline-primary btn-circle btn-elevate btn-icon btn-sm btn-icon-md">
+                        <i class="la la-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>Business Income</td>
+                            <td class="text-right">{{ data.business?.financial.monthly_income }}</td>
+                        </tr>
+                        <tr>
+                            <td>Salary Expenses</td>
+                            <td class="text-right">{{ data.business?.financial.monthly_salary }}</td>
+                        </tr>
+                        <tr>
+                            <td>Rental Expenses</td>
+                            <td class="text-right">{{ data.business?.financial.premise_monthly_rent }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Financial Expenses</td>
+                            <td class="text-right">{{ data.business?.financial.total_financial_expenses }}</td>
+                        </tr>
+                        <tr>
+                            <td>Other Business Expenses</td>
+                            <td class="text-right">{{ data.business?.financial.other_expenses }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Personal Expenses</td>
+                            <td class="text-right">{{ businessPerson.person?.financial?.total_monthly_expenses }}</td>
+                        </tr>
+                        <tr>
+                            <td>Net Monthly EMI Capacity</td>
+                            <td class="text-right">{{ data.business?.financial.net_monthly_emi_capacity }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="kt-portlet">
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-10">
+                        <select class="form-control" name="" [(ngModel)]="businessPerson">
+                            <option *ngFor="let row of businessPersons" [ngValue]="row">
+                                {{ row.person.full_name }} - {{ row.is_primary ? 'Primary Applicant' : 'Co-Applicant' }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <button class="btn btn-brand btn-circle btn-elevate btn-icon btn-sm btn-icon-md" ngbTooltip="Initiate Video Call">
+                            <i class="la la-video-camera"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <kt-cibil-details [rootUrl]="businessPerson.person.update_url"></kt-cibil-details>
+        <kt-person-knowledge [data]="businessPerson.person"></kt-person-knowledge>
+        <kt-person-expenses (saved)="getSummary()" [rootUrl]="businessPerson.person.update_url" [data]="businessPerson.person.financial"></kt-person-expenses>
+        <kt-running-loans [rootUrl]="businessPerson.person.update_url"></kt-running-loans>
+        <kt-pd-observation [data]="data.extra"></kt-pd-observation>
+    </div>
+</div>
+

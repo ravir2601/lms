@@ -1,0 +1,48 @@
+<div class="form-container">
+    <div class="modal-header">
+        <h4 class="modal-title">Repayment Schedule</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="kt-portlet" *ngIf="listData?.results.length <= 0">
+        <div class="kt-portlet__body flex-centered">
+            <kt-empty
+                [title]="'No Data Found'"
+                [iconClass]="'fa fa-exclamation-circle'"
+            ></kt-empty>
+        </div>
+    </div>
+    <div class="modal-body" *ngIf="listData?.results.length > 0">
+        <div class="form-group">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Opening Balance</th>
+                        <th>Expected Interest</th>
+                        <th>Expected Principal</th>
+                        <th>Expected POS Fee</th>
+                        <th>Expected Repayment</th>
+                        <th>Closing Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of listData?.results; index as i;">
+                        <th scope="row">{{ i + 1}}</th>
+                        <td>{{data.date}}</td>
+                        <td>{{data.opening_balance}}</td>
+                        <td>{{data.interest_expected}}</td>
+                        <td>{{data.principal_expected}}</td>
+                        <td>{{data.pos_fee_expected}}</td>
+                        <td>{{data.total_expected}}</td>
+                        <td>{{data.closing_balance}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-brand btn-block btn-square btn-tall" (click)="dismiss()">Close</button>

@@ -1,0 +1,81 @@
+<form class="lead-form ls-form-alt" #runningLoans="ngForm" (ngSubmit)="saveData()" *ngIf="data">
+    <div class="modal-header">
+        <h4 class="modal-title">Add Running Loans</h4>
+        <button (click)="dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Lender</label>
+                    <input type="text" class="form-control" name="lender" [(ngModel)]="data.lender">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Type</label>
+                    <select class="form-control" name="" name="type" [(ngModel)]="data.type">
+                        <option value="">Select</option>
+                        <option [value]="row.value" *ngFor="let row of existingLoanTypes">{{ row.name }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="data.type !== 'credit_card_loan'">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>EMI</label>
+                    <input type="text" class="form-control" name="emi_monthly" [(ngModel)]="data.emi_monthly">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Remaining Tenure (Months)</label>
+                    <input type="text" class="form-control" name="remaining_tenure_in_month" [(ngModel)]="data.remaining_tenure_in_month">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Day of EMI</label>
+                    <input type="text" class="form-control" name="emi_day" [(ngModel)]="data.emi_day">
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="data.type === 'credit_card_loan'">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Total Credit Limit</label>
+                    <input type="text" class="form-control" name="total_credit_limit" [(ngModel)]="data.total_credit_limit">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Available Limit</label>
+                    <input type="text" class="form-control" name="available_credit_limit" [(ngModel)]="data.available_credit_limit">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Is Overdue? (Tick, if yes)</label>
+                    <div class="input-group">
+                        <label class="kt-checkbox">
+                            <input type="checkbox" value="true" name="is_overdue_amount" [(ngModel)]="data.is_overdue_amount">
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="data.is_overdue_amount">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Overdue Amount</label>
+                    <input type="text" class="form-control" name="overdue_amount" [(ngModel)]="data.overdue_amount">
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-brand btn-block btn-square btn-tall" type="submit">Save</button>
+</form>
